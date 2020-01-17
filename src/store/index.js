@@ -15,10 +15,10 @@ export default new Vuex.Store({
   getters: {
     getFlask(state) {
       return id => {
-        for (const row of state.note.rows) {
-          for (const info of row.product_infos) {
-            if (info.id === id) {
-              return info
+        for (const flask of state.note.flasks) {
+          for (const chemical of flask.chemicals) {
+            if (chemical.id === id) {
+              return chemical
             }
           }
         }
