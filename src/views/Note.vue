@@ -26,6 +26,13 @@
               {{ chemical.description }}
             </p>
           </div>
+
+          <input
+            type="text"
+            class="block p-2 w-full bg-transparent"
+            placeholder="+ Enter New Chemical"
+            @keyup.enter="createChemical($event, flask.chemicals)"
+          />
         </div>
       </div>
     </div>
@@ -52,6 +59,13 @@ export default {
     },
     close() {
       this.$router.push({ name: "note" })
+    },
+    createChemical(e, chemicals) {
+      this.$store.commit("CREATE_CHEMICAL", {
+        chemicals,
+        name: e.target.value
+      })
+      e.target.value = ""
     }
   }
 }

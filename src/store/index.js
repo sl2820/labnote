@@ -1,7 +1,7 @@
 import Vue from "vue"
 import Vuex from "vuex"
 import experiment from "../experiment"
-import { saveStatePlugin } from "../utils"
+import { saveStatePlugin, uuid } from "../utils"
 
 Vue.use(Vuex)
 
@@ -25,5 +25,17 @@ export default new Vuex.Store({
       }
     }
   },
-  mutations: {}
+  mutations: {
+    CREATE_CHEMICAL(state, { chemicals, name }) {
+      chemicals.push({
+        name,
+        id: uuid(),
+        description: ""
+      })
+    },
+    UPDATE_CHEMICAL(state, { chemical, key, value }) {
+      // chemical[key] = value
+      Vue.set(chemical, key, value)
+    }
+  }
 })
