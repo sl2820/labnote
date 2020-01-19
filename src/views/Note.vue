@@ -14,12 +14,24 @@
             class="chemical"
             v-for="(chemical, $chemicalIndex) of flask.chemicals"
             :key="$chemicalIndex"
+            @click="goToChemical(chemical)"
           >
-            {{ chemical.chemical_formula }}
-            {{ chemical.name }}
+            <span class="font-bold">
+              {{ chemical.chemical_formula }}
+            </span>
+            <span class="italic">
+              {{ chemical.name }}
+            </span>
+            <p v-if="chemical.description" class="text-sm">
+              {{ chemical.description }}
+            </p>
           </div>
         </div>
       </div>
+    </div>
+
+    <div class="chemical-bg" v-if="isChemicalOpen" @click.self="close">
+      <router-view />
     </div>
   </div>
 </template>
@@ -28,15 +40,18 @@
 import { mapState } from "vuex"
 
 export default {
-  data() {
-    return {
-      newFlaskName: ""
-    }
-  },
   computed: {
     ...mapState(["note"]),
-    isChemOpen() {
-      return this.$route.name === "flask"
+    isChemicalOpen() {
+      return this.$route.name === "chemical"
+    }
+  },
+  methods: {
+    goToChemical(chemical) {
+      this.$router.push({ name: "chemical", params: { id: chemical.id } })
+    },
+    close() {
+      this.$router.push({ name: "note" })
     }
   }
 }
@@ -44,15 +59,16 @@ export default {
 
 <style lang="css">
 .note {
-  @apply p-4 bg-gray-300 h-screen w-2/4 overflow-auto;
-}
-.flask-bg {
-  background: rgba(0, 0, 0, 0.5);
+  @apply p-4 bg-gray-200 h-screen w-2/4 overflow-auto;
 }
 .flask {
-  @apply bg-green-200 p-2 mb-4 text-left shadow rounded;
+  @apply bg-gray-300 p-2 mb-4 text-left shadow rounded;
 }
 .chemical {
-  @apply bg-purple-100 p-1 mb-3 text-left shadow rounded;
+  @apply items-center bg-gray-400 p-1 mb-3 text-left shadow rounded;
+}
+.chemical-bg {
+  @apply inset-0 absolute;
+  background: rgba(0, 0, 0, 0.5);
 }
 </style>

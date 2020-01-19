@@ -5,6 +5,7 @@ export default {
   flasks: [
     {
       name: "flask1",
+      id: uuid(),
       chemicals: [
         {
           id: uuid(),
@@ -28,6 +29,7 @@ export default {
     },
     {
       name: "flask2",
+      id: uuid(),
       chemicals: [
         {
           id: uuid(),

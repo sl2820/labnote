@@ -13,7 +13,7 @@ export default new Vuex.Store({
     note
   },
   getters: {
-    getFlask(state) {
+    getChemical(state) {
       return id => {
         for (const flask of state.note.flasks) {
           for (const chemical of flask.chemicals) {
