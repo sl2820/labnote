@@ -36,6 +36,10 @@ export default new Vuex.Store({
     UPDATE_CHEMICAL(state, { chemical, key, value }) {
       // chemical[key] = value
       Vue.set(chemical, key, value)
+    },
+    MOVE_CHEMICAL(state, { fromChemicals, toChemicals, chemicalIndex }) {
+      const chemicalToMove = fromChemicals.splice(chemicalIndex, 1)[0]
+      toChemicals.push(chemicalToMove)
     }
   }
 })

@@ -5,8 +5,12 @@
         class="flask"
         v-for="(flask, $flaskIndex) of note.flasks"
         :key="$flaskIndex"
+        @drop="moveChemical($event, flask.chemicals)"
+        @dragover.prevent
+        @dragenter.prevent
       >
         <div class="flex mb-2 font-bold">
+          <p style="font-size:1rem">🧪</p>
           {{ flask.name }}
         </div>
         <div class="list-reset">
@@ -14,6 +18,8 @@
             class="chemical"
             v-for="(chemical, $chemicalIndex) of flask.chemicals"
             :key="$chemicalIndex"
+            draggable
+            @dragstart="pickupChemical($event, $chemicalIndex, $flaskIndex)"
             @click="goToChemical(chemical)"
           >
             <span class="font-bold">
@@ -66,6 +72,24 @@ export default {
         name: e.target.value
       })
       e.target.value = ""
+    },
+    pickupChemical(e, chemicalIndex, fromFlaskIndex) {
+      e.dataTransfer.effectAllowed = "move"
+      e.dataTransfer.dropEffect = "move"
+
+      e.dataTransfer.setData("chemical-index", chemicalIndex)
+      e.dataTransfer.setData("from-flask-index", fromFlaskIndex)
+    },
+    moveChemical(e, toChemicals) {
+      const fromFlaskIndex = e.dataTransfer.getData("from-flask-index")
+      const fromChemicals = this.note.flasks[fromFlaskIndex].chemicals
+      const chemicalIndex = e.dataTransfer.getData("chemical-index")
+
+      this.$store.commit("MOVE_CHEMICAL", {
+        fromChemicals,
+        toChemicals,
+        chemicalIndex
+      })
     }
   }
 }
@@ -73,13 +97,13 @@ export default {
 
 <style lang="css">
 .note {
-  @apply p-4 bg-gray-200 h-screen w-2/4 overflow-auto;
+  @apply p-4 bg-gray-200 h-screen w-1/3 overflow-auto;
 }
 .flask {
-  @apply bg-gray-300 p-2 mb-4 text-left shadow rounded;
+  @apply bg-gray-400 p-2 mb-4 text-left shadow rounded;
 }
 .chemical {
-  @apply items-center bg-gray-400 p-1 mb-3 text-left shadow rounded;
+  @apply items-center bg-gray-500 p-1 mb-3 text-left shadow rounded;
 }
 .chemical-bg {
   @apply inset-0 absolute;
