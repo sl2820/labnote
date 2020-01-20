@@ -33,6 +33,12 @@ export default new Vuex.Store({
         description: ""
       })
     },
+    CREATE_FLASK(state, { name }) {
+      state.note.flasks.push({
+        name,
+        chemicals: []
+      })
+    },
     UPDATE_CHEMICAL(state, { chemical, key, value }) {
       // chemical[key] = value
       Vue.set(chemical, key, value)

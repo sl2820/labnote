@@ -53,6 +53,15 @@
           />
         </div>
       </div>
+      <div class="flask felx">
+        <input
+          type="text"
+          class="p-2 mr-2 flex-grow"
+          placeholder="New Flask Name"
+          v-model="newFlaskName"
+          @keyup.enter="createFlask"
+        />
+      </div>
     </div>
 
     <div class="chemical-bg" v-if="isChemicalOpen" @click.self="close">
@@ -65,6 +74,11 @@
 import { mapState } from "vuex"
 
 export default {
+  data() {
+    return {
+      newFlaskName: ""
+    }
+  },
   computed: {
     ...mapState(["note"]),
     isChemicalOpen() {
@@ -84,6 +98,12 @@ export default {
         name: e.target.value
       })
       e.target.value = ""
+    },
+    createFlask() {
+      this.$store.commit("CREATE_FLASK", {
+        name: this.newFlaskName
+      })
+      this.newFlaskName = ""
     },
     pickupChemical(e, chemicalIndex, fromFlaskIndex) {
       e.dataTransfer.effectAllowed = "move"
