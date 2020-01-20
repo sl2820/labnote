@@ -72,11 +72,13 @@
 
 <script>
 import { mapState } from "vuex"
+import EventService from "@/services/EventService.js"
 
 export default {
   data() {
     return {
-      newFlaskName: ""
+      newFlaskName: "",
+      events: []
     }
   },
   computed: {
@@ -152,6 +154,15 @@ export default {
         toFlaskIndex
       })
     }
+  },
+  created() {
+    EventService.getEvents()
+      .then(response => {
+        this.events = response.data
+      })
+      .catch(error => {
+        console.log("There was an error: " + error.response)
+      })
   }
 }
 </script>

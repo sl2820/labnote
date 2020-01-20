@@ -1,7 +1,7 @@
 module.exports = {
   configureWebpack: {},
   devServer: {
-    // host: "10.0.1.6",
+    host: "143.248.190.50",
     hot: true,
     disableHostCheck: true
   },
