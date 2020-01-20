@@ -5,9 +5,11 @@
         class="flask"
         v-for="(flask, $flaskIndex) of note.flasks"
         :key="$flaskIndex"
-        @drop="moveChemical($event, flask.chemicals)"
+        draggable
+        @drop="moveChemicalOrFlask($event, flask.chemicals, $flaskIndex)"
         @dragover.prevent
         @dragenter.prevent
+        @dragstart.self="pickupFlask($event, $flaskIndex)"
       >
         <div class="flex mb-2 font-bold">
           <p style="font-size:1rem">🧪</p>
@@ -21,6 +23,16 @@
             draggable
             @dragstart="pickupChemical($event, $chemicalIndex, $flaskIndex)"
             @click="goToChemical(chemical)"
+            @dragover.prevent
+            @dragenter.prevent
+            @drop.stop="
+              moveChemicalOrFlask(
+                $event,
+                flask.chemicals,
+                $flaskIndex,
+                $chemicalIndex
+              )
+            "
           >
             <span class="font-bold">
               {{ chemical.chemical_formula }}
@@ -77,18 +89,47 @@ export default {
       e.dataTransfer.effectAllowed = "move"
       e.dataTransfer.dropEffect = "move"
 
-      e.dataTransfer.setData("chemical-index", chemicalIndex)
+      e.dataTransfer.setData("from-chemical-index", chemicalIndex)
       e.dataTransfer.setData("from-flask-index", fromFlaskIndex)
+      e.dataTransfer.setData("type", "chemical")
     },
-    moveChemical(e, toChemicals) {
+    pickupFlask(e, fromFlaskIndex) {
+      e.dataTransfer.effectAllowed = "move"
+      e.dataTransfer.dropEffect = "move"
+
+      e.dataTransfer.setData("from-flask-index", fromFlaskIndex)
+      e.dataTransfer.setData("type", "flask")
+    },
+    moveChemicalOrFlask(e, toChemicals, toFlaskIndex, toChemicalIndex) {
+      const type = e.dataTransfer.getData("type")
+      if (type === "chemical") {
+        this.moveChemical(
+          e,
+          toChemicals,
+          toChemicalIndex !== undefined ? toChemicalIndex : toChemicals.length
+        )
+      } else {
+        this.moveFlask(e, toFlaskIndex)
+      }
+    },
+    moveChemical(e, toChemicals, toChemicalIndex) {
       const fromFlaskIndex = e.dataTransfer.getData("from-flask-index")
       const fromChemicals = this.note.flasks[fromFlaskIndex].chemicals
-      const chemicalIndex = e.dataTransfer.getData("chemical-index")
+      const fromChemicalIndex = e.dataTransfer.getData("from-chemical-index")
 
       this.$store.commit("MOVE_CHEMICAL", {
         fromChemicals,
+        fromChemicalIndex,
         toChemicals,
-        chemicalIndex
+        toChemicalIndex
+      })
+    },
+    moveFlask(e, toFlaskIndex) {
+      const fromFlaskIndex = e.dataTransfer.getData("from-flask-index")
+
+      this.$store.commit("MOVE_FLASK", {
+        fromFlaskIndex,
+        toFlaskIndex
       })
     }
   }

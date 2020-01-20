@@ -37,9 +37,17 @@ export default new Vuex.Store({
       // chemical[key] = value
       Vue.set(chemical, key, value)
     },
-    MOVE_CHEMICAL(state, { fromChemicals, toChemicals, chemicalIndex }) {
-      const chemicalToMove = fromChemicals.splice(chemicalIndex, 1)[0]
-      toChemicals.push(chemicalToMove)
+    MOVE_CHEMICAL(
+      state,
+      { fromChemicals, toChemicals, fromChemicalIndex, toChemicalIndex }
+    ) {
+      const chemicalToMove = fromChemicals.splice(fromChemicalIndex, 1)[0]
+      toChemicals.splice(toChemicalIndex, 0, chemicalToMove)
+    },
+    MOVE_FLASK(state, { fromFlaskIndex, toFlaskIndex }) {
+      const flaskList = state.note.flasks
+      const flaskToMove = flaskList.splice(fromFlaskIndex, 1)[0]
+      flaskList.splice(toFlaskIndex, 0, flaskToMove)
     }
   }
 })
