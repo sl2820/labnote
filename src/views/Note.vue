@@ -35,13 +35,13 @@
             "
           >
             <span class="font-bold">
-              {{ chemical.chemical_formula }}
+              {{ chemical.formula }}
             </span>
-            <span class="italic">
-              {{ chemical.name }}
+            <span class="font-medium">
+              {{ chemical.name[0] }}
             </span>
-            <p v-if="chemical.description" class="text-sm">
-              {{ chemical.description }}
+            <p v-if="chemical.product_number" class="italic">
+              #{{ chemical.product_number }}
             </p>
           </div>
 
