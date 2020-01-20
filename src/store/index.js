@@ -2,8 +2,12 @@ import Vue from "vue"
 import Vuex from "vuex"
 import experiment from "../experiment"
 import { saveStatePlugin, uuid } from "../utils"
+import VueMaterial from "vue-material"
+import "vue-material/dist/vue-material.min.css"
+import "vue-material/dist/theme/default.css"
 
 Vue.use(Vuex)
+Vue.use(VueMaterial)
 
 const note = JSON.parse(localStorage.getItem("note")) || experiment
 
@@ -42,6 +46,9 @@ export default new Vuex.Store({
     UPDATE_CHEMICAL(state, { chemical, key, value }) {
       // chemical[key] = value
       Vue.set(chemical, key, value)
+    },
+    UPDATE_FLASK(state, { flask, key, value }) {
+      Vue.set(flask, key, value)
     },
     MOVE_CHEMICAL(
       state,

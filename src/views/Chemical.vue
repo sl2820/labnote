@@ -63,6 +63,10 @@ export default {
     ...mapGetters(["getChemical"]),
     chemical() {
       return this.getChemical(this.$route.params.id)
+    },
+    chemical_formula() {
+      const s = this.chemical.formula
+      return s.replace(/\d+/g, "<sub>$1</sub>")
     }
   },
   methods: {

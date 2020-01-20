@@ -46,20 +46,12 @@
               </p>
             </div>
 
-            <input
+            <!-- <input
               type="text"
               class="block p-2 w-full bg-transparent"
               placeholder="+ Enter New Chemical"
               @keyup.enter="createChemical($event, flask.chemicals)"
-            />
-            <md-autocomplete
-              v-model="selectedChemical"
-              :md-options="chemical_name"
-              md-dense
-              @keyup.enter="createChemical($event, flask.chemicals)"
-            >
-              <label>+ Add New Chemical</label>
-            </md-autocomplete>
+            /> -->
           </div>
         </div>
         <div class="flask flex">
@@ -86,7 +78,6 @@ import { mapState } from "vuex"
 import EventService from "@/services/EventService.js"
 
 export default {
-  name: "AutocompleteStatic",
   data() {
     return {
       newFlaskName: "",
