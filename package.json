@@ -15,8 +15,8 @@
     "core-js": "^3.4.4",
     "eslint-plugin-prettier": "^3.1.2",
     "vue": "^2.6.10",
-    "vue-fabric-wrapper": "^0.3.50",
     "vue-material": "^1.0.0-beta-11",
+    "vue-moveable": "^1.4.0",
     "vue-router": "^3.1.3",
     "vuetify": "^2.2.4",
     "vuex": "^3.1.2"
