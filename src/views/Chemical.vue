@@ -1,6 +1,16 @@
 <template>
   <div class="chemical-view">
     <div class="flex flex-col flex-grow items-start justify-between px-4">
+      <div
+        class="p-2 w-full font-serif italic underline mb-0 text-sm text-gray-600"
+      >
+        <div class="inline-block mr-2">Nickname:</div>
+        <input
+          type="text"
+          :value="chemical.nickname"
+          @change="updateChemicalProperty($event, 'nickname')"
+        />
+      </div>
       <div class="p-2 w-full text-2xl font-bold">
         <div class="inline-block mr-2">Formula:</div>
         <input
@@ -13,7 +23,7 @@
         <div class="inline-block mr-2">Name:</div>
         <input
           type="text"
-          :value="chemical.name[0]"
+          :value="chemical.name"
           @change="updateChemicalProperty($event, 'name')"
           @keyup.enter="updateChemicalProperty($event, 'name')"
         />
@@ -22,7 +32,7 @@
         <div class="inline-block mr-2">Product Number:</div>
         <input
           type="text"
-          class="italic"
+          class=""
           :value="chemical.product_number"
           @change="updateChemicalProperty($event, 'product_number')"
         />

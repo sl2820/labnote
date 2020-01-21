@@ -1,99 +1,143 @@
 <template>
-  <div>
-    <div class="note-tui">
-      <div class="flask flex">
-        <input
-          type="text"
-          class="p-2 mr-2 flex-grow"
-          placeholder="New Flask Name"
-          v-model="newFlaskName"
-          @keyup.enter="createFlask"
-        />
-      </div>
-      <div class="items-start">
-        <div
-          class="flask"
-          v-for="(flask, $flaskIndex) of note.flasks"
-          :key="$flaskIndex"
-          draggable
-          @drop="moveChemicalOrFlask($event, flask.chemicals, $flaskIndex)"
-          @dragover.prevent
-          @dragenter.prevent
-          @dragstart.self="pickupFlask($event, $flaskIndex)"
-        >
-          <div class="flex mb-2 font-bold">
-            <p style="font-size:1rem" class="mr-3">🧪</p>
-            {{ flask.name }}
-          </div>
-          <div class="list-reset">
-            <div
-              class="chemical"
-              v-for="(chemical, $chemicalIndex) of flask.chemicals"
-              :key="$chemicalIndex"
-              draggable
-              @dragstart="pickupChemical($event, $chemicalIndex, $flaskIndex)"
-              @click="goToChemical(chemical)"
-              @dragover.prevent
-              @dragenter.prevent
-              @drop.stop="
-                moveChemicalOrFlask(
-                  $event,
-                  flask.chemicals,
-                  $flaskIndex,
-                  $chemicalIndex
-                )
-              "
-            >
-              <span class="font-bold">
-                {{ chemical.formula }}
-              </span>
-              <span class="font-medium">
-                {{ chemical.name[0] }}
-              </span>
-              <p v-if="chemical.product_number" class="italic">
-                #{{ chemical.product_number }}
-              </p>
+  <v-app>
+    <div>
+      <div class="note-tui">
+        <div class="flask flex">
+          <input
+            type="text"
+            class="p-2 mr-2 flex-grow"
+            placeholder="New Flask Name"
+            v-model="newFlaskName"
+            @keyup.enter="createFlask"
+          />
+        </div>
+        <div class="items-start">
+          <div
+            class="flask"
+            v-for="(flask, $flaskIndex) of note.flasks"
+            :key="$flaskIndex"
+            draggable
+            @drop="moveChemicalOrFlask($event, flask.chemicals, $flaskIndex)"
+            @dragover.prevent
+            @dragenter.prevent
+            @dragstart.self="pickupFlask($event, $flaskIndex)"
+          >
+            <div class="flex mb-2 font-bold">
+              <p style="font-size:1rem" class="mr-3">🧪</p>
+              {{ flask.name }}
             </div>
+            <div class="list-reset">
+              <div
+                class="chemical"
+                v-for="(chemical, $chemicalIndex) of flask.chemicals"
+                :key="$chemicalIndex"
+                draggable
+                @dragstart="pickupChemical($event, $chemicalIndex, $flaskIndex)"
+                @click="goToChemical(chemical)"
+                @dragover.prevent
+                @dragenter.prevent
+                @drop.stop="
+                  moveChemicalOrFlask(
+                    $event,
+                    flask.chemicals,
+                    $flaskIndex,
+                    $chemicalIndex
+                  )
+                "
+              >
+                <p
+                  class="font-serif italic underline mb-0 text-sm text-gray-600"
+                  v-if="chemical.nickname"
+                >
+                  {{ chemical.nickname }}
+                </p>
+                <span class="font-bold">
+                  {{ chemical.formula }}
+                </span>
+                <span class="font-medium">
+                  {{ chemical.name }}
+                </span>
+                <span v-if="chemical.product_number" class="font-light">
+                  #{{ chemical.product_number }}
+                </span>
+              </div>
 
-            <input
-              type="text"
-              class="block p-2 w-full bg-transparent"
-              placeholder="+ Enter New Chemical"
-              @keyup.enter="createChemical($event, flask.chemicals)"
-            />
+              <input
+                type="text"
+                class="block p-2 w-full bg-transparent"
+                placeholder="+ Enter New Chemical"
+                @keyup.enter="createChemical($event, flask.chemicals)"
+              />
+
+              <!-- <button
+                class="bg-blue-300 hover:bg-blue-400 text-white font-bold py-2 px-4 rounded-full"
+                @click="createChemical($event, flask.chemicals)"
+              >
+                Create New!
+              </button> -->
+
+              <!-- <div v-if="buttonAuto">
+                <v-card>
+                  <v-card-text>
+                    <v-autocomplete
+                      v-model="selectedChemical"
+                      :hint="
+                        !isEditing
+                          ? 'Click the icon to edit'
+                          : 'Click the icon to save'
+                      "
+                      :items="chemical_names"
+                      :readonly="!isEditing"
+                      :label="
+                        `+ Chemical — ${isEditing ? 'Editable' : 'Readonly'}`
+                      "
+                      persistent-hint
+                    >
+                      <v-slide-x-reverse-transition
+                        slot="append-outer"
+                        mode="out-in"
+                      >
+                        <v-icon
+                          :color="isEditing ? 'success' : 'info'"
+                          :key="`icon-${isEditing}`"
+                          @click="isEditing = !isEditing"
+                          v-text="
+                            isEditing
+                              ? 'mdi-check-outline'
+                              : 'mdi-circle-edit-outline'
+                          "
+                        ></v-icon>
+                      </v-slide-x-reverse-transition>
+                    </v-autocomplete>
+                  </v-card-text>
+                </v-card>
+              </div> -->
+            </div>
           </div>
         </div>
 
-        <!-- <md-autocomplete
-          v-model="selectedChemical"
-          :md-options="chemical_name"
-          md-dense
-          @keyup.enter="createChemical($event, flask.chemicals)"
-        >
-          <label>+ Add New Chemical</label>
-        </md-autocomplete> -->
+        <div class="chemical-bg" v-if="isChemicalOpen" @click.self="close">
+          <router-view />
+        </div>
       </div>
-
-      <div class="chemical-bg" v-if="isChemicalOpen" @click.self="close">
-        <router-view />
-      </div>
+      <div class="note-gui"></div>
     </div>
-    <div class="note-gui"></div>
-  </div>
+  </v-app>
 </template>
 
 <script>
 import { mapState } from "vuex"
 import EventService from "@/services/EventService.js"
+import { uuid } from "../utils"
 
 export default {
-  name: "AutocompleteStatic",
   data() {
     return {
       newFlaskName: "",
       events: [],
+      isEditing: false,
       selectedChemical: null,
-      chemical_name: [
+      chemical_names: [
         "silver nitrate",
         "sodium citrate tribasic dihydrate",
         "trisodium citrate dihydrate",
@@ -124,12 +168,14 @@ export default {
       this.$router.push({ name: "note" })
     },
     createChemical(e, chemicals) {
-      console.log("asfasfs")
+      var id = uuid()
       this.$store.commit("CREATE_CHEMICAL", {
         chemicals,
-        name: e.target.value
+        nickname: e.target.value,
+        id: id
       })
       e.target.value = ""
+      this.$router.push({ name: "chemical", params: { id: id } })
     },
     createFlask() {
       this.$store.commit("CREATE_FLASK", {

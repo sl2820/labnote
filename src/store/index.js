@@ -1,13 +1,9 @@
 import Vue from "vue"
 import Vuex from "vuex"
 import experiment from "../experiment"
-import { saveStatePlugin, uuid } from "../utils"
-import VueMaterial from "vue-material"
-import "vue-material/dist/vue-material.min.css"
-import "vue-material/dist/theme/default.css"
+import { saveStatePlugin } from "../utils"
 
 Vue.use(Vuex)
-Vue.use(VueMaterial)
 
 const note = JSON.parse(localStorage.getItem("note")) || experiment
 
@@ -30,11 +26,13 @@ export default new Vuex.Store({
     }
   },
   mutations: {
-    CREATE_CHEMICAL(state, { chemicals, name }) {
+    CREATE_CHEMICAL(state, { chemicals, nickname, id }) {
       chemicals.push({
-        name,
-        id: uuid(),
-        description: ""
+        nickname,
+        id: id,
+        description: "",
+        name: "",
+        formula: ""
       })
     },
     CREATE_FLASK(state, { name }) {

@@ -9,8 +9,9 @@ export default {
       chemicals: [
         {
           id: uuid(),
+          nickname: "hngskj",
           formula: "AgNO3",
-          name: ["silver nitrate"],
+          name: "silver nitrate",
           molecular_weight: 169.87,
           product_number: "S7276",
           state: "solution",
@@ -18,8 +19,9 @@ export default {
         },
         {
           id: uuid(),
+          nickname: "",
           formula: "NaBH4",
-          name: ["sodium borohydride", "sodium tetrahydridoborate"],
+          name: "sodium borohydride",
           molecular_weight: 37.83,
           product_number: "213462",
           state: "solid",
@@ -33,8 +35,9 @@ export default {
       chemicals: [
         {
           id: uuid(),
+          nickname: "",
           formula: "C6H8O6",
-          name: ["ascorbic acid", "L-ascorbic acid", "vitamin c"],
+          name: "ascorbic acid",
           molecular_weight: 176.12,
           product_number: "PHR1008",
           state: "solution",
