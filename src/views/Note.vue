@@ -1,6 +1,15 @@
 <template>
   <div>
     <div class="note-tui">
+      <div class="flask flex">
+        <input
+          type="text"
+          class="p-2 mr-2 flex-grow"
+          placeholder="New Flask Name"
+          v-model="newFlaskName"
+          @keyup.enter="createFlask"
+        />
+      </div>
       <div class="items-start">
         <div
           class="flask"
@@ -52,25 +61,17 @@
               placeholder="+ Enter New Chemical"
               @keyup.enter="createChemical($event, flask.chemicals)"
             />
-            <md-autocomplete
-              v-model="selectedChemical"
-              :md-options="chemical_name"
-              md-dense
-              @keyup.enter="createChemical($event, flask.chemicals)"
-            >
-              <label>+ Add New Chemical</label>
-            </md-autocomplete>
           </div>
         </div>
-        <div class="flask flex">
-          <input
-            type="text"
-            class="p-2 mr-2 flex-grow"
-            placeholder="New Flask Name"
-            v-model="newFlaskName"
-            @keyup.enter="createFlask"
-          />
-        </div>
+
+        <md-autocomplete
+          v-model="selectedChemical"
+          :md-options="chemical_name"
+          md-dense
+          @keyup.enter="createChemical($event, flask.chemicals)"
+        >
+          <label>+ Add New Chemical</label>
+        </md-autocomplete>
       </div>
 
       <div class="chemical-bg" v-if="isChemicalOpen" @click.self="close">
