@@ -9,5 +9,5 @@
 // }
 
 module.exports = {
-  publicPath: "labnote"
+  publicPath: process.env.NODE_ENV === "production" ? "/labnote/" : "/"
 }
