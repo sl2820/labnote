@@ -64,14 +64,14 @@
           </div>
         </div>
 
-        <md-autocomplete
+        <!-- <md-autocomplete
           v-model="selectedChemical"
           :md-options="chemical_name"
           md-dense
           @keyup.enter="createChemical($event, flask.chemicals)"
         >
           <label>+ Add New Chemical</label>
-        </md-autocomplete>
+        </md-autocomplete> -->
       </div>
 
       <div class="chemical-bg" v-if="isChemicalOpen" @click.self="close">
