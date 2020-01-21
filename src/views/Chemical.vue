@@ -12,21 +12,39 @@
         />
       </div>
       <div class="p-2 w-full text-2xl font-bold">
-        <div class="inline-block mr-2">Formula:</div>
+        <div class="inline-block">Formula:</div>
         <input
           type="text"
+          class="w-full"
           :value="chemical.formula"
           @change="updateChemicalProperty($event, 'formula')"
+          list="formula"
         />
+        <datalist id="formula">
+          <option
+            v-for="(formu, $formuId) of formulas"
+            :key="$formuId"
+            :value="formu"
+          />
+        </datalist>
       </div>
       <div class="p-2 w-full mr-2 flex-grow text-xl font-medium">
         <div class="inline-block mr-2">Name:</div>
         <input
           type="text"
+          class="w-full"
           :value="chemical.name"
           @change="updateChemicalProperty($event, 'name')"
           @keyup.enter="updateChemicalProperty($event, 'name')"
+          list="name"
         />
+        <datalist id="name">
+          <option
+            v-for="(chem, $chemId) of names"
+            :key="$chemId"
+            :value="chem"
+          />
+        </datalist>
       </div>
       <div class="p-2 w-full mr-2 flex-grow text-lg">
         <div class="inline-block mr-2">Product Number:</div>
@@ -35,7 +53,15 @@
           class=""
           :value="chemical.product_number"
           @change="updateChemicalProperty($event, 'product_number')"
+          list="product"
         />
+        <datalist id="product">
+          <option
+            v-for="(prod, $prodId) of products"
+            :key="$prodId"
+            :value="prod"
+          />
+        </datalist>
       </div>
       <div class="p-2 w-full mr-2 flex-grow text-base font-normal">
         <div class="inline-block mr-2">Molecular weight:</div>
@@ -56,19 +82,34 @@
           <option value="solution">solution</option>
         </select>
       </div>
-      <!-- <textarea
+      <div
         class="relative w-full bg-trasnparent px-2 border mt-2 h-20 leading-normal"
-        :value="chemical.description"
-        @change="updateChemicalProperty($event, 'description')"
-      /> -->
+      >
+        <p>description:</p>
+        <textarea
+          class="w-full"
+          :value="chemical.description"
+          @change="updateChemicalProperty($event, 'description')"
+        />
+      </div>
     </div>
   </div>
 </template>
 
 <script>
 import { mapGetters } from "vuex"
+import database from "../database"
 
 export default {
+  data() {
+    return {
+      isEditing: false,
+      selectedChemical: null,
+      names: database.names,
+      formulas: database.formulas,
+      products: database.products
+    }
+  },
   computed: {
     ...mapGetters(["getChemical"]),
     chemical() {
@@ -93,7 +134,8 @@ export default {
 
 <style scoped>
 .chemical-view {
-  @apply relative flex flex-row bg-white inset-0 mx-4 m-32 mx-auto py-4 text-left rounded shadow;
-  max-width: 700px;
+  @apply relative flex flex-row my-32 mx-auto bg-white p-4 inset-0 text-left rounded shadow;
+  max-width: 600px;
+  min-height: 0%;
 }
 </style>
