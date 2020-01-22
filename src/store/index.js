@@ -35,11 +35,17 @@ export default new Vuex.Store({
         formula: ""
       })
     },
+    REMOVE_CHEMICAL(state, { flask, chemicalIndex }) {
+      flask.chemicals.splice(chemicalIndex, 1)
+    },
     CREATE_FLASK(state, { name }) {
       state.note.flasks.push({
         name,
         chemicals: []
       })
+    },
+    REMOVE_FLASK(state, { note, flaskIndex }) {
+      note.flasks.splice(flaskIndex, 1)
     },
     UPDATE_CHEMICAL(state, { chemical, key, value }) {
       // chemical[key] = value

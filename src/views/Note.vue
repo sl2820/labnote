@@ -12,10 +12,23 @@
           @dragenter.prevent
           @dragstart.self="pickupFlask($event, $flaskIndex)"
         >
-          <div class="flex mb-2 font-bold">
-            <p style="font-size:1rem" class="mr-3">🧪</p>
-            {{ flask.name }}
-          </div>
+          <ul class="flex justify-between text-xl">
+            <li class="mr-2">
+              <div class="flex mb-2 font-bold">
+                <p class="mr-1">⚗️</p>
+                {{ flask.name }}
+              </div>
+            </li>
+            <li class="mr-2">
+              <button
+                class="inline-block"
+                @click.stop="removeFlask(note, $flaskIndex)"
+              >
+                ✖️
+              </button>
+            </li>
+          </ul>
+
           <div class="list-reset">
             <div
               class="chemical"
@@ -35,12 +48,26 @@
                 )
               "
             >
-              <p
-                class="font-serif italic underline mb-0 text-sm text-gray-600"
-                v-if="chemical.nickname"
-              >
-                {{ chemical.nickname }}
-              </p>
+              <ul class="flex justify-between">
+                <li class="mr-2">
+                  🧪
+                  <div
+                    class="inline-block font-serif italic underline mb-0 text-sm text-gray-600"
+                    v-if="chemical.nickname"
+                  >
+                    {{ chemical.nickname }}
+                  </div>
+                </li>
+                <li class="mr-2">
+                  <button
+                    class="inline-block text-sm"
+                    @click.stop="removeChemical(flask, $chemicalIndex)"
+                  >
+                    ✖️
+                  </button>
+                </li>
+              </ul>
+
               <span class="font-bold">
                 {{ chemical.formula }}
               </span>
@@ -67,7 +94,7 @@
       <div class="flask flex">
         <input
           type="text"
-          class="p-2 mr-2 flex-grow"
+          class="mr-2 flex-grow"
           placeholder="New Flask Name"
           v-model="newFlaskName"
           @keyup.enter="createFlask"
@@ -103,7 +130,7 @@
                 v-for="(chemical, $chemicalIndex) of flask.chemicals"
                 :key="$chemicalIndex"
               >
-                {{ chemical.formula }}
+                {{ $chemicalIndex + 1 }}. {{ chemical.formula }}
               </div>
             </div>
           </span>
@@ -190,11 +217,23 @@ export default {
       e.target.value = ""
       this.$router.push({ name: "chemical", params: { id: id } })
     },
+    removeChemical(flask, chemicalIndex) {
+      this.$store.commit("REMOVE_CHEMICAL", {
+        flask,
+        chemicalIndex
+      })
+    },
     createFlask() {
       this.$store.commit("CREATE_FLASK", {
         name: this.newFlaskName
       })
       this.newFlaskName = ""
+    },
+    removeFlask(note, flaskIndex) {
+      this.$store.commit("REMOVE_FLASK", {
+        note,
+        flaskIndex
+      })
     },
     pickupChemical(e, chemicalIndex, fromFlaskIndex) {
       e.dataTransfer.effectAllowed = "move"
@@ -261,7 +300,7 @@ export default {
   @apply p-4 bg-gray-200 h-screen w-1/3 overflow-auto inline-block;
 }
 .flask {
-  @apply bg-gray-400 p-2 mb-4 text-left shadow rounded;
+  @apply bg-gray-400 p-3 mb-4 text-left shadow rounded;
 }
 .chemical {
   @apply items-center bg-gray-500 p-1 pl-4 mb-3 text-left shadow rounded-lg;
@@ -274,7 +313,8 @@ export default {
   @apply w-2/3 overflow-auto bg-teal-100 h-screen inline-block;
 }
 .moveable-box {
-  @apply mt-32 ml-32;
+  @apply mt-16;
+  margin-left: 700px;
   width: 200px;
 }
 </style>
