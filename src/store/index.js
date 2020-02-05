@@ -1,11 +1,13 @@
 import Vue from "vue"
 import Vuex from "vuex"
-import experiment from "../experiment"
+// import experiment from "../experiment"
+import project from "@/data/sample_project"
 import { saveStatePlugin } from "../utils"
 
 Vue.use(Vuex)
 
-const note = JSON.parse(localStorage.getItem("note")) || experiment
+// const note = JSON.parse(localStorage.getItem("note")) || experiment
+const note = JSON.parse(localStorage.getItem("note")) || project
 
 export default new Vuex.Store({
   plugins: [saveStatePlugin],
@@ -15,11 +17,9 @@ export default new Vuex.Store({
   getters: {
     getChemical(state) {
       return id => {
-        for (const flask of state.note.flasks) {
-          for (const chemical of flask.chemicals) {
-            if (chemical.id === id) {
-              return chemical
-            }
+        for (const chemical of state.note.components) {
+          if (chemical.id === id) {
+            return chemical
           }
         }
       }
@@ -35,17 +35,17 @@ export default new Vuex.Store({
         formula: ""
       })
     },
-    REMOVE_CHEMICAL(state, { flask, chemicalIndex }) {
-      flask.chemicals.splice(chemicalIndex, 1)
-    },
+    // REMOVE_CHEMICAL(state, { flask, chemicalIndex }) {
+    //   flask.chemicals.splice(chemicalIndex, 1)
+    // },
     CREATE_FLASK(state, { name }) {
       state.note.flasks.push({
         name,
         chemicals: []
       })
     },
-    REMOVE_FLASK(state, { note, flaskIndex }) {
-      note.flasks.splice(flaskIndex, 1)
+    REMOVE_CHEMICAL(state, { note, chemicalIndex }) {
+      note.components.splice(chemicalIndex, 1)
     },
     UPDATE_CHEMICAL(state, { chemical, key, value }) {
       // chemical[key] = value
@@ -54,17 +54,22 @@ export default new Vuex.Store({
     UPDATE_FLASK(state, { flask, key, value }) {
       Vue.set(flask, key, value)
     },
-    MOVE_CHEMICAL(
-      state,
-      { fromChemicals, toChemicals, fromChemicalIndex, toChemicalIndex }
-    ) {
-      const chemicalToMove = fromChemicals.splice(fromChemicalIndex, 1)[0]
-      toChemicals.splice(toChemicalIndex, 0, chemicalToMove)
-    },
-    MOVE_FLASK(state, { fromFlaskIndex, toFlaskIndex }) {
-      const flaskList = state.note.flasks
-      const flaskToMove = flaskList.splice(fromFlaskIndex, 1)[0]
-      flaskList.splice(toFlaskIndex, 0, flaskToMove)
+    // MOVE_CHEMICAL(
+    //   state,
+    //   { fromChemicals, toChemicals, fromChemicalIndex, toChemicalIndex }
+    // ) {
+    //   const chemicalToMove = fromChemicals.splice(fromChemicalIndex, 1)[0]
+    //   toChemicals.splice(toChemicalIndex, 0, chemicalToMove)
+    // },
+    // MOVE_FLASK(state, { fromFlaskIndex, toFlaskIndex }) {
+    //   const flaskList = state.note.flasks
+    //   const flaskToMove = flaskList.splice(fromFlaskIndex, 1)[0]
+    //   flaskList.splice(toFlaskIndex, 0, flaskToMove)
+    // }
+    MOVE_CHEMICAL(state, { fromChemicalIndex, toChemicalIndex }) {
+      const chemicalList = state.note.components
+      const chemcialToMove = chemicalList.splice(fromChemicalIndex, 1)[0]
+      chemicalList.splice(toChemicalIndex, 0, chemcialToMove)
     }
   }
 })

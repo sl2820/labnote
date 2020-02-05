@@ -12,10 +12,23 @@
           @dragenter.prevent
           @dragstart.self="pickupFlask($event, $flaskIndex)"
         >
-          <div class="flex mb-2 font-bold">
-            <p style="font-size:1rem" class="mr-3">🧪</p>
-            {{ flask.name }}
-          </div>
+          <ul class="flex justify-between text-xl">
+            <li class="mr-2">
+              <div class="flex mb-2 font-bold">
+                <p class="mr-1">⚗️</p>
+                {{ flask.name }}
+              </div>
+            </li>
+            <li class="mr-2">
+              <button
+                class="inline-block"
+                @click.stop="removeFlask(note, $flaskIndex)"
+              >
+                ✖️
+              </button>
+            </li>
+          </ul>
+
           <div class="list-reset">
             <div
               class="chemical"
@@ -35,34 +48,57 @@
                 )
               "
             >
+              <ul class="flex justify-between">
+                <li class="mr-2">
+                  🧪
+                  <div
+                    class="inline-block font-serif italic underline mb-0 text-sm text-gray-600"
+                    v-if="chemical.nickname"
+                  >
+                    {{ chemical.nickname }}
+                  </div>
+                </li>
+                <li class="mr-2">
+                  <button
+                    class="inline-block text-sm"
+                    @click.stop="removeChemical(flask, $chemicalIndex)"
+                  >
+                    ✖️
+                  </button>
+                </li>
+              </ul>
+
               <span class="font-bold">
                 {{ chemical.formula }}
               </span>
               <span class="font-medium">
-                {{ chemical.name[0] }}
+                {{ chemical.name }}
               </span>
-              <p v-if="chemical.product_number" class="italic">
+              <span v-if="chemical.product_number" class="font-light">
                 #{{ chemical.product_number }}
-              </p>
+              </span>
+              <span v-if="chemical.description" class="font-light">
+                ...
+              </span>
             </div>
 
-            <!-- <input
+            <input
               type="text"
-              class="block p-2 w-full bg-transparent"
-              placeholder="+ Enter New Chemical"
+              class="block p-2 w-full bg-transparent text-sm"
+              placeholder="+ New Chemical Name"
               @keyup.enter="createChemical($event, flask.chemicals)"
-            /> -->
+            />
           </div>
         </div>
-        <div class="flask flex">
-          <input
-            type="text"
-            class="p-2 mr-2 flex-grow"
-            placeholder="New Flask Name"
-            v-model="newFlaskName"
-            @keyup.enter="createFlask"
-          />
-        </div>
+      </div>
+      <div class="flask flex">
+        <input
+          type="text"
+          class="mr-2 flex-grow"
+          placeholder="New Flask Name"
+          v-model="newFlaskName"
+          @keyup.enter="createFlask"
+        />
       </div>
 
       <div class="chemical-bg" v-if="isChemicalOpen" @click.self="close">
@@ -76,28 +112,14 @@
 <script>
 import { mapState } from "vuex"
 import EventService from "@/services/EventService.js"
+import { uuid } from "../utils"
 
 export default {
+  components: {},
   data() {
     return {
       newFlaskName: "",
-      events: [],
-      selectedChemical: null,
-      chemical_name: [
-        "silver nitrate",
-        "sodium citrate tribasic dihydrate",
-        "trisodium citrate dihydrate",
-        "Poly(sodium 4-styrenesulfonate)",
-        "PSS",
-        "PSSS",
-        "sodium borohydride",
-        "sodium tetrahydridoborate",
-        "ascorbic acid",
-        "L-ascorbic acid",
-        "vitamin c",
-        "Potassium tetrachloropalladate(II)",
-        "potassium palladium(II) chloride"
-      ]
+      events: []
     }
   },
   computed: {
@@ -114,18 +136,32 @@ export default {
       this.$router.push({ name: "note" })
     },
     createChemical(e, chemicals) {
-      console.log("asfasfs")
+      var id = uuid()
       this.$store.commit("CREATE_CHEMICAL", {
         chemicals,
-        name: e.target.value
+        nickname: e.target.value,
+        id: id
       })
       e.target.value = ""
+      this.$router.push({ name: "chemical", params: { id: id } })
+    },
+    removeChemical(flask, chemicalIndex) {
+      this.$store.commit("REMOVE_CHEMICAL", {
+        flask,
+        chemicalIndex
+      })
     },
     createFlask() {
       this.$store.commit("CREATE_FLASK", {
         name: this.newFlaskName
       })
       this.newFlaskName = ""
+    },
+    removeFlask(note, flaskIndex) {
+      this.$store.commit("REMOVE_FLASK", {
+        note,
+        flaskIndex
+      })
     },
     pickupChemical(e, chemicalIndex, fromFlaskIndex) {
       e.dataTransfer.effectAllowed = "move"
@@ -189,10 +225,10 @@ export default {
 
 <style lang="css">
 .note-tui {
-  @apply p-4 bg-gray-200 h-screen w-1/3 overflow-auto inline-block;
+  @apply p-4 bg-gray-200 h-screen w-2/5 overflow-auto inline-block;
 }
 .flask {
-  @apply bg-gray-400 p-2 mb-4 text-left shadow rounded;
+  @apply bg-gray-400 p-3 mb-4 text-left shadow rounded;
 }
 .chemical {
   @apply items-center bg-gray-500 p-1 pl-4 mb-3 text-left shadow rounded-lg;
@@ -202,6 +238,6 @@ export default {
   background: rgba(0, 0, 0, 0.5);
 }
 .note-gui {
-  @apply w-2/3 overflow-auto bg-teal-100 h-screen inline-block;
+  @apply w-3/5 overflow-auto bg-teal-100 h-screen inline-block;
 }
 </style>
