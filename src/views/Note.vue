@@ -105,38 +105,7 @@
         <router-view />
       </div>
     </div>
-    <div class="note-gui">
-      <div
-        class="moveable-box"
-        v-for="(flask, $flaskIndex) of note.flasks"
-        :key="$flaskIndex"
-      >
-        <Moveable
-          class="moveable"
-          v-bind="moveable"
-          @drag="handleDrag"
-          @resize="handleResize"
-          @scale="handleScale"
-          @rotate="handleRotate"
-          @warp="handleWarp"
-          @pinch="handlePinch"
-        >
-          <span>
-            <div>
-              <div class="font-bold">
-                {{ flask.name }}
-              </div>
-              <div
-                v-for="(chemical, $chemicalIndex) of flask.chemicals"
-                :key="$chemicalIndex"
-              >
-                {{ $chemicalIndex + 1 }}. {{ chemical.formula }}
-              </div>
-            </div>
-          </span>
-        </Moveable>
-      </div>
-    </div>
+    <div class="note-gui"></div>
   </div>
 </template>
 
@@ -144,29 +113,13 @@
 import { mapState } from "vuex"
 import EventService from "@/services/EventService.js"
 import { uuid } from "../utils"
-import Moveable from "vue-moveable"
 
 export default {
-  components: {
-    Moveable
-  },
+  components: {},
   data() {
     return {
       newFlaskName: "",
-      events: [],
-      moveable: {
-        draggable: true,
-        throttleDrag: 0,
-        resizable: false,
-        throttleResize: 1,
-        keepRatio: false,
-        scalable: false,
-        throttleScale: 0,
-        rotatable: false,
-        throttleRotate: 0,
-        pinchable: false, // ["draggable", "resizable", "scalable", "rotatable"]
-        origin: false
-      }
+      events: []
     }
   },
   computed: {
@@ -176,31 +129,6 @@ export default {
     }
   },
   methods: {
-    handleDrag({ target, transform }) {
-      console.log("onDrag left, top", transform)
-      target.style.transform = transform
-    },
-    handleResize({ target, width, height, delta }) {
-      console.log("onResize", width, height)
-      delta[0] && (target.style.width = `${width}px`)
-      delta[1] && (target.style.height = `${height}px`)
-    },
-    handleScale({ target, transform, scale }) {
-      console.log("onScale scale", scale)
-      target.style.transform = transform
-    },
-    handleRotate({ target, dist, transform }) {
-      console.log("onRotate", dist)
-      target.style.transform = transform
-    },
-    handleWarp({ target, transform }) {
-      console.log("onWarp", transform)
-      target.style.transform = transform
-    },
-    handlePinch({ target }) {
-      console.log("onPinch", target)
-    },
-
     goToChemical(chemical) {
       this.$router.push({ name: "chemical", params: { id: chemical.id } })
     },
@@ -297,7 +225,7 @@ export default {
 
 <style lang="css">
 .note-tui {
-  @apply p-4 bg-gray-200 h-screen w-1/3 overflow-auto inline-block;
+  @apply p-4 bg-gray-200 h-screen w-2/5 overflow-auto inline-block;
 }
 .flask {
   @apply bg-gray-400 p-3 mb-4 text-left shadow rounded;
@@ -310,11 +238,6 @@ export default {
   background: rgba(0, 0, 0, 0.5);
 }
 .note-gui {
-  @apply w-2/3 overflow-auto bg-teal-100 h-screen inline-block;
-}
-.moveable-box {
-  @apply mt-16;
-  margin-left: 700px;
-  width: 200px;
+  @apply w-3/5 overflow-auto bg-teal-100 h-screen inline-block;
 }
 </style>

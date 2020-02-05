@@ -4,13 +4,10 @@ import App from "./App.vue"
 import router from "./router"
 import store from "./store"
 import "./assets/tailwind.css"
-import AppButton from "./components/AppButton"
 import vuetify from "./plugins/vuetify"
 // import "vuetify/dist/vuetify.min.css"
 
 Vue.use(vuetify)
-
-Vue.component("AppButton", AppButton)
 
 Vue.config.productionTip = false
 
