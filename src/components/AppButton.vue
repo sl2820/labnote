@@ -26,6 +26,6 @@ export default {
 
 <style lang="css" scoped>
 .button {
-  @apply inline-flex px-4 py-2 text-white font-bold rounded items-center;
+  @apply inline-flex px-4 py-2 text-white font-bold items-center;
 }
 </style>

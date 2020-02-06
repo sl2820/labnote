@@ -1,5 +1,6 @@
 <template>
   <div class="chemical-view">
+    Chemical!!!
     <div class="flex flex-col flex-grow items-start justify-between px-4">
       <div
         class="p-2 w-full font-serif italic underline mb-0 text-sm text-gray-600"

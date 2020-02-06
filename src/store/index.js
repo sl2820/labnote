@@ -35,9 +35,6 @@ export default new Vuex.Store({
         formula: ""
       })
     },
-    // REMOVE_CHEMICAL(state, { flask, chemicalIndex }) {
-    //   flask.chemicals.splice(chemicalIndex, 1)
-    // },
     CREATE_FLASK(state, { name }) {
       state.note.flasks.push({
         name,
@@ -54,22 +51,18 @@ export default new Vuex.Store({
     UPDATE_FLASK(state, { flask, key, value }) {
       Vue.set(flask, key, value)
     },
-    // MOVE_CHEMICAL(
-    //   state,
-    //   { fromChemicals, toChemicals, fromChemicalIndex, toChemicalIndex }
-    // ) {
-    //   const chemicalToMove = fromChemicals.splice(fromChemicalIndex, 1)[0]
-    //   toChemicals.splice(toChemicalIndex, 0, chemicalToMove)
-    // },
-    // MOVE_FLASK(state, { fromFlaskIndex, toFlaskIndex }) {
-    //   const flaskList = state.note.flasks
-    //   const flaskToMove = flaskList.splice(fromFlaskIndex, 1)[0]
-    //   flaskList.splice(toFlaskIndex, 0, flaskToMove)
-    // }
     MOVE_CHEMICAL(state, { fromChemicalIndex, toChemicalIndex }) {
       const chemicalList = state.note.components
       const chemcialToMove = chemicalList.splice(fromChemicalIndex, 1)[0]
       chemicalList.splice(toChemicalIndex, 0, chemcialToMove)
+    },
+    MOVE_PROCESS(state, { fromProcessIndex, toProcessIndex }) {
+      const processList = state.note.actions
+      const processToMove = processList.splice(fromProcessIndex, 1)[0]
+      processList.splice(toProcessIndex, 0, processToMove)
+    },
+    REMOVE_PROCESS(state, { note, processIndex }) {
+      note.actions.splice(processIndex, 1)
     }
   }
 })

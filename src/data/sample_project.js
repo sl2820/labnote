@@ -124,7 +124,7 @@ export default {
       inputs: ["c1", "c2"],
       type: {
         reactive: false,
-        method: "merge"
+        method: "Merge"
       },
       output: "c3"
     },
@@ -133,8 +133,9 @@ export default {
       inputs: ["c3", "c4"],
       type: {
         reactive: true,
-        method: "merge",
-        detail: "stir",
+        method: "Merge",
+        detail: "Stir",
+        instrument: "Syringe",
         rpm: 100,
         temperature: 27
       },
