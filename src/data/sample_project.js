@@ -25,7 +25,7 @@ export default {
       ingredients: [
         {
           id: "c2_1",
-          name: "Na2BH4",
+          name: "NaBH4",
           product_number: "686018",
           state: "solution",
           solvent: "water",
