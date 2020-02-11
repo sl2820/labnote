@@ -26,6 +26,15 @@ export default new Vuex.Store({
           }
         }
       }
+    },
+    getProcess(state) {
+      return id => {
+        for (const process of state.note.actions) {
+          if (process.id === id) {
+            return process
+          }
+        }
+      }
     }
   },
   mutations: {

@@ -5,7 +5,7 @@
         <div v-if="$chemId > 0" class="my-4">
           <hr />
         </div>
-        <div class="inline-block">
+        <div class="inline-block text-2xl font-black">
           <input
             type="text"
             :value="chem.name"
