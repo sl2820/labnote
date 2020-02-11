@@ -1,89 +1,30 @@
 <template>
   <div class="chemical-view">
     <div class="flex flex-col flex-grow items-start justify-between px-4">
-      <div
-        class="p-2 w-full font-serif italic underline mb-0 text-sm text-gray-600"
-      ></div>
-      <div class="p-2 w-full text-2xl font-bold">
-        <div class="inline-block">Formula:</div>
-        <input
-          type="text"
-          class="w-full"
-          :value="chemical.formula"
-          @change="updateChemicalProperty($event, 'formula')"
-          list="formula"
-        />
-        <datalist id="formula">
-          <option
-            v-for="(formu, $formuId) of formulas"
-            :key="$formuId"
-            :value="formu"
+      <div v-for="(chem, $chemId) of chemical.ingredients" :key="$chemId">
+        <div v-if="$chemId > 0" class="my-4">
+          <hr />
+        </div>
+        <div class="inline-block">
+          <input
+            type="text"
+            :value="chem.name"
+            list="name"
+            @change="updateChemicalProperty($event, 'name', chem.id)"
           />
-        </datalist>
-      </div>
-      <div class="p-2 w-full mr-2 flex-grow text-xl font-medium">
-        <div class="inline-block mr-2">Name:</div>
-        <input
-          type="text"
-          class="w-full"
-          :value="chemical.name"
-          @change="updateChemicalProperty($event, 'name')"
-          @keyup.enter="updateChemicalProperty($event, 'name')"
-          list="name"
-        />
-        <datalist id="name">
-          <option
-            v-for="(chem, $chemId) of names"
-            :key="$chemId"
-            :value="chem"
-          />
-        </datalist>
-      </div>
-      <div class="p-2 w-full mr-2 flex-grow text-lg">
-        <div class="inline-block mr-2">Product Number:</div>
-        <input
-          type="text"
-          class=""
-          :value="chemical.product_number"
-          @change="updateChemicalProperty($event, 'product_number')"
-          list="product"
-        />
-        <datalist id="product">
-          <option
-            v-for="(prod, $prodId) of products"
-            :key="$prodId"
-            :value="prod"
-          />
-        </datalist>
-      </div>
-      <div class="p-2 w-full mr-2 flex-grow text-base font-normal">
-        <div class="inline-block mr-2">Molecular weight:</div>
-        <input
-          type="text"
-          :value="chemical.molecular_weight"
-          @change="updateChemicalProperty($event, 'molecular_weight')"
-        />
-      </div>
-
-      <div class="p-2 w-full mr-2 flex-grow text-base font-normal">
-        <div class="inline-block mr-2">State:</div>
-        <select
-          :value="chemical.state"
-          @change="updateChemicalProperty($event, 'state')"
-        >
-          <option value="solid">solid</option>
-          <option value="solution">solution</option>
-        </select>
-      </div>
-      <div
-        class="relative w-full bg-trasnparent px-2 border mt-2 h-20 leading-normal"
-      >
-        <p>description:</p>
-        <textarea
-          class="w-full"
-          :value="chemical.description"
-          @change="updateChemicalProperty($event, 'description')"
-        />
+          <datalist id="name">
+            <option
+              v-for="(name, $nameID) of names"
+              :key="$nameID"
+              :value="name"
+            ></option>
+          </datalist>
+        </div>
+        <div>Volumn: {{ chem.volumn }}{{ chem.v_unit }}</div>
+        <div>Concentration: {{ chem.concentration }}{{ chem.c_unit }}</div>
+        <div>Product Number: {{ chem.product_number }}</div>
+        <div>State: {{ chem.state }}</div>
+        <div>Solvent: {{ chem.solvent }}</div>
       </div>
     </div>
   </div>
@@ -96,8 +37,6 @@ import data_autocomplete from "@/data/data_autocomplete"
 export default {
   data() {
     return {
-      isEditing: false,
-      selectedChemical: null,
       names: data_autocomplete.names,
       formulas: data_autocomplete.formulas,
       products: data_autocomplete.products
@@ -107,16 +46,13 @@ export default {
     ...mapGetters(["getChemical"]),
     chemical() {
       return this.getChemical(this.$route.params.id)
-    },
-    chemical_formula() {
-      const s = this.chemical.formula
-      return s.replace(/\d+/g, "<sub>$1</sub>")
     }
   },
   methods: {
-    updateChemicalProperty(e, key) {
+    updateChemicalProperty(e, key, chemid) {
+      const found = this.chemical.ingredients.find(({ id }) => id === chemid)
       this.$store.commit("UPDATE_CHEMICAL", {
-        chemical: this.chemical,
+        chemical: found,
         key,
         value: e.target.value
       })

@@ -13,7 +13,13 @@ export default {
     "L-ascorbic acid",
     "vitamin c",
     "Potassium tetrachloropalladate(II)",
-    "potassium palladium(II) chloride"
+    "potassium palladium(II) chloride",
+    "AgNO3",
+    "HOC(COONa)(CH2COONa)2 · 2H2O",
+    "(C8H7NaO3S)n",
+    "NaBH4",
+    "C6H8O6",
+    "K2PdCl4"
   ],
   formulas: [
     "AgNO3",

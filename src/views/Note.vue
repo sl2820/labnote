@@ -3,11 +3,13 @@
     <div class="note-tui">
       <div class="items-start">
         <AppButton
-          class="mx-2 my-5 bg-teal-500 rounded-sm"
+          class="mx-3 mb-5 bg-teal-500 rounded-sm"
           @click="createChemical"
           >Create Chemical</AppButton
         >
-        <AppButton class="bg-indigo-500 rounded-full" @click="createProcess"
+        <AppButton
+          class="mx-3 mb-5 bg-indigo-500 rounded-full"
+          @click="createProcess"
           >Create Process</AppButton
         >
         <div
@@ -128,20 +130,20 @@ export default {
   @apply p-4 bg-gray-100 h-screen w-2/5 overflow-auto inline-block;
 }
 .chemical {
-  @apply bg-teal-200 p-3 mb-4 text-left shadow rounded-sm;
+  @apply bg-teal-200 p-3 mb-4 text-left shadow-md rounded-sm;
 }
 .chemical-bg {
   @apply inset-0 absolute;
   background: rgba(0, 0, 0, 0.5);
 }
 .process {
-  @apply bg-indigo-200 p-3 mb-4 text-left shadow rounded-full;
+  @apply bg-indigo-200 p-3 mb-4 text-left shadow-md rounded-full;
 }
 .process-bg {
   @apply inset-0 absolute;
   background: rgba(0, 0, 0, 0.5);
 }
 .note-gui {
-  @apply w-3/5 overflow-auto bg-gray-300 h-screen inline-block;
+  @apply w-3/5 overflow-auto bg-gray-300 h-screen inline-block shadow-inner;
 }
 </style>

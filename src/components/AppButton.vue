@@ -11,6 +11,9 @@ export default {
       type: String
     }
   },
+  created() {
+    // this.$store.commit("Note/create")
+  },
   computed: {
     typeClasses() {
       switch (this.type) {

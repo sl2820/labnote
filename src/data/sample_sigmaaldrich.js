@@ -77,7 +77,7 @@ export default {
       formula: "K2PdCl4",
       names: [
         "Potassium tetrachloropalladate(II)",
-        "potassium palladium(II) chloride"
+        "Potassium palladium(II) chloride"
       ],
       states: ["solid", "solution"],
       products: [

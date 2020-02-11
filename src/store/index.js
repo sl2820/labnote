@@ -3,7 +3,7 @@ import Vuex from "vuex"
 // import experiment from "../experiment"
 import project from "@/data/sample_project"
 import { saveStatePlugin } from "../utils"
-
+// import Note from "./Note";
 Vue.use(Vuex)
 
 // const note = JSON.parse(localStorage.getItem("note")) || experiment
@@ -11,6 +11,9 @@ const note = JSON.parse(localStorage.getItem("note")) || project
 
 export default new Vuex.Store({
   plugins: [saveStatePlugin],
+  // modules: {
+  //   Note
+  // },
   state: {
     note
   },
