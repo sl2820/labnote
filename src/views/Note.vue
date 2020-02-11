@@ -56,7 +56,9 @@
         <router-view />
       </div>
     </div>
-    <div class="note-gui"></div>
+    <div class="note-gui">
+      <AppPipeline />
+    </div>
   </div>
 </template>
 
@@ -66,9 +68,10 @@ import { mapState } from "vuex"
 import AppButton from "@/components/AppButton"
 import AppChemical from "@/components/AppChemical"
 import AppProcess from "@/components/AppProcess"
+import AppPipeline from "@/components/AppPipeline"
 
 export default {
-  components: { AppButton, AppChemical, AppProcess },
+  components: { AppButton, AppChemical, AppProcess, AppPipeline },
   data() {
     return {}
   },
