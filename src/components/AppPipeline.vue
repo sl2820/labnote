@@ -3,16 +3,16 @@
 </template>
 
 <script>
-import init from "@/pipeline"
+import init from "@/pipeline";
 export default {
   mounted() {
-    init(this.$refs.pipeline)
+    init(this.$refs.pipeline);
   }
-}
+};
 </script>
 
 <style scoped>
-/* #rete {
+#rete {
   width: 100%;
   height: 100%;
 }
@@ -30,5 +30,5 @@ input {
   border: 1px solid #999;
   font-size: 110%;
   width: 170px;
-} */
+}
 </style>
