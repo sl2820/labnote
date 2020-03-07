@@ -2,11 +2,16 @@
   <div>
     <div class="note-tui">
       <div class="items-start">
-        <AppButton class="mx-3 mb-5 bg-teal-500 rounded-sm" @click="createChemical">Create Chemical</AppButton>
+        <AppButton
+          class="mx-3 mb-5 bg-teal-500 rounded-sm"
+          @click="createChemical"
+          >Create Chemical</AppButton
+        >
         <AppButton
           class="mx-3 mb-5 bg-indigo-500 rounded-full"
           @click="createProcess"
-        >Create Process</AppButton>
+          >Create Process</AppButton
+        >
         <div
           class="chemical"
           v-for="(chemical, $chemicalIndex) in note.components"
@@ -41,79 +46,87 @@
       <AppPipeline />
     </div>
 
-    <div class="chemical-bg" v-if="isChemicalOpen" @click.self="closeChemicalProcess">
+    <div
+      class="chemical-bg"
+      v-if="isChemicalOpen"
+      @click.self="closeChemicalProcess"
+    >
       <router-view />
     </div>
-    <div class="process-bg" v-if="isProcessOpen" @click.self="closeChemicalProcess">
+    <div
+      class="process-bg"
+      v-if="isProcessOpen"
+      @click.self="closeChemicalProcess"
+    >
       <router-view />
     </div>
   </div>
 </template>
 
 <script>
-import { mapState } from "vuex";
+import { mapState } from "vuex"
 // import { uuid } from "@/utils"
-import AppButton from "@/components/AppButton";
-import AppChemical from "@/components/AppChemical";
-import AppProcess from "@/components/AppProcess";
-import AppPipeline from "@/components/AppPipeline";
+import AppButton from "@/components/AppButton"
+import AppChemical from "@/components/AppChemical"
+import AppProcess from "@/components/AppProcess"
+import AppPipeline from "@/components/AppPipeline"
 
 export default {
   components: { AppButton, AppChemical, AppProcess, AppPipeline },
   data() {
-    return {};
+    return {}
   },
   computed: {
     ...mapState(["note"]),
     isChemicalOpen() {
-      return this.$route.name === "chemical";
+      return this.$route.name === "chemical"
     },
     isProcessOpen() {
-      return this.$route.name === "process";
+      return this.$route.name === "process"
     }
   },
   methods: {
     createChemical() {},
     moveChemical(e, toChemicalIndex) {
-      const fromChemicalIndex = e.dataTransfer.getData("from-chemical-index");
+      const fromChemicalIndex = e.dataTransfer.getData("from-chemical-index")
       this.$store.commit("MOVE_CHEMICAL", {
         fromChemicalIndex,
         toChemicalIndex
-      });
+      })
     },
     pickupChemical(e, fromChemicalIndex) {
-      e.dataTransfer.effectAllowed = "move";
-      e.dataTransfer.dropEffect = "move";
-      e.dataTransfer.setData("from-chemical-index", fromChemicalIndex);
+      e.dataTransfer.effectAllowed = "move"
+      e.dataTransfer.dropEffect = "move"
+      e.dataTransfer.setData("from-chemical-index", fromChemicalIndex)
       // e.dataTransfer.setData("type", "flask")
     },
     openChemical(chemical) {
-      this.$router.push({ name: "chemical", params: { id: chemical.id } });
+      this.$router.push({ name: "chemical", params: { id: chemical.id } })
     },
 
     createProcess() {},
     moveProcess(e, toProcessIndex) {
-      const fromProcessIndex = e.dataTransfer.getData("from-process-index");
+      const fromProcessIndex = e.dataTransfer.getData("from-process-index")
       this.$store.commit("MOVE_PROCESS", {
         fromProcessIndex,
         toProcessIndex
-      });
+      })
     },
     pickupProcess(e, fromProcessIndex) {
-      e.dataTransfer.effectAllowed = "move";
-      e.dataTransfer.dropEffect = "move";
-      e.dataTransfer.setData("from-process-index", fromProcessIndex);
+      e.dataTransfer.effectAllowed = "move"
+      e.dataTransfer.dropEffect = "move"
+      e.dataTransfer.setData("from-process-index", fromProcessIndex)
       // e.dataTransfer.setData("type", "flask")
     },
     openProcess(process) {
-      this.$router.push({ name: "process", params: { id: process.id } });
+      this.$router.push({ name: "process", params: { id: process.id } })
     },
 
     closeChemicalProcess() {
-      this.$router.push({ name: "note" });
+      this.$router.push({ name: "note" })
     }
   }
-};
+}
 </script>
 
 <style lang="css">
