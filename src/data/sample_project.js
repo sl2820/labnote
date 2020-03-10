@@ -3,9 +3,10 @@
 
 export default {
   id: "asdf1234",
-  components: [
+  tasks: [
     {
       id: "c1",
+      type: "chemical",
       ingredients: [
         {
           id: "c1_1",
@@ -22,6 +23,7 @@ export default {
     },
     {
       id: "c2",
+      type: "chemical",
       ingredients: [
         {
           id: "c2_1",
@@ -37,7 +39,18 @@ export default {
       ]
     },
     {
+      id: "p1",
+      type: "process",
+      inputs: ["c1", "c2"],
+      details: {
+        reactive: false,
+        method: "Merge"
+      },
+      output: "c3"
+    },
+    {
       id: "c3",
+      type: "chemical",
       ingredients: [
         {
           id: "c3_1",
@@ -65,6 +78,7 @@ export default {
     },
     {
       id: "c4",
+      type: "chemical",
       ingredients: [
         {
           id: "c4_1",
@@ -80,7 +94,22 @@ export default {
       ]
     },
     {
+      id: "p2",
+      type: "process",
+      inputs: ["c3", "c4"],
+      details: {
+        reactive: true,
+        method: "Merge",
+        detail: "Stir",
+        instrument: "Syringe",
+        rpm: 100,
+        temperature: 27
+      },
+      output: "c5"
+    },
+    {
       id: "c5",
+      type: "chemical",
       ingredients: [
         {
           id: "c5_1",
@@ -116,30 +145,6 @@ export default {
           c_unit: "mM"
         }
       ]
-    }
-  ],
-  actions: [
-    {
-      id: "a1",
-      inputs: ["c1", "c2"],
-      type: {
-        reactive: false,
-        method: "Merge"
-      },
-      output: "c3"
-    },
-    {
-      id: "a2",
-      inputs: ["c3", "c4"],
-      type: {
-        reactive: true,
-        method: "Merge",
-        detail: "Stir",
-        instrument: "Syringe",
-        rpm: 100,
-        temperature: 27
-      },
-      output: "c5"
     }
   ]
 }
