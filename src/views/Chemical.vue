@@ -13,11 +13,7 @@
             @change="updateChemicalProperty($event, 'name', chem.id)"
           />
           <datalist id="name">
-            <option
-              v-for="(name, $nameID) of names"
-              :key="$nameID"
-              :value="name"
-            ></option>
+            <option v-for="(name, $nameID) of names" :key="$nameID" :value="name"></option>
           </datalist>
         </div>
         <div>Volumn: {{ chem.volumn }}{{ chem.v_unit }}</div>
@@ -31,8 +27,8 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex"
-import data_autocomplete from "@/data/data_autocomplete"
+import { mapGetters } from "vuex";
+import data_autocomplete from "@/data/data_autocomplete";
 
 export default {
   data() {
@@ -40,25 +36,25 @@ export default {
       names: data_autocomplete.names,
       formulas: data_autocomplete.formulas,
       products: data_autocomplete.products
-    }
+    };
   },
   computed: {
-    ...mapGetters(["getChemical"]),
+    ...mapGetters(["getTask"]),
     chemical() {
-      return this.getChemical(this.$route.params.id)
+      return this.getTask(this.$route.params.id);
     }
   },
   methods: {
     updateChemicalProperty(e, key, chemid) {
-      const found = this.chemical.ingredients.find(({ id }) => id === chemid)
+      const found = this.chemical.ingredients.find(({ id }) => id === chemid);
       this.$store.commit("UPDATE_CHEMICAL", {
         chemical: found,
         key,
         value: e.target.value
-      })
+      });
     }
   }
-}
+};
 </script>
 
 <style scoped>
