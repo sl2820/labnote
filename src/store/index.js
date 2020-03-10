@@ -18,20 +18,11 @@ export default new Vuex.Store({
     note
   },
   getters: {
-    getChemical(state) {
+    getTask(state) {
       return id => {
-        for (const chemical of state.note.tasks) {
-          if (chemical.id === id) {
-            return chemical
-          }
-        }
-      }
-    },
-    getProcess(state) {
-      return id => {
-        for (const process of state.note.tasks) {
-          if (process.id === id) {
-            return process
+        for (const task of state.note.tasks) {
+          if (task.id === id) {
+            return task
           }
         }
       }
@@ -54,7 +45,7 @@ export default new Vuex.Store({
       })
     },
     REMOVE_CHEMICAL(state, { note, chemicalIndex }) {
-      note.components.splice(chemicalIndex, 1)
+      note.tasks.splice(chemicalIndex, 1)
     },
     UPDATE_CHEMICAL(state, { chemical, key, value }) {
       // chemical[key] = value
@@ -63,18 +54,13 @@ export default new Vuex.Store({
     UPDATE_FLASK(state, { flask, key, value }) {
       Vue.set(flask, key, value)
     },
-    MOVE_CHEMICAL(state, { fromChemicalIndex, toChemicalIndex }) {
-      const chemicalList = state.note.components
-      const chemcialToMove = chemicalList.splice(fromChemicalIndex, 1)[0]
-      chemicalList.splice(toChemicalIndex, 0, chemcialToMove)
-    },
-    MOVE_PROCESS(state, { fromProcessIndex, toProcessIndex }) {
-      const processList = state.note.actions
-      const processToMove = processList.splice(fromProcessIndex, 1)[0]
-      processList.splice(toProcessIndex, 0, processToMove)
+    MOVE_TASK(state, { fromTaskIndex, toTaskIndex }) {
+      const taskList = state.note.tasks
+      const taskToMove = taskList.splice(fromTaskIndex, 1)[0]
+      taskList.splice(toTaskIndex, 0, taskToMove)
     },
     REMOVE_PROCESS(state, { note, processIndex }) {
-      note.actions.splice(processIndex, 1)
+      note.tasks.splice(processIndex, 1)
     }
   }
 })

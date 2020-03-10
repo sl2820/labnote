@@ -18,10 +18,10 @@ import { mapGetters, mapState } from "vuex";
 
 export default {
   computed: {
-    ...mapGetters(["getProcess"]),
+    ...mapGetters(["getTask"]),
     ...mapState(["note"]),
     process() {
-      return this.getProcess(this.$route.params.id);
+      return this.getTask(this.$route.params.id);
     },
     inputs() {
       const ids = this.process.inputs;

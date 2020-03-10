@@ -11,10 +11,10 @@
           v-for="(task, $taskIndex) in note.tasks"
           :key="$taskIndex + '-chemical'"
           draggable
-          @drop="moveChemical($event, $taskIndex)"
+          @drop="moveTask($event, $taskIndex)"
           @dragover.prevent
           @dragenter.prevent
-          @dragstart.self="pickupChemical($event, $taskIndex)"
+          @dragstart.self="pickupTask($event, $taskIndex)"
           @click="openTask(task)"
         >
           <div class="chemical" v-if="task.type === 'chemical'">
@@ -31,10 +31,7 @@
       <AppPipeline />
     </div>
 
-    <div class="chemical-bg" v-if="isChemicalOpen" @click.self="closeTask">
-      <router-view />
-    </div>
-    <div class="process-bg" v-if="isProcessOpen" @click.self="closeTask">
+    <div class="task-bg" v-if="isTaskOpen" @click.self="closeTask">
       <router-view />
     </div>
   </div>
@@ -55,28 +52,24 @@ export default {
   },
   computed: {
     ...mapState(["note"]),
-    isChemicalOpen() {
-      return this.$route.name === "chemical";
-    },
-    isProcessOpen() {
-      return this.$route.name === "process";
+    isTaskOpen() {
+      return this.$route.name === "chemical" || this.$route.name === "process";
     }
   },
   methods: {
     createChemical() {},
     createProcess() {},
-
-    moveChemical(e, toChemicalIndex) {
-      const fromChemicalIndex = e.dataTransfer.getData("from-chemical-index");
-      this.$store.commit("MOVE_CHEMICAL", {
-        fromChemicalIndex,
-        toChemicalIndex
+    moveTask(e, toTaskIndex) {
+      const fromTaskIndex = e.dataTransfer.getData("from-task-index");
+      this.$store.commit("MOVE_TASK", {
+        fromTaskIndex,
+        toTaskIndex
       });
     },
-    pickupChemical(e, fromChemicalIndex) {
+    pickupTask(e, fromTaskIndex) {
       e.dataTransfer.effectAllowed = "move";
       e.dataTransfer.dropEffect = "move";
-      e.dataTransfer.setData("from-chemical-index", fromChemicalIndex);
+      e.dataTransfer.setData("from-task-index", fromTaskIndex);
       // e.dataTransfer.setData("type", "flask")
     },
     openTask(task) {
@@ -100,16 +93,12 @@ export default {
 .chemical {
   @apply bg-teal-200 p-3 mb-4 text-left shadow-md rounded-sm;
 }
-.chemical-bg {
+.task-bg {
   @apply inset-0 absolute;
   background: rgba(0, 0, 0, 0.5);
 }
 .process {
   @apply bg-indigo-200 p-3 mb-4 text-left shadow-md rounded-full;
-}
-.process-bg {
-  @apply inset-0 absolute;
-  background: rgba(0, 0, 0, 0.5);
 }
 .note-gui {
   @apply w-3/5 overflow-auto bg-gray-300 h-screen inline-block shadow-inner;

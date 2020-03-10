@@ -39,9 +39,9 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(["getChemical"]),
+    ...mapGetters(["getTask"]),
     chemical() {
-      return this.getChemical(this.$route.params.id);
+      return this.getTask(this.$route.params.id);
     }
   },
   methods: {
