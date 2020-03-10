@@ -8,7 +8,7 @@
         <div class="inline-block text-2xl font-black">
           <input
             type="text"
-            :value="chem.name"
+            :value="chem.formula"
             list="name"
             @change="updateChemicalProperty($event, 'name', chem.id)"
           />
@@ -16,7 +16,7 @@
             <option
               v-for="(name, $nameID) of getlist"
               :key="$nameID"
-              :value="name"
+              :value = "name"
             ></option>
           </datalist>
         </div>
@@ -46,18 +46,24 @@
   }
   },
   computed: {
-  ...mapGetters(["getChemical"]),
+  ...mapGetters(["getTask"]),
   chemical() {
-  return this.getChemical(this.$route.params.id)
+  return this.getTask(this.$route.params.id)
 },
     getlist(){
       var formatted = [];
       for (let i = 0; i<this.sigma_obj.length; i++){
         for (let j = 0; j <this.sigma_obj[i].names.length; j++){
-            formatted.push(this.sigma_obj[i].names[j]);
+            var value = this.sigma_obj[i].formula +"-"+ this.sigma_obj[i].names[j];
+            // formatted.push(this.toFormula(value));
+            // console.log(this.toFormula(value));
+            // console.log(value);
+            formatted.push(value);
+
         }
       }
-      return formatted;
+      // var random = ["a", "b"];
+      return formatted.sort();
     }
   },
   methods: {
@@ -68,10 +74,27 @@
   key,
   value: e.target.value
   })
+},
+toFormula(name) {
+  let num = name.match(/\d/g)
+  let sub = []
+  if (num) {
+    for (const n of name) {
+      if (n.match(/\d/)) {
+        sub.push("<sub>" + n.toString() + "</sub>")
+      } else {
+        sub.push(n)
+      }
+    }
+    // console.log(sub)
+    return sub.join("")
+  } else {
+    return name
+  }
+}
+  }
 }
 
-  }
-  }
 </script>
 
 <style scoped>
