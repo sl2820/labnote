@@ -1,45 +1,45 @@
 <template>
   <div class="process-view">
     <div class="flex flex-col flex-grow items-start justify-between px-4">
-      <div class="text-2xl font-black">{{ process.type.method }}</div>
+      <div class="text-2xl font-black">{{ process.details.method }}</div>
       <div>Inputs: {{ inputs }}</div>
-      <div v-if="process.type.reactive">
-        <div>Method: {{ process.type.detail }}</div>
-        <div>Instrument: {{ process.type.instrument }}</div>
-        <div>RPM: {{ process.type.rpm }}</div>
-        <div>Temperature: {{ process.type.temperature }}</div>
+      <div v-if="process.details.reactive">
+        <div>Method: {{ process.details.detail }}</div>
+        <div>Instrument: {{ process.details.instrument }}</div>
+        <div>RPM: {{ process.details.rpm }}</div>
+        <div>Temperature: {{ process.details.temperature }}</div>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import { mapGetters, mapState } from "vuex"
+import { mapGetters, mapState } from "vuex";
 
 export default {
   computed: {
-    ...mapGetters(["getProcess"]),
+    ...mapGetters(["getTask"]),
     ...mapState(["note"]),
     process() {
-      return this.getProcess(this.$route.params.id)
+      return this.getTask(this.$route.params.id);
     },
     inputs() {
-      const ids = this.process.inputs
-      let names = []
+      const ids = this.process.inputs;
+      let names = [];
       for (const i of ids) {
-        for (const c of this.note.components) {
+        for (const c of this.note.tasks) {
           if (c.id === i) {
             for (const ingre in c.ingredients) {
-              names.push(c.ingredients[ingre].name)
+              names.push(c.ingredients[ingre].name);
             }
           }
         }
       }
-      return names.join(", ")
+      return names.join(", ");
     }
   },
   methods: {}
-}
+};
 </script>
 
 <style scoped>
