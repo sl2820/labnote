@@ -15,7 +15,7 @@
           @dragover.prevent
           @dragenter.prevent
           @dragstart.self="pickupChemical($event, $taskIndex)"
-          @click="openChemical(task)"
+          @click="openTask(task)"
         >
           <div class="chemical" v-if="task.type === 'chemical'">
             <AppChemical :chemical="task" :chemicalIndex="$taskIndex" />
@@ -31,10 +31,10 @@
       <AppPipeline />
     </div>
 
-    <div class="chemical-bg" v-if="isChemicalOpen" @click.self="closeChemicalProcess">
+    <div class="chemical-bg" v-if="isChemicalOpen" @click.self="closeTask">
       <router-view />
     </div>
-    <div class="process-bg" v-if="isProcessOpen" @click.self="closeChemicalProcess">
+    <div class="process-bg" v-if="isProcessOpen" @click.self="closeTask">
       <router-view />
     </div>
   </div>
@@ -65,6 +65,7 @@ export default {
   methods: {
     createChemical() {},
     createProcess() {},
+
     moveChemical(e, toChemicalIndex) {
       const fromChemicalIndex = e.dataTransfer.getData("from-chemical-index");
       this.$store.commit("MOVE_CHEMICAL", {
@@ -78,14 +79,14 @@ export default {
       e.dataTransfer.setData("from-chemical-index", fromChemicalIndex);
       // e.dataTransfer.setData("type", "flask")
     },
-    openChemical(chemical) {
-      this.$router.push({ name: "chemical", params: { id: chemical.id } });
+    openTask(task) {
+      if (task.type === "chemical") {
+        this.$router.push({ name: "chemical", params: { id: task.id } });
+      } else if (task.type === "process") {
+        this.$router.push({ name: "process", params: { id: task.id } });
+      }
     },
-    openProcess(process) {
-      this.$router.push({ name: "process", params: { id: process.id } });
-    },
-
-    closeChemicalProcess() {
+    closeTask() {
       this.$router.push({ name: "note" });
     }
   }

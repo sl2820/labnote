@@ -20,7 +20,7 @@ export default new Vuex.Store({
   getters: {
     getChemical(state) {
       return id => {
-        for (const chemical of state.note.components) {
+        for (const chemical of state.note.tasks) {
           if (chemical.id === id) {
             return chemical
           }
@@ -29,7 +29,7 @@ export default new Vuex.Store({
     },
     getProcess(state) {
       return id => {
-        for (const process of state.note.actions) {
+        for (const process of state.note.tasks) {
           if (process.id === id) {
             return process
           }
