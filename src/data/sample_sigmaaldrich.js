@@ -1,4 +1,5 @@
 export default {
+  name: "database",
   sigmaaldrich: [
     {
       formula: "AgNO3",
