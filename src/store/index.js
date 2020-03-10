@@ -2,7 +2,7 @@ import Vue from "vue"
 import Vuex from "vuex"
 // import experiment from "../experiment"
 import project from "@/data/sample_project"
-import { saveStatePlugin } from "../utils"
+import { saveStatePlugin, uuid } from "../utils"
 // import Note from "./Note";
 Vue.use(Vuex)
 
@@ -29,13 +29,39 @@ export default new Vuex.Store({
     }
   },
   mutations: {
-    CREATE_CHEMICAL(state, { chemicals, nickname, id }) {
-      chemicals.push({
-        nickname,
+    CREATE_CHEMICAL(state, { id }) {
+      note.tasks.push({
         id: id,
-        description: "",
-        name: "",
-        formula: ""
+        type: "chemical",
+        ingredients: [
+          {
+            id: uuid(),
+            name: "",
+            product_number: "",
+            state: "",
+            solvent: "",
+            volumn: null,
+            v_unit: "",
+            concentration: null,
+            c_unit: ""
+          }
+        ]
+      })
+    },
+    CREATE_PROCESS(state, { id }) {
+      note.tasks.push({
+        id: id,
+        type: "process",
+        inputs: [],
+        details: {
+          reactive: null,
+          method: "",
+          detail: "",
+          instrument: "",
+          rpm: null,
+          temperature: null
+        },
+        output: ""
       })
     },
     CREATE_FLASK(state, { name }) {
