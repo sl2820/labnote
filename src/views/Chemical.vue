@@ -20,6 +20,7 @@
             ></option>
           </datalist>
         </div>
+        g
         <div>Volumn: {{ chem.volumn }}{{ chem.v_unit }}</div>
         <div>Concentration: {{ chem.concentration }}{{ chem.c_unit }}</div>
         <div>Product Number: {{ chem.product_number }}</div>
@@ -46,9 +47,9 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(["getChemical"]),
+    ...mapGetters(["getTask"]),
     chemical() {
-      return this.getChemical(this.$route.params.id)
+      return this.getTask(this.$route.params.id)
     },
     getlist() {
       var formatted = []
