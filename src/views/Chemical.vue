@@ -20,7 +20,6 @@
             ></option>
           </datalist>
         </div>
-        g
         <div>Volumn: {{ chem.volumn }}{{ chem.v_unit }}</div>
         <div>Concentration: {{ chem.concentration }}{{ chem.c_unit }}</div>
         <div>Product Number: {{ chem.product_number }}</div>
