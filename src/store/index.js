@@ -64,27 +64,17 @@ export default new Vuex.Store({
         output: ""
       })
     },
-    CREATE_FLASK(state, { name }) {
-      state.note.flasks.push({
-        name,
-        chemicals: []
-      })
-    },
-
     UPDATE_CHEMICAL(state, { chemical, key, value }) {
       // chemical[key] = value
       Vue.set(chemical, key, value)
     },
-    UPDATE_FLASK(state, { flask, key, value }) {
-      Vue.set(flask, key, value)
-    },
+    REMOVE_TASK(state, { note, taskIndex }) {
+      note.tasks.splice(taskIndex, 1)
+    }
     // MOVE_TASK(state, { fromTaskIndex, toTaskIndex }) {
     //   const taskList = state.note.tasks
     //   const taskToMove = taskList.splice(fromTaskIndex, 1)[0]
     //   taskList.splice(toTaskIndex, 0, taskToMove)
-    // },
-    REMOVE_TASK(state, { note, taskIndex }) {
-      note.tasks.splice(taskIndex, 1)
-    }
+    // }
   }
 })

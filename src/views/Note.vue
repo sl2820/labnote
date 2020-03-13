@@ -79,7 +79,16 @@ export default {
       });
       this.$router.push({ name: "process", params: { id: id } });
     },
-
+    openTask(task) {
+      if (task.type === "chemical") {
+        this.$router.push({ name: "chemical", params: { id: task.id } });
+      } else if (task.type === "process") {
+        this.$router.push({ name: "process", params: { id: task.id } });
+      }
+    },
+    closeTask() {
+      this.$router.push({ name: "note" });
+    }
     // moveTask(e, toTaskIndex) {
     //   const fromTaskIndex = e.dataTransfer.getData("from-task-index");
     //   this.$store.commit("MOVE_TASK", {
@@ -91,18 +100,7 @@ export default {
     //   e.dataTransfer.effectAllowed = "move";
     //   e.dataTransfer.dropEffect = "move";
     //   e.dataTransfer.setData("from-task-index", fromTaskIndex);
-    // },
-
-    openTask(task) {
-      if (task.type === "chemical") {
-        this.$router.push({ name: "chemical", params: { id: task.id } });
-      } else if (task.type === "process") {
-        this.$router.push({ name: "process", params: { id: task.id } });
-      }
-    },
-    closeTask() {
-      this.$router.push({ name: "note" });
-    }
+    // }
   }
 };
 </script>
