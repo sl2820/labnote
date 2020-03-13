@@ -13,16 +13,12 @@
             @change="updateChemicalProperty($event, 'name', chem.id)"
           />
           <datalist id="name">
-            <option
-              v-for="(name, $nameID) of getlist"
-              :key="$nameID"
-              :value="name"
-            ></option>
+            <option v-for="(name, $nameID) of getlist" :key="$nameID" :value="name"></option>
           </datalist>
         </div>
+        <div>Product Number: {{ chem.product_number }}</div>
         <div>Volumn: {{ chem.volumn }}{{ chem.v_unit }}</div>
         <div>Concentration: {{ chem.concentration }}{{ chem.c_unit }}</div>
-        <div>Product Number: {{ chem.product_number }}</div>
         <div>State: {{ chem.state }}</div>
         <div>Solvent: {{ chem.solvent }}</div>
       </div>
@@ -31,9 +27,9 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex"
-import sigma from "@/data/sample_sigmaaldrich"
-import data_autocomplete from "@/data/data_autocomplete"
+import { mapGetters } from "vuex";
+import sigma from "@/data/sample_sigmaaldrich";
+import data_autocomplete from "@/data/data_autocomplete";
 
 export default {
   data() {
@@ -43,34 +39,34 @@ export default {
       products: data_autocomplete.products,
 
       sigma_obj: sigma.sigmaaldrich
-    }
+    };
   },
   computed: {
     ...mapGetters(["getTask"]),
     chemical() {
-      return this.getTask(this.$route.params.id)
+      return this.getTask(this.$route.params.id);
     },
     getlist() {
-      var formatted = []
+      var formatted = [];
       for (let i = 0; i < this.sigma_obj.length; i++) {
         for (let j = 0; j < this.sigma_obj[i].names.length; j++) {
-          formatted.push(this.sigma_obj[i].names[j])
+          formatted.push(this.sigma_obj[i].names[j]);
         }
       }
-      return formatted
+      return formatted;
     }
   },
   methods: {
     updateChemicalProperty(e, key, chemid) {
-      const found = this.chemical.ingredients.find(({ id }) => id === chemid)
+      const found = this.chemical.ingredients.find(({ id }) => id === chemid);
       this.$store.commit("UPDATE_CHEMICAL", {
         chemical: found,
         key,
         value: e.target.value
-      })
+      });
     }
   }
-}
+};
 </script>
 
 <style scoped>
