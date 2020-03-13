@@ -80,11 +80,11 @@ export default new Vuex.Store({
     UPDATE_FLASK(state, { flask, key, value }) {
       Vue.set(flask, key, value)
     },
-    MOVE_TASK(state, { fromTaskIndex, toTaskIndex }) {
-      const taskList = state.note.tasks
-      const taskToMove = taskList.splice(fromTaskIndex, 1)[0]
-      taskList.splice(toTaskIndex, 0, taskToMove)
-    },
+    // MOVE_TASK(state, { fromTaskIndex, toTaskIndex }) {
+    //   const taskList = state.note.tasks
+    //   const taskToMove = taskList.splice(fromTaskIndex, 1)[0]
+    //   taskList.splice(toTaskIndex, 0, taskToMove)
+    // },
     REMOVE_PROCESS(state, { note, processIndex }) {
       note.tasks.splice(processIndex, 1)
     }
