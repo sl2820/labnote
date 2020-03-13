@@ -70,9 +70,7 @@ export default new Vuex.Store({
         chemicals: []
       })
     },
-    REMOVE_CHEMICAL(state, { note, chemicalIndex }) {
-      note.tasks.splice(chemicalIndex, 1)
-    },
+
     UPDATE_CHEMICAL(state, { chemical, key, value }) {
       // chemical[key] = value
       Vue.set(chemical, key, value)
@@ -85,8 +83,8 @@ export default new Vuex.Store({
     //   const taskToMove = taskList.splice(fromTaskIndex, 1)[0]
     //   taskList.splice(toTaskIndex, 0, taskToMove)
     // },
-    REMOVE_PROCESS(state, { note, processIndex }) {
-      note.tasks.splice(processIndex, 1)
+    REMOVE_TASK(state, { note, taskIndex }) {
+      note.tasks.splice(taskIndex, 1)
     }
   }
 })

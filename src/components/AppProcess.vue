@@ -54,7 +54,7 @@ export default {
   },
   methods: {
     removeProcess(note, processIndex) {
-      this.$store.commit("REMOVE_PROCESS", { note, processIndex });
+      this.$store.commit("REMOVE_TASK", { note, processIndex });
     }
   }
 };
