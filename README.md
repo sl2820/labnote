@@ -1,5 +1,5 @@
 # labnote
 
-vue.js
-sukjoosss hi
+## Temporary website
+
 https://hngskj.github.io/labnote/
