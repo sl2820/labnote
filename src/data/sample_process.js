@@ -53,10 +53,19 @@ export default {
         chem_for_wash: {
             id:null
         },
-        washer: null,
+        washer: [
+            {
+                name: null,
+                concentration:null
+            }
+        ],
         times: 1,
-        rpm: null,
-        time:0
+        conditions: [
+            {
+                rpm: null,
+                time: 0
+            }
+        ]
     },
     {
         name: "Incubating",
@@ -99,6 +108,7 @@ export default {
         },
         disperser: {
             name: null,
+            concentration: null,
             amount:null
         },
         gradually: false,
@@ -120,7 +130,9 @@ export default {
         temperature: null,
         ramping_rate: null,
         time: 0,
-        feeding_gas:null
+        feeding_gas: [
+            { name:null }
+        ]
     },
     {
         name: "Cooling",
@@ -129,7 +141,9 @@ export default {
         },
         temperature: null,
         time: 0,
-        feeding_gas:null
+        feeding_gas: [
+            { name: null }
+        ]
     },
     {
         name: "Annealing",
@@ -138,7 +152,9 @@ export default {
         },
         temperature: null,
         time: 0,
-        atmosphere:null
+        atmosphere: [
+            { name:null }
+        ]
     },
     {
         name: "Dissolve",
@@ -148,6 +164,7 @@ export default {
         },
         solvent: {
             name: null,
+            concentration: null,
             amount:null
         },
         gradually: false,
