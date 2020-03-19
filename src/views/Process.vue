@@ -1,7 +1,18 @@
 <template>
   <div class="process-view">
     <div class="flex flex-col flex-grow items-start justify-between px-4">
-      <div class="text-2xl font-black">{{ process.details.method }}</div>
+      <!-- <div class="text-2xl font-black">{{ process.details.method }}</div> -->
+      <div class="text-2xl font-black">
+        <input
+          type="text"
+          :value="process.details.method"
+          list="method"
+          @change="updateProcessProperty($event, 'method')"
+        />
+        <datalist id="method">
+          <option v-for="(func, $funcID) of getlist" :key="$funcID" :value="func"></option>
+        </datalist>
+      </div>
       <div>Inputs: {{ inputs }}</div>
       <div v-if="process.details.reactive">
         <div>Method: {{ process.details.detail }}</div>
@@ -15,8 +26,14 @@
 
 <script>
 import { mapGetters, mapState } from "vuex";
+import processDB from "@/data/sample_process";
 
 export default {
+  data() {
+    return {
+      processFuncs: processDB.functions
+    };
+  },
   computed: {
     ...mapGetters(["getTask"]),
     ...mapState(["note"]),
@@ -36,9 +53,24 @@ export default {
         }
       }
       return names.join(", ");
+    },
+    getlist() {
+      var funcs = [];
+      for (let i = 0; i < this.processFuncs.length; i++) {
+        funcs.push(this.processFuncs[i].name);
+      }
+      return funcs;
     }
   },
-  methods: {}
+  methods: {
+    updateProcessProperty(e, key) {
+      this.$store.commit("UPDATE_PROCESS", {
+        process: this.process.details,
+        key,
+        value: e.target.value
+      });
+    }
+  }
 };
 </script>
 

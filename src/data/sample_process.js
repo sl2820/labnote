@@ -11,9 +11,6 @@ export default {
       name: "Wait"
     },
     {
-      name: "Mix"
-    },
-    {
       name: "Add"
     },
     {

@@ -10,7 +10,7 @@
         <div v-if="process.details.reactive" class="inline-block text-sm text-gray-600 ml-8">
           💥
           <div class="inline-block mr-2">{{ process.details.detail }}</div>
-          <div class="inline-block mr-2">w/{{ process.details.instrument }}</div>
+          <div class="inline-block mr-2">{{ process.details.instrument }}</div>
           <div class="inline-block mr-2">{{ process.details.rpm }}rpm</div>
           <div class="inline-block mr-2">{{ process.details.temperature }}°C</div>
         </div>

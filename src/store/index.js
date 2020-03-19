@@ -68,6 +68,9 @@ export default new Vuex.Store({
       // chemical[key] = value
       Vue.set(chemical, key, value)
     },
+    UPDATE_PROCESS(state, { process, key, value }) {
+      Vue.set(process, key, value)
+    },
     REMOVE_TASK(state, { note, taskIndex }) {
       note.tasks.splice(taskIndex, 1)
     }
