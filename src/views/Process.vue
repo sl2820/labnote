@@ -13,7 +13,15 @@
           <option v-for="(func, $funcID) of getlist" :key="$funcID" :value="func"></option>
         </datalist>
       </div>
-      <div>Inputs: {{ inputs }}</div>
+
+      <!-- <div>Inputs: {{ inputs }}</div> -->
+      <div>
+        <div v-for="(chem, $chemID) of prevChemicals" :key="$chemID">
+          <input type="checkbox" :id="chem.id" :value="chem.id" v-model="selected" />
+          <label :for="chem.id">{{ chem.id }}</label>
+        </div>
+      </div>
+
       <div v-if="process.details.reactive">
         <div>Method: {{ process.details.detail }}</div>
         <div>Instrument: {{ process.details.instrument }}</div>
@@ -31,7 +39,8 @@ import processDB from "@/data/sample_process";
 export default {
   data() {
     return {
-      processFuncs: processDB.functions
+      processFuncs: processDB.functions,
+      selected: []
     };
   },
   computed: {
@@ -39,6 +48,25 @@ export default {
     ...mapState(["note"]),
     process() {
       return this.getTask(this.$route.params.id);
+    },
+    prevChemicals() {
+      const procId = this.$route.params.id;
+
+      let taskIds = [];
+      for (const t of this.note.tasks) {
+        taskIds.push(t.id);
+      }
+
+      let chemicals = [];
+      for (const task of this.note.tasks) {
+        if (taskIds.indexOf(procId) < taskIds.indexOf(task.id)) {
+          break;
+        }
+        if (task.type === "chemical") {
+          chemicals.push(task);
+        }
+      }
+      return chemicals;
     },
     inputs() {
       const ids = this.process.inputs;
