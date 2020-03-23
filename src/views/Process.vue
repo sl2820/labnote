@@ -14,8 +14,7 @@
         </datalist>
       </div>
 
-      <!-- <div>Inputs: {{ inputs }}</div> -->
-      <div>
+      <div class="bg-teal-200">
         <div v-for="(chem, $chemID) of prevChemicals" :key="$chemID">
           <input
             type="checkbox"
@@ -25,16 +24,20 @@
             @change="updateProcessInputs($event, 'inputs')"
             @input="updateSelected($event)"
           />
-          <label :for="chem.id">{{ chem.id }}</label>
+          <label :for="chem.id">
+            <div v-for="(ingr, $ingrID) of chem.ingredients" :key="$ingrID">{{ ingr.name }}</div>
+          </label>
         </div>
       </div>
 
-      <div v-if="process.details.reactive">
+      <div class="bg-gray-200" v-if="process.details.reactive">
         <div>Method: {{ process.details.detail }}</div>
         <div>Instrument: {{ process.details.instrument }}</div>
         <div>RPM: {{ process.details.rpm }}</div>
         <div>Temperature: {{ process.details.temperature }}</div>
       </div>
+
+      <div class="bg-yellow-200">OUTPUT:</div>
     </div>
   </div>
 </template>
@@ -72,20 +75,6 @@ export default {
         }
       }
       return chemicals;
-    },
-    inputs() {
-      const ids = this.process.inputs;
-      let names = [];
-      for (const i of ids) {
-        for (const c of this.note.tasks) {
-          if (c.id === i) {
-            for (const ingre in c.ingredients) {
-              names.push(c.ingredients[ingre].name);
-            }
-          }
-        }
-      }
-      return names.join(", ");
     },
     getlist() {
       var funcs = [];
