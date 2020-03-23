@@ -17,7 +17,14 @@
       <!-- <div>Inputs: {{ inputs }}</div> -->
       <div>
         <div v-for="(chem, $chemID) of prevChemicals" :key="$chemID">
-          <input type="checkbox" :id="chem.id" :value="chem.id" v-model="selected" />
+          <input
+            type="checkbox"
+            :id="chem.id"
+            :value="chem.id"
+            :checked="checkedChems[chem.id]"
+            @change="updateProcessInputs($event, 'inputs')"
+            @input="updateSelected($event)"
+          />
           <label :for="chem.id">{{ chem.id }}</label>
         </div>
       </div>
@@ -40,7 +47,7 @@ export default {
   data() {
     return {
       processFuncs: processDB.functions,
-      selected: []
+      selectedChems: []
     };
   },
   computed: {
@@ -51,12 +58,10 @@ export default {
     },
     prevChemicals() {
       const procId = this.$route.params.id;
-
       let taskIds = [];
       for (const t of this.note.tasks) {
         taskIds.push(t.id);
       }
-
       let chemicals = [];
       for (const task of this.note.tasks) {
         if (taskIds.indexOf(procId) < taskIds.indexOf(task.id)) {
@@ -88,6 +93,18 @@ export default {
         funcs.push(this.processFuncs[i].name);
       }
       return funcs;
+    },
+    checkedChems() {
+      let chems = {};
+      for (const ch of this.prevChemicals) {
+        for (const iId of this.process.inputs) {
+          if (ch.id === iId) {
+            chems[ch.id] = true;
+          }
+        }
+      }
+      // console.log("checkedChems():", chems);
+      return chems;
     }
   },
   methods: {
@@ -97,6 +114,26 @@ export default {
         key,
         value: e.target.value
       });
+    },
+    updateProcessInputs(e, key) {
+      // this.selected = this.process.inputs;
+      console.log("updateProcessInputs");
+      this.$store.commit("UPDATE_PROCESS", {
+        process: this.process,
+        key,
+        value: this.selectedChems
+      });
+    },
+    updateSelected(e) {
+      console.log("updateSelected");
+      let chemitem = e.target.value;
+      if (this.selectedChems.includes(chemitem)) {
+        let i = this.selectedChems.indexOf(chemitem);
+        this.selectedChems.splice(i, 1);
+      } else {
+        this.selectedChems.push(chemitem);
+      }
+      console.log(this.selectedChems);
     }
   }
 };
