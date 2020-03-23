@@ -16,7 +16,7 @@ export default {
       gradually: false,
       time: 0,
       output: {
-          name: "+"
+        name: "+"
       }
     },
     {
@@ -33,7 +33,7 @@ export default {
       gradually: false,
       time: 0,
       output: {
-          name: "+"
+        name: "+"
       }
     },
     {
@@ -54,7 +54,7 @@ export default {
       gradually: false,
       time: 0,
       output: {
-          name: "+"
+        name: "+"
       }
     },
     {
@@ -76,8 +76,8 @@ export default {
         }
       ],
       output: {
-          name: "",
-          property: "after washing"
+        name: "",
+        property: "after washing"
       }
     },
     {
@@ -88,8 +88,8 @@ export default {
       temperature: null,
       time: 0,
       output: {
-          name: "",
-          property: "after incubating"
+        name: "",
+        property: "after incubating"
       }
     },
     {
@@ -100,8 +100,8 @@ export default {
       rpm: null,
       time: 0,
       output: {
-          name: "",
-          property: "after centrifuge"
+        name: "",
+        property: "after centrifuge"
       }
     },
     {
@@ -112,8 +112,8 @@ export default {
       rpm: null,
       time: 0,
       output: {
-          name: "",
-          property: "after stirring"
+        name: "",
+        property: "after stirring"
       }
     },
     {
@@ -125,8 +125,8 @@ export default {
       time: 0,
       vacuum: false,
       output: {
-          name: "",
-          property: "after drying"
+        name: "",
+        property: "after drying"
       }
     },
     {
@@ -143,7 +143,7 @@ export default {
       gradually: false,
       time: 0,
       output: {
-          name: "in"
+        name: "in"
       }
     },
     {
@@ -154,8 +154,8 @@ export default {
       temperature: null,
       time: 0,
       output: {
-          name: "",
-          property: "after sonicating"
+        name: "",
+        property: "after sonicating"
       }
     },
     {
@@ -168,8 +168,8 @@ export default {
       time: 0,
       feeding_gas: [{ name: null }],
       output: {
-          name: "",
-          property: "after heating in furnace"
+        name: "",
+        property: "after heating in furnace"
       }
     },
     {
@@ -181,8 +181,8 @@ export default {
       time: 0,
       feeding_gas: [{ name: null }],
       output: {
-          name: "",
-          property: "after cooling"
+        name: "",
+        property: "after cooling"
       }
     },
     {
@@ -194,8 +194,8 @@ export default {
       time: 0,
       atmosphere: [{ name: null }],
       output: {
-          name: "",
-          property: "after annealing"
+        name: "",
+        property: "after annealing"
       }
     },
     {
@@ -212,8 +212,8 @@ export default {
       gradually: false,
       time: 0,
       output: {
-          name: "",
-          state: "solution"
+        name: "",
+        state: "solution"
       }
     },
     {
@@ -224,8 +224,8 @@ export default {
       temperature: null,
       time: 0,
       output: {
-          name: "",
-          property: "after heating"
+        name: "",
+        property: "after heating"
       }
     }
   ]
