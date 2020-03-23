@@ -17,7 +17,11 @@ export default {
           volumn: 250,
           v_unit: "uL",
           concentration: 0.05,
-          c_unit: "g/L"
+          c_unit: "g/L",
+          weight: null,
+          w_unit: "g",
+          pressure: null,
+          p_unit: "Pa"
         }
       ]
     },
@@ -34,7 +38,11 @@ export default {
           volumn: 300,
           v_unit: "uL",
           concentration: 10,
-          c_unit: "mM"
+          c_unit: "mM",
+          weight: null,
+          w_unit: "g",
+          pressure: null,
+          p_unit: "Pa"
         }
       ]
     },
@@ -61,7 +69,11 @@ export default {
           volumn: 250,
           v_unit: "uL",
           concentration: 0.05,
-          c_unit: "g/L"
+          c_unit: "g/L",
+          weight: null,
+          w_unit: "g",
+          pressure: null,
+          p_unit: "Pa"
         },
         {
           id: "c3_2",
@@ -72,7 +84,11 @@ export default {
           volumn: 300,
           v_unit: "uL",
           concentration: 10,
-          c_unit: "mM"
+          c_unit: "mM",
+          weight: null,
+          w_unit: "g",
+          pressure: null,
+          p_unit: "Pa"
         }
       ]
     },
@@ -89,7 +105,11 @@ export default {
           volumn: 5,
           v_unit: "mL",
           concentration: 0.5,
-          c_unit: "mM"
+          c_unit: "mM",
+          weight: null,
+          w_unit: "g",
+          pressure: null,
+          p_unit: "Pa"
         }
       ]
     },
@@ -120,7 +140,11 @@ export default {
           volumn: 250,
           v_unit: "uL",
           concentration: 0.05,
-          c_unit: "g/L"
+          c_unit: "g/L",
+          weight: null,
+          w_unit: "g",
+          pressure: null,
+          p_unit: "Pa"
         },
         {
           id: "c5_2",
@@ -131,7 +155,11 @@ export default {
           volumn: 300,
           v_unit: "uL",
           concentration: 10,
-          c_unit: "mM"
+          c_unit: "mM",
+          weight: null,
+          w_unit: "g",
+          pressure: null,
+          p_unit: "Pa"
         },
         {
           id: "c5_3",
@@ -142,7 +170,11 @@ export default {
           volumn: 5,
           v_unit: "mL",
           concentration: 0.5,
-          c_unit: "mM"
+          c_unit: "mM",
+          weight: null,
+          w_unit: "g",
+          pressure: null,
+          p_unit: "Pa"
         }
       ]
     }

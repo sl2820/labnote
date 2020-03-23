@@ -5,36 +5,146 @@
         <div v-if="$chemId > 0" class="my-4">
           <hr />
         </div>
-        <div class="inline-block text-2xl font-black">
+        <div class="inline-block text-xl font-black pr-2">Name:</div>
+        <div class="inline-block text-l">
           <input
+            placeholder="Search name"
             type="text"
             :value="chem.name"
             list="name"
             @change="updateChemicalProperty($event, 'name', chem.id)"
           />
           <datalist id="name">
-            <option
-              v-for="(name, $nameID) of getlist"
-              :key="$nameID"
-              :value="name"
-            ></option>
+            <option v-for="(name, $nameID) of get_chem_list" :key="$nameID" :value="name"></option>
           </datalist>
         </div>
-        g
-        <div>Volumn: {{ chem.volumn }}{{ chem.v_unit }}</div>
-        <div>Concentration: {{ chem.concentration }}{{ chem.c_unit }}</div>
-        <div>Product Number: {{ chem.product_number }}</div>
-        <div>State: {{ chem.state }}</div>
-        <div>Solvent: {{ chem.solvent }}</div>
+        <!-- Below is State Listing -->
+        <div class="inline-block text-xl font-black pr-2">State:</div>
+        <div class="inline-block text-l w-20">
+          <input
+            placeholder="Choose type"
+            type="text"
+            :value="chem.state"
+            list="state"
+            @change="updateChemicalProperty($event, 'state', chem.id)"
+          />
+          <datalist id="state">
+            <option v-for="(state, $stateID) of get_state_list" :key="$stateID" :value="state"></option>
+          </datalist>
+        </div>
+        <div></div>
+        <div class="inline-block font-black pr-2">Product #:</div>
+        <div class="inline-block text-l">
+          <input
+            class="w-32 min-w-0 text-sm"
+            placeholder="Enter product #"
+            type="text"
+            :value="chem.product_number"
+            @change="updateChemicalProperty($event, 'product_number', chem.id)"
+          />
+        </div>
+        <div></div>
+        <div v-if="chem.state == 'solid'" class="font-black">
+          Details:
+          <div class="font-medium pr-2">
+            - Weight:
+            <input
+              class="w-20 min-w-0 text-xs"
+              placeholder="Enter weight"
+              type="text"
+              :value="chem.weight"
+              @change="updateChemicalProperty($event, 'weight', chem.id)"
+            />
+            {{ chem.w_unit }}
+          </div>
+        </div>
+        <div v-else-if="chem.state == 'solution'" class="font-black">
+          Details:
+          <div class="font-medium pr-2">
+            - Solvent:
+            <input
+              class="w-20 min-w-0 text-xs"
+              placeholder="Enter solvent"
+              type="text"
+              :value="chem.solvent"
+              @change="updateChemicalProperty($event, 'solvent', chem.id)"
+            />
+          </div>
+          <div class="font-medium pr-2">
+            - Concentration:
+            <input
+              class="w-20 min-w-0 text-xs"
+              placeholder="Enter concentration"
+              type="text"
+              :value="chem.concentration"
+              @change="updateChemicalProperty($event, 'weight', chem.id)"
+            />
+            {{ chem.c_unit }}
+          </div>
+          <div class="font-medium pr-2">
+            - Volume:
+            <input
+              class="w-20 min-w-0 text-xs"
+              placeholder="Enter volume"
+              type="text"
+              :value="chem.volumn"
+              @change="updateChemicalProperty($event, 'volumn', chem.id)"
+            />
+            {{ chem.v_unit }}
+          </div>
+        </div>
+        <div v-else-if="chem.state == 'liquid'" class="font-black">
+          Details:
+          <div class="font-medium pr-2">
+            - Weight:
+            <input
+              class="w-20 min-w-0 text-xs"
+              placeholder="Enter weight"
+              type="text"
+              :value="chem.weight"
+              @change="updateChemicalProperty($event, 'weight', chem.id)"
+            />
+            {{ chem.w_unit }}
+          </div>
+        </div>
+        <div v-else-if="chem.state == 'gas'" class="font-black">
+          Details:
+          <div class="font-medium pr-2">
+            - Volumn:
+            <input
+              class="w-20 min-w-0 text-xs"
+              placeholder="Enter volume"
+              type="text"
+              :value="chem.volumn"
+              @change="updateChemicalProperty($event, 'volumn', chem.id)"
+            />
+            {{ chem.v_unit }}
+          </div>
+          <div class="font-medium pr-2">
+            - Pressure:
+            <input
+              class="w-20 min-w-0 text-xs"
+              placeholder="Enter pressure"
+              type="text"
+              :value="chem.pressure"
+              @change="updateChemicalProperty($event, 'pressure', chem.id)"
+            />
+            {{ chem.p_unit }}
+          </div>
+        </div>
+        <div v-else class="font-black">
+          Details:
+          <p class="font-medium">Unidentified states. Plese check</p>
+        </div>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import { mapGetters } from "vuex"
-import sigma from "@/data/sample_sigmaaldrich"
-import data_autocomplete from "@/data/data_autocomplete"
+import { mapGetters } from "vuex";
+import sigma from "@/data/sample_sigmaaldrich";
+import data_autocomplete from "@/data/data_autocomplete";
 
 export default {
   data() {
@@ -42,36 +152,83 @@ export default {
       names: data_autocomplete.names,
       formulas: data_autocomplete.formulas,
       products: data_autocomplete.products,
-
+      temp_name: null,
+      temp_state: null,
       sigma_obj: sigma.sigmaaldrich
-    }
+    };
   },
   computed: {
     ...mapGetters(["getTask"]),
     chemical() {
-      return this.getTask(this.$route.params.id)
+      return this.getTask(this.$route.params.id);
     },
-    getlist() {
-      var formatted = []
+    get_chem_list() {
+      var formatted = [];
       for (let i = 0; i < this.sigma_obj.length; i++) {
         for (let j = 0; j < this.sigma_obj[i].names.length; j++) {
-          formatted.push(this.sigma_obj[i].names[j])
+          var value =
+            this.sigma_obj[i].formula + "-" + this.sigma_obj[i].names[j];
+          formatted.push(value);
         }
       }
-      return formatted
+      // var random = ["a", "b"];
+      return formatted.sort();
+    },
+    get_state_list() {
+      var clean;
+      if (this.temp_name != null) {
+        clean = this.temp_name.split("-")[0];
+      } else {
+        clean = "";
+      }
+      var formatted = [];
+      for (let i = 0; i < this.sigma_obj.length; i++) {
+        if (clean.localeCompare(this.sigma_obj[i].formula) == 0) {
+          for (let j = 0; j < this.sigma_obj[i].states.length; j++) {
+            var value = this.sigma_obj[i].states[j];
+            formatted.push(value);
+          }
+        }
+      }
+      return formatted;
     }
   },
   methods: {
     updateChemicalProperty(e, key, chemid) {
-      const found = this.chemical.ingredients.find(({ id }) => id === chemid)
+      const found = this.chemical.ingredients.find(({ id }) => id === chemid);
+      var value_;
+      if (key == "name") {
+        value_ = e.target.value.split("-")[0];
+        this.temp_name = e.target.value;
+      } else {
+        value_ = e.target.value;
+        this.temp_state = e.target.value;
+      }
       this.$store.commit("UPDATE_CHEMICAL", {
         chemical: found,
         key,
-        value: e.target.value
-      })
+        value: value_
+      });
+    },
+    toFormula(name) {
+      let num = name.match(/\d/g);
+      let sub = [];
+      if (num) {
+        for (const n of name) {
+          if (n.match(/\d/)) {
+            sub.push("<sub>" + n.toString() + "</sub>");
+          } else {
+            sub.push(n);
+          }
+        }
+        // console.log(sub)
+        return sub.join("");
+      } else {
+        return name;
+      }
     }
   }
-}
+};
 </script>
 
 <style scoped>
