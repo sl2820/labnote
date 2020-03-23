@@ -14,7 +14,10 @@ export default {
         }
       ],
       gradually: false,
-      time: 0
+      time: 0,
+      output: {
+          name: "+"
+      }
     },
     {
       name: "Inject",
@@ -28,7 +31,10 @@ export default {
       },
       stirring: true,
       gradually: false,
-      time: 0
+      time: 0,
+      output: {
+          name: "+"
+      }
     },
     {
       name: "Wait",
@@ -46,7 +52,10 @@ export default {
         amount: null
       },
       gradually: false,
-      time: 0
+      time: 0,
+      output: {
+          name: "+"
+      }
     },
     {
       name: "Washing",
@@ -65,7 +74,11 @@ export default {
           rpm: null,
           time: 0
         }
-      ]
+      ],
+      output: {
+          name: "",
+          property: "after washing"
+      }
     },
     {
       name: "Incubating",
@@ -73,7 +86,11 @@ export default {
         id: null
       },
       temperature: null,
-      time: 0
+      time: 0,
+      output: {
+          name: "",
+          property: "after incubating"
+      }
     },
     {
       name: "Centrifuge",
@@ -81,7 +98,11 @@ export default {
         id: null
       },
       rpm: null,
-      time: 0
+      time: 0,
+      output: {
+          name: "",
+          property: "after centrifuge"
+      }
     },
     {
       name: "Stirring",
@@ -89,7 +110,11 @@ export default {
         id: null
       },
       rpm: null,
-      time: 0
+      time: 0,
+      output: {
+          name: "",
+          property: "after stirring"
+      }
     },
     {
       name: "Dry",
@@ -98,7 +123,11 @@ export default {
       },
       temperature: null,
       time: 0,
-      vacuum: false
+      vacuum: false,
+      output: {
+          name: "",
+          property: "after drying"
+      }
     },
     {
       name: "Disperse",
@@ -112,7 +141,10 @@ export default {
         amount: null
       },
       gradually: false,
-      time: 0
+      time: 0,
+      output: {
+          name: "in"
+      }
     },
     {
       name: "Sonicate",
@@ -120,7 +152,11 @@ export default {
         id: null
       },
       temperature: null,
-      time: 0
+      time: 0,
+      output: {
+          name: "",
+          property: "after sonicating"
+      }
     },
     {
       name: "Furnace",
@@ -130,7 +166,11 @@ export default {
       temperature: null,
       ramping_rate: null,
       time: 0,
-      feeding_gas: [{ name: null }]
+      feeding_gas: [{ name: null }],
+      output: {
+          name: "",
+          property: "after heating in furnace"
+      }
     },
     {
       name: "Cooling",
@@ -139,7 +179,11 @@ export default {
       },
       temperature: null,
       time: 0,
-      feeding_gas: [{ name: null }]
+      feeding_gas: [{ name: null }],
+      output: {
+          name: "",
+          property: "after cooling"
+      }
     },
     {
       name: "Annealing",
@@ -148,7 +192,11 @@ export default {
       },
       temperature: null,
       time: 0,
-      atmosphere: [{ name: null }]
+      atmosphere: [{ name: null }],
+      output: {
+          name: "",
+          property: "after annealing"
+      }
     },
     {
       name: "Dissolve",
@@ -162,7 +210,11 @@ export default {
         amount: null
       },
       gradually: false,
-      time: 0
+      time: 0,
+      output: {
+          name: "",
+          state: "solution"
+      }
     },
     {
       name: "Heat",
@@ -170,7 +222,11 @@ export default {
         id: null
       },
       temperature: null,
-      time: 0
+      time: 0,
+      output: {
+          name: "",
+          property: "after heating"
+      }
     }
   ]
 }
