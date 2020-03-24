@@ -1,7 +1,6 @@
 <template>
   <div class="process-view">
     <div class="flex flex-col flex-grow items-start justify-between px-4">
-      <!-- <div class="text-2xl font-black">{{ process.details.method }}</div> -->
       <div class="text-2xl font-black">
         <input
           type="text"
@@ -15,9 +14,11 @@
       </div>
 
       <div class="bg-teal-200">
+        targets
         <div v-for="(chem, $chemID) of prevChemicals" :key="$chemID">
           <input
             type="checkbox"
+            class="w-6"
             :id="chem.id"
             :value="chem.id"
             :checked="checkedChems[chem.id]"
@@ -25,7 +26,7 @@
             @input="updateSelected($event)"
           />
           <label :for="chem.id">
-            <div v-for="(ingr, $ingrID) of chem.ingredients" :key="$ingrID">{{ ingr.name }}</div>
+            <span v-for="(ingr, $ingrID) of chem.ingredients" :key="$ingrID">+ {{ ingr.name }}</span>
           </label>
         </div>
       </div>
@@ -92,7 +93,6 @@ export default {
           }
         }
       }
-      // console.log("checkedChems():", chems);
       return chems;
     }
   },
@@ -105,8 +105,6 @@ export default {
       });
     },
     updateProcessInputs(e, key) {
-      // this.selected = this.process.inputs;
-      console.log("updateProcessInputs");
       this.$store.commit("UPDATE_PROCESS", {
         process: this.process,
         key,
@@ -114,7 +112,6 @@ export default {
       });
     },
     updateSelected(e) {
-      console.log("updateSelected");
       let chemitem = e.target.value;
       if (this.selectedChems.includes(chemitem)) {
         let i = this.selectedChems.indexOf(chemitem);
@@ -122,7 +119,6 @@ export default {
       } else {
         this.selectedChems.push(chemitem);
       }
-      console.log(this.selectedChems);
     }
   }
 };
