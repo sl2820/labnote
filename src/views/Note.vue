@@ -26,10 +26,10 @@
           @click="openTask(task)"
         >
           <div class="chemical" v-if="task.type === 'chemical'">
-            <AppChemical :chemical="task" :chemicalIndex="$taskIndex" />
+            <AppChemical :chemical="task" :taskIndex="$taskIndex" />
           </div>
           <div class="process" v-else-if="task.type === 'process'">
-            <AppProcess :process="task" :processIndex="$taskIndex" />
+            <AppProcess :process="task" :taskIndex="$taskIndex" />
           </div>
         </div>
       </div>

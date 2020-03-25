@@ -16,7 +16,7 @@
         </div>
       </li>
       <li class="mr-2">
-        <button class="inline-block text-sm" @click.stop="removeProcess(note, processIndex)">✖️</button>
+        <button class="inline-block text-sm" @click.stop="removeProcess(note, taskIndex)">✖️</button>
       </li>
     </ul>
   </div>
@@ -30,7 +30,7 @@ export default {
       type: Object,
       required: true
     },
-    processIndex: {
+    taskIndex: {
       type: Number,
       required: true
     }
@@ -53,8 +53,8 @@ export default {
     }
   },
   methods: {
-    removeProcess(note, processIndex) {
-      this.$store.commit("REMOVE_TASK", { note, processIndex });
+    removeProcess(note, taskIndex) {
+      this.$store.commit("REMOVE_TASK", { note, taskIndex });
     }
   }
 };

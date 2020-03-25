@@ -20,7 +20,7 @@
         <div class="inline-block ml-5 underline">{{ summedVolumn }}mL</div>
       </li>
       <li class="mr-2">
-        <button class="inline-block text-sm" @click.stop="removeChemical(note, chemicalIndex)">✖️</button>
+        <button class="inline-block text-sm" @click.stop="removeChemical(note, taskIndex)">✖️</button>
       </li>
     </ul>
   </div>
@@ -34,7 +34,7 @@ export default {
       type: Object,
       required: true
     },
-    chemicalIndex: {
+    taskIndex: {
       type: Number,
       required: true
     }
@@ -57,8 +57,8 @@ export default {
     }
   },
   methods: {
-    removeChemical(note, chemicalIndex) {
-      this.$store.commit("REMOVE_TASK", { note, chemicalIndex });
+    removeChemical(note, taskIndex) {
+      this.$store.commit("REMOVE_TASK", { note, taskIndex });
     },
     toFormula(name) {
       let num = name.match(/\d/g);
