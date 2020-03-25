@@ -13,8 +13,8 @@
         </datalist>
       </div>
 
-      <div class="bg-teal-200">
-        targets
+      <div class="mt-6 bg-teal-200">
+        (inputs)
         <div v-for="(chem, $chemID) of prevChemicals" :key="$chemID">
           <input
             type="checkbox"
@@ -31,14 +31,10 @@
         </div>
       </div>
 
-      <div class="bg-gray-200" v-if="process.details.reactive">
-        <div>Method: {{ process.details.detail }}</div>
-        <div>Instrument: {{ process.details.instrument }}</div>
-        <div>RPM: {{ process.details.rpm }}</div>
-        <div>Temperature: {{ process.details.temperature }}</div>
+      <div class="mt-6 bg-gray-200">
+        (details for {{ process.details.method }})
+        <div>{{ getTemplate }}</div>
       </div>
-
-      <div class="bg-yellow-200">OUTPUT:</div>
     </div>
   </div>
 </template>
@@ -94,6 +90,18 @@ export default {
         }
       }
       return chems;
+    },
+    getTemplate() {
+      const name = this.process.details.method;
+      const del_ = ["name", "output"];
+      let p = "";
+      for (let i = 0; i < this.processFuncs.length; i++) {
+        if (this.processFuncs[i].name === name) {
+          p = Object.keys(this.processFuncs[i]);
+          p = p.filter(item => !del_.includes(item));
+        }
+      }
+      return p;
     }
   },
   methods: {
