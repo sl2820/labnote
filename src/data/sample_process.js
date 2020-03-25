@@ -21,11 +21,11 @@ export default {
     },
     {
       name: "Inject",
-      chem_for_inject: {
+      chem_for: {
         id: null,
         amount: null
       },
-      to: {
+      chem_to: {
         id: null,
         amount: null
       },
@@ -43,11 +43,11 @@ export default {
     },
     {
       name: "Add",
-      chem_for_add: {
+      chem_for: {
         id: null,
         amount: null
       },
-      to: {
+      chem_to: {
         id: null,
         amount: null
       },
@@ -59,7 +59,7 @@ export default {
     },
     {
       name: "Washing",
-      chem_for_wash: {
+      chem_for: {
         id: null
       },
       washer: [
@@ -82,7 +82,7 @@ export default {
     },
     {
       name: "Incubating",
-      chem_for_incubate: {
+      chem_for: {
         id: null
       },
       temperature: null,
@@ -94,7 +94,7 @@ export default {
     },
     {
       name: "Centrifuge",
-      chem_for_centrifuge: {
+      chem_for: {
         id: null
       },
       rpm: null,
@@ -106,7 +106,7 @@ export default {
     },
     {
       name: "Stirring",
-      chem_for_stir: {
+      chem_for: {
         id: null
       },
       rpm: null,
@@ -118,7 +118,7 @@ export default {
     },
     {
       name: "Dry",
-      chem_for_dry: {
+      chem_for: {
         id: null
       },
       temperature: null,
@@ -131,7 +131,7 @@ export default {
     },
     {
       name: "Disperse",
-      chem_for_disperse: {
+      chem_for: {
         id: null,
         amount: null
       },
@@ -148,7 +148,7 @@ export default {
     },
     {
       name: "Sonicate",
-      chem_for_sonicate: {
+      chem_for: {
         id: null
       },
       temperature: null,
@@ -160,7 +160,7 @@ export default {
     },
     {
       name: "Furnace",
-      chem_for_heat: {
+      chem_for: {
         id: null
       },
       temperature: null,
@@ -174,7 +174,7 @@ export default {
     },
     {
       name: "Cooling",
-      chem_for_cool: {
+      chem_for: {
         id: null
       },
       temperature: null,
@@ -187,7 +187,7 @@ export default {
     },
     {
       name: "Annealing",
-      chem_for_anneal: {
+      chem_for: {
         id: null
       },
       temperature: null,
@@ -218,7 +218,7 @@ export default {
     },
     {
       name: "Heat",
-      chem_for_heat: {
+      chem_for: {
         id: null
       },
       temperature: null,
