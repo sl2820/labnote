@@ -1,7 +1,6 @@
 <template>
   <div class="process-view">
     <div class="flex flex-col flex-grow items-start justify-between px-4">
-      <!-- <div class="text-2xl font-black">{{ process.details.method }}</div> -->
       <div class="text-2xl font-black">
         <input
           type="text"
@@ -14,10 +13,12 @@
         </datalist>
       </div>
 
-      <div class="bg-teal-200">
+      <div class="mt-6 bg-teal-200">
+        (inputs)
         <div v-for="(chem, $chemID) of prevChemicals" :key="$chemID">
           <input
             type="checkbox"
+            class="w-6"
             :id="chem.id"
             :value="chem.id"
             :checked="checkedChems[chem.id]"
@@ -25,19 +26,15 @@
             @input="updateSelected($event)"
           />
           <label :for="chem.id">
-            <div v-for="(ingr, $ingrID) of chem.ingredients" :key="$ingrID">{{ ingr.name }}</div>
+            <span v-for="(ingr, $ingrID) of chem.ingredients" :key="$ingrID">+ {{ ingr.name }}</span>
           </label>
         </div>
       </div>
 
-      <div class="bg-gray-200" v-if="process.details.reactive">
-        <div>Method: {{ process.details.detail }}</div>
-        <div>Instrument: {{ process.details.instrument }}</div>
-        <div>RPM: {{ process.details.rpm }}</div>
-        <div>Temperature: {{ process.details.temperature }}</div>
+      <div class="mt-6 bg-gray-200">
+        (details for {{ process.details.method }})
+        <div>{{ getTemplate }}</div>
       </div>
-
-      <div class="bg-yellow-200">OUTPUT:</div>
     </div>
   </div>
 </template>
@@ -92,8 +89,19 @@ export default {
           }
         }
       }
-      // console.log("checkedChems():", chems);
       return chems;
+    },
+    getTemplate() {
+      const name = this.process.details.method;
+      const del_ = ["name", "output"];
+      let p = "";
+      for (let i = 0; i < this.processFuncs.length; i++) {
+        if (this.processFuncs[i].name === name) {
+          p = Object.keys(this.processFuncs[i]);
+          p = p.filter(item => !del_.includes(item));
+        }
+      }
+      return p;
     }
   },
   methods: {
@@ -105,8 +113,6 @@ export default {
       });
     },
     updateProcessInputs(e, key) {
-      // this.selected = this.process.inputs;
-      console.log("updateProcessInputs");
       this.$store.commit("UPDATE_PROCESS", {
         process: this.process,
         key,
@@ -114,7 +120,6 @@ export default {
       });
     },
     updateSelected(e) {
-      console.log("updateSelected");
       let chemitem = e.target.value;
       if (this.selectedChems.includes(chemitem)) {
         let i = this.selectedChems.indexOf(chemitem);
@@ -122,7 +127,6 @@ export default {
       } else {
         this.selectedChems.push(chemitem);
       }
-      console.log(this.selectedChems);
     }
   }
 };
