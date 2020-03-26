@@ -52,7 +52,7 @@ export default {
       inputs: ["c1", "c2"],
       details: {
         reactive: false,
-        method: "Merge"
+        method: "Inject"
       },
       output: "c3"
     },
@@ -119,7 +119,7 @@ export default {
       inputs: ["c3", "c4"],
       details: {
         reactive: true,
-        method: "Merge",
+        method: "Mix",
         detail: "Stir",
         instrument: "Syringe",
         rpm: 100,
