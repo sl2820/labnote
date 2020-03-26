@@ -52,7 +52,7 @@ export default {
       inputs: ["c1", "c2"],
       details: {
         reactive: false,
-        method: "Merge"
+        method: "Mix"
       },
       output: "c3"
     },

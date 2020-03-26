@@ -3,16 +3,13 @@
     <ul class="flex justify-between">
       <li class="mr-2">
         🔬
-        <div class="inline-block font-bold mr-4">{{ process.details.method }}</div>
+        <div class="inline-block font-bold mr-4">{{ process.info.name }}</div>
 
         <div class="inline-block">{{ inputs }}</div>
-
-        <div v-if="process.details.reactive" class="inline-block text-sm text-gray-600 ml-8">
-          💥
-          <div class="inline-block mr-2">{{ process.details.detail }}</div>
-          <div class="inline-block mr-2">{{ process.details.instrument }}</div>
-          <div class="inline-block mr-2">{{ process.details.rpm }}rpm</div>
-          <div class="inline-block mr-2">{{ process.details.temperature }}°C</div>
+        <!-- <br /> -->
+        <div class="inline-block text-sm text-gray-600 ml-8">
+          <!-- 📑
+          <span v-for="(d, $dId) in details" :key="$dId">{{ d }}:</span>-->
         </div>
       </li>
       <li class="mr-2">
@@ -38,7 +35,10 @@ export default {
   computed: {
     ...mapState(["note"]),
     inputs() {
-      const ids = this.process.inputs;
+      let ids = [];
+      for (const i of this.process.info.inputs) {
+        ids.push(i.id);
+      }
       let names = [];
       for (const i of ids) {
         for (const c of this.note.tasks) {
@@ -50,6 +50,13 @@ export default {
         }
       }
       return names.join(", ");
+    },
+    details() {
+      let k = Object.keys(this.process.info);
+      const del_ = ["name", "inputs", "chem_for", "chem_to", "output"];
+      k = k.filter(item => !del_.includes(item));
+      console.log(k);
+      return "";
     }
   },
   methods: {

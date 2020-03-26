@@ -4,7 +4,7 @@
       <div class="text-2xl font-black">
         <input
           type="text"
-          :value="process.details.method"
+          :value="process.info.name"
           list="method"
           @change="updateProcessProperty($event, 'method')"
         />
@@ -32,8 +32,12 @@
       </div>
 
       <div class="mt-6 bg-gray-200">
-        (details for {{ process.details.method }})
-        <div>{{ getTemplate }}</div>
+        (details for {{ process.info.name }})
+        <!-- <div v-for="(detail, $detailID) of getInfoList" :key="$detailID">{{ detail }}:</div> -->
+        <div v-for="(value, key, index) in getDetails" :key="index">
+          <span class="mr-2">{{ key }}:</span>
+          <input v-model="getDetails[key]" />
+        </div>
       </div>
     </div>
   </div>
@@ -82,8 +86,13 @@ export default {
     },
     checkedChems() {
       let chems = {};
+      let ids = [];
+      for (const i of this.process.info.inputs) {
+        ids.push(i.id);
+      }
+
       for (const ch of this.prevChemicals) {
-        for (const iId of this.process.inputs) {
+        for (const iId of ids) {
           if (ch.id === iId) {
             chems[ch.id] = true;
           }
@@ -91,17 +100,31 @@ export default {
       }
       return chems;
     },
-    getTemplate() {
-      const name = this.process.details.method;
-      const del_ = ["name", "output"];
-      let p = "";
+    getInfoList() {
+      const name = this.process.info.name;
+      const del_ = ["name", "inputs", "chem_for", "chem_to", "output"];
+      let p = [];
       for (let i = 0; i < this.processFuncs.length; i++) {
         if (this.processFuncs[i].name === name) {
           p = Object.keys(this.processFuncs[i]);
           p = p.filter(item => !del_.includes(item));
         }
       }
+      console.log(p);
       return p;
+    },
+    getDetails() {
+      const info = this.process.info;
+      // console.log(info);
+      const keys = Object.keys(info);
+      const deletion = ["name", "inputs", "chem_for", "chem_to", "output"];
+      let details = {};
+      for (let k of keys) {
+        if (deletion.indexOf(k) === -1) {
+          details[k] = info[k];
+        }
+      }
+      return details;
     }
   },
   methods: {
