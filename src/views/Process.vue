@@ -39,6 +39,7 @@
           <input v-model="getDetails[key]" />
         </div>
       </div>
+      <AppMix></AppMix>
     </div>
   </div>
 </template>
@@ -46,8 +47,10 @@
 <script>
 import { mapGetters, mapState } from "vuex";
 import processDB from "@/data/sample_process";
+import AppMix from "@/components/process/AppMix";
 
 export default {
+  components: { AppMix },
   data() {
     return {
       processFuncs: processDB.functions,
