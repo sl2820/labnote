@@ -90,7 +90,11 @@ export default {
     closeTask() {
       this.$router.push({ name: "note" });
     },
-    save() {}
+    save() {
+      this.$store.commit("SAVE_PROJECT", {
+        note_data: localStorage.getItem("note")
+      });
+    }
     // moveTask(e, toTaskIndex) {
     //   const fromTaskIndex = e.dataTransfer.getData("from-task-index");
     //   this.$store.commit("MOVE_TASK", {

@@ -66,6 +66,9 @@ export default new Vuex.Store({
     },
     REMOVE_TASK(state, { note, taskIndex }) {
       note.tasks.splice(taskIndex, 1)
+    },
+    SAVE_PROJECT(state, { note_data }) {
+      console.log(note_data)
     }
     // MOVE_TASK(state, { fromTaskIndex, toTaskIndex }) {
     //   const taskList = state.note.tasks
