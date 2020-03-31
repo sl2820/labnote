@@ -6,7 +6,7 @@
           type="text"
           :value="process.info.name"
           list="method"
-          @change="updateProcessProperty($event, 'method')"
+          @change="updateProcessProperty($event, 'name')"
         />
         <datalist id="method">
           <option v-for="(func, $funcID) of getlist" :key="$funcID" :value="func"></option>
@@ -27,13 +27,13 @@
           />
           <label :for="chem.id">
             <span v-for="(ingr, $ingrID) of chem.ingredients" :key="$ingrID">+ {{ ingr.name }}</span>
+            <!-- <span>: {{ checkAmount }}{{ amount }}</span> -->
           </label>
         </div>
       </div>
 
       <div class="mt-6 bg-gray-200">
         (details for {{ process.info.name }})
-        <!-- <div v-for="(detail, $detailID) of getInfoList" :key="$detailID">{{ detail }}:</div> -->
         <div v-for="(value, key, index) in getDetails" :key="index">
           <span class="mr-2">{{ key }}:</span>
           <input v-model="getDetails[key]" />
@@ -100,19 +100,18 @@ export default {
       }
       return chems;
     },
-    getInfoList() {
-      const name = this.process.info.name;
-      const del_ = ["name", "inputs", "chem_for", "chem_to", "output"];
-      let p = [];
-      for (let i = 0; i < this.processFuncs.length; i++) {
-        if (this.processFuncs[i].name === name) {
-          p = Object.keys(this.processFuncs[i]);
-          p = p.filter(item => !del_.includes(item));
-        }
-      }
-      console.log(p);
-      return p;
-    },
+    // checkAmount() {
+    //   // const checkA = ["inputs", "chem_for", "chem_to"];
+    //   console.log(Object.keys(this.process.info));
+    //   if (Object.keys(this.process.info).includes("inputs")){
+
+    //   }
+    //   return 0;
+    // },
+    // amount() {
+    //   // console.log(this.process.info);
+    //   return 0;
+    // },
     getDetails() {
       const info = this.process.info;
       // console.log(info);
@@ -130,14 +129,14 @@ export default {
   methods: {
     updateProcessProperty(e, key) {
       this.$store.commit("UPDATE_PROCESS", {
-        process: this.process.details,
+        process: this.process.info,
         key,
         value: e.target.value
       });
     },
     updateProcessInputs(e, key) {
       this.$store.commit("UPDATE_PROCESS", {
-        process: this.process,
+        process: this.process.info,
         key,
         value: this.selectedChems
       });

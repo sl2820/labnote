@@ -103,6 +103,48 @@ export default {
           p_unit: "Pa"
         }
       ]
+    },
+    {
+      id: "c4",
+      type: "chemical",
+      ingredients: [
+        {
+          id: "c4_1",
+          name: "AgNO3",
+          product_number: "31630",
+          state: "solution",
+          solvent: "water",
+          volumn: 110,
+          v_unit: "uL",
+          concentration: 30,
+          c_unit: "mM",
+          weight: null,
+          w_unit: "g",
+          pressure: null,
+          p_unit: "Pa"
+        }
+      ]
+    },
+    {
+      id: "p2",
+      type: "process",
+      info: {
+        name: "Inject",
+        chem_for: {
+          id: "c4",
+          amount: 60
+        },
+        chem_to: {
+          id: "c3",
+          amount: 350
+        },
+        stirring: true,
+        gradually: true,
+        time: 20,
+        output: {
+          name: "+"
+        }
+      }
     }
   ]
 }

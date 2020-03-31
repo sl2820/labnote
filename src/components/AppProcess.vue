@@ -5,7 +5,15 @@
         🔬
         <div class="inline-block font-bold mr-4">{{ process.info.name }}</div>
 
-        <div class="inline-block">{{ inputs }}</div>
+        <div class="inline-block" v-if="Object.keys(process.info).includes('inputs')">{{ inputs }}</div>
+        <div
+          class="inline-block"
+          v-if="Object.keys(process.info).includes('chem_for')"
+        >{{ chem_for }}</div>
+        <div
+          class="inline-block"
+          v-if="Object.keys(process.info).includes('chem_to')"
+        >➡️{{ chem_to }}</div>
         <!-- <br /> -->
         <div class="inline-block text-sm text-gray-600 ml-8">
           <!-- 📑
@@ -37,7 +45,7 @@ export default {
     inputs() {
       let ids = [];
       for (const i of this.process.info.inputs) {
-        ids.push(i.id);
+        ids.push(i);
       }
       let names = [];
       for (const i of ids) {
@@ -49,7 +57,31 @@ export default {
           }
         }
       }
-      return names.join(", ");
+      return names.join(" ➕");
+    },
+    chem_for() {
+      let cid = this.process.info.chem_for.id;
+      let name = "";
+      for (const c of this.note.tasks) {
+        if (c.id === cid) {
+          for (const j of c.ingredients) {
+            name = j.name;
+          }
+        }
+      }
+      return name;
+    },
+    chem_to() {
+      let cid = this.process.info.chem_to.id;
+      let name = "";
+      for (const c of this.note.tasks) {
+        if (c.id === cid) {
+          for (const j of c.ingredients) {
+            name = j.name;
+          }
+        }
+      }
+      return name;
     },
     details() {
       let k = Object.keys(this.process.info);
