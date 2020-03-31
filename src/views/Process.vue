@@ -4,9 +4,9 @@
       <div class="text-2xl font-black">
         <input
           type="text"
-          :value="process.details.method"
+          :value="process.info.name"
           list="method"
-          @change="updateProcessProperty($event, 'method')"
+          @change="updateProcessProperty($event, 'name')"
         />
         <datalist id="method">
           <option v-for="(func, $funcID) of getlist" :key="$funcID" :value="func"></option>
@@ -27,13 +27,17 @@
           />
           <label :for="chem.id">
             <span v-for="(ingr, $ingrID) of chem.ingredients" :key="$ingrID">+ {{ ingr.name }}</span>
+            <!-- <span>: {{ checkAmount }}{{ amount }}</span> -->
           </label>
         </div>
       </div>
 
       <div class="mt-6 bg-gray-200">
-        (details for {{ process.details.method }})
-        <div>{{ getTemplate }}</div>
+        (details for {{ process.info.name }})
+        <div v-for="(value, key, index) in getDetails" :key="index">
+          <span class="mr-2">{{ key }}:</span>
+          <input v-model="getDetails[key]" />
+        </div>
       </div>
     </div>
   </div>
@@ -82,8 +86,13 @@ export default {
     },
     checkedChems() {
       let chems = {};
+      let ids = [];
+      for (const i of this.process.info.inputs) {
+        ids.push(i.id);
+      }
+
       for (const ch of this.prevChemicals) {
-        for (const iId of this.process.inputs) {
+        for (const iId of ids) {
           if (ch.id === iId) {
             chems[ch.id] = true;
           }
@@ -91,30 +100,43 @@ export default {
       }
       return chems;
     },
-    getTemplate() {
-      const name = this.process.details.method;
-      const del_ = ["name", "output"];
-      let p = "";
-      for (let i = 0; i < this.processFuncs.length; i++) {
-        if (this.processFuncs[i].name === name) {
-          p = Object.keys(this.processFuncs[i]);
-          p = p.filter(item => !del_.includes(item));
+    // checkAmount() {
+    //   // const checkA = ["inputs", "chem_for", "chem_to"];
+    //   console.log(Object.keys(this.process.info));
+    //   if (Object.keys(this.process.info).includes("inputs")){
+
+    //   }
+    //   return 0;
+    // },
+    // amount() {
+    //   // console.log(this.process.info);
+    //   return 0;
+    // },
+    getDetails() {
+      const info = this.process.info;
+      // console.log(info);
+      const keys = Object.keys(info);
+      const deletion = ["name", "inputs", "chem_for", "chem_to", "output"];
+      let details = {};
+      for (let k of keys) {
+        if (deletion.indexOf(k) === -1) {
+          details[k] = info[k];
         }
       }
-      return p;
+      return details;
     }
   },
   methods: {
     updateProcessProperty(e, key) {
       this.$store.commit("UPDATE_PROCESS", {
-        process: this.process.details,
+        process: this.process.info,
         key,
         value: e.target.value
       });
     },
     updateProcessInputs(e, key) {
       this.$store.commit("UPDATE_PROCESS", {
-        process: this.process,
+        process: this.process.info,
         key,
         value: this.selectedChems
       });

@@ -36,6 +36,7 @@
     </div>
 
     <div class="note-gui">
+      <AppButton class="m-5 bg-yellow-500 rounded-sm" @click.native="save()">Save</AppButton>
       <AppPipeline />
     </div>
 
@@ -88,7 +89,8 @@ export default {
     },
     closeTask() {
       this.$router.push({ name: "note" });
-    }
+    },
+    save() {}
     // moveTask(e, toTaskIndex) {
     //   const fromTaskIndex = e.dataTransfer.getData("from-task-index");
     //   this.$store.commit("MOVE_TASK", {

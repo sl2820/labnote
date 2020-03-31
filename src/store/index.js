@@ -1,7 +1,7 @@
 import Vue from "vue"
 import Vuex from "vuex"
 // import experiment from "../experiment"
-import project from "@/data/sample_project"
+import project from "@/data/sample_project_2"
 import { saveStatePlugin, uuid } from "../utils"
 // import Note from "./Note";
 Vue.use(Vuex)
@@ -52,16 +52,9 @@ export default new Vuex.Store({
       note.tasks.push({
         id: id,
         type: "process",
-        inputs: [],
-        details: {
-          reactive: null,
-          method: "",
-          detail: "",
-          instrument: "",
-          rpm: null,
-          temperature: null
-        },
-        output: ""
+        info: {
+          name: ""
+        }
       })
     },
     UPDATE_CHEMICAL(state, { chemical, key, value }) {
