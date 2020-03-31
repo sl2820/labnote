@@ -13,6 +13,8 @@ export default {
           amount: null
         }
       ],
+      stirring: false,
+      heating: false,
       gradually: false,
       time: 0,
       output: {
@@ -30,6 +32,7 @@ export default {
         amount: null
       },
       stirring: true,
+      heating: false,
       gradually: false,
       time: 0,
       output: {
@@ -51,6 +54,8 @@ export default {
         id: null,
         amount: null
       },
+      stirring: false,
+      heating: false,
       gradually: false,
       time: 0,
       output: {
@@ -111,6 +116,7 @@ export default {
       },
       rpm: null,
       time: 0,
+      heating: false,
       output: {
         name: "",
         property: "after stirring"
@@ -140,6 +146,8 @@ export default {
         concentration: null,
         amount: null
       },
+      stirring: false,
+      heating: false,
       gradually: false,
       time: 0,
       output: {
@@ -209,6 +217,8 @@ export default {
         concentration: null,
         amount: null
       },
+      stirring: false,
+      heating: false,
       gradually: false,
       time: 0,
       output: {
@@ -223,10 +233,35 @@ export default {
       },
       temperature: null,
       time: 0,
+      stirring: false,
       output: {
         name: "",
         property: "after heating"
       }
-    }
+    },
+    {
+        name: "Water bath",
+        chem_for: {
+            id: null
+        },
+        temperature: null,
+        time: 0,
+        stirring: false,
+        output: {
+            name: "",
+            property: "after heating on an water bath"
+        }
+    },
+      {
+          name: "Filtering",
+          chem_for: {
+              id: null
+          },
+          feeding: [{ name: null }],
+          output: {
+              name: "",
+              property: "filtered"
+          }
+      }
   ]
 }

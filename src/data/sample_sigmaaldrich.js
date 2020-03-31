@@ -85,6 +85,43 @@ export default {
         { number: "205796", molecular_weight: 326.43 },
         { number: "379816", molecular_weight: 326.43 }
       ]
+    },
+    {
+        formula: "H2NC6H4OH",
+        names: [
+            "4-Aminophenol",
+            "4-Hydroxyaniline"
+        ],
+        states: ["solid", "solution"],
+        products: [
+              { number: "A71328", molecular_weight: 109.13 },
+              { number: "35837", molecular_weight: 109.13 },
+              { number: "8.00421", molecular_weight: 109.13 },
+              { number: "1021204", molecular_weight: 109.13 },
+              { number: "A-136", molecular_weight: 109.13 }
+        ]
+    },
+    {
+          formula: "(CH3CO)2O",
+          names: [
+              "Acetic anhydride"
+          ],
+          states: ["liquid"],
+          products: [
+              { number: "L095004", molecular_weight: 102.09 }
+          ]
+    },
+    {
+          formula: "K2PdCl4",
+          names: [
+              "Potassium tetrachloropalladate(II)",
+              "Potassium palladium(II) chloride"
+          ],
+          states: ["solid", "solution"],
+          products: [
+              { number: "205796", molecular_weight: 326.43 },
+              { number: "379816", molecular_weight: 326.43 }
+          ]
     }
   ]
 }
