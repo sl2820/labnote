@@ -37,6 +37,7 @@
 
     <div class="note-gui">
       <AppButton class="m-5 bg-yellow-500 rounded-sm" @click.native="save()">Save</AppButton>
+      <AppButton class="m-5 bg-yellow-500 rounded-sm" @click.native="load()">Load</AppButton>
       <AppPipeline />
     </div>
 
@@ -93,6 +94,11 @@ export default {
     save() {
       this.$store.commit("SAVE_PROJECT", {
         note_data: localStorage.getItem("note")
+      });
+    },
+    load() {
+      this.$store.commit("LOAD_PROJECT", {
+        projectID: 2
       });
     }
     // moveTask(e, toTaskIndex) {

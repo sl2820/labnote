@@ -8,7 +8,7 @@ import { saveStatePlugin, uuid } from "../utils";
 Vue.use(Vuex)
 
 // const note = JSON.parse(localStorage.getItem("note")) || experiment
-const note = JSON.parse(localStorage.getItem("note")) || project
+const note = JSON.parse(localStorage.getItem("note")) || project;
 
 export default new Vuex.Store({
   plugins: [saveStatePlugin],
@@ -122,7 +122,39 @@ export default new Vuex.Store({
     //   taskList.splice(toTaskIndex, 0, taskToMove)
     // }
     },
-    // LOAD_PROJECT(state, projectID) {
+    LOAD_PROJECT(projectID) {
+      axios.get('http://49.50.167.33:3000/task/tasks/' + projectID, {})
+      .then(function(response) {
+          let data = response.data;
+          let output = {};
+            output.user_id = data[0].author;
+            output.id = data[0].project;
+            output.tasks = [];
 
-    // }
+            
+
+            for(let i = 0, max = data.length; i < max; i++) {
+                let task = {}
+                task.type = data[i].type;
+                task.order = data[i].order;
+                if(task.type == "chemical") {
+                    task.ingredients = data[i].con;
+                }
+                else if(task.type == "process") {
+                    task.info = data[i].con;
+                }
+
+                output.tasks.push(task);
+            }
+
+            console.log(output);
+            return output;
+      })
+      .catch(function (error) {
+          console.log(error);
+      })
+      .finally(function () {
+
+      });
+    }
 }});
