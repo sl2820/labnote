@@ -110,18 +110,6 @@ export default {
           products: [
               { number: "L095004", molecular_weight: 102.09 }
           ]
-    },
-    {
-          formula: "K2PdCl4",
-          names: [
-              "Potassium tetrachloropalladate(II)",
-              "Potassium palladium(II) chloride"
-          ],
-          states: ["solid", "solution"],
-          products: [
-              { number: "205796", molecular_weight: 326.43 },
-              { number: "379816", molecular_weight: 326.43 }
-          ]
     }
   ]
 }
