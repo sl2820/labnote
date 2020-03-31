@@ -1,8 +1,9 @@
-import Vue from "vue"
-import Vuex from "vuex"
+import Vue from "vue";
+import Vuex from "vuex";
+import axios from "axios";
 // import experiment from "../experiment"
-import project from "@/data/sample_project_2"
-import { saveStatePlugin, uuid } from "../utils"
+import project from "@/data/sample_project_2";
+import { saveStatePlugin, uuid } from "../utils";
 // import Note from "./Note";
 Vue.use(Vuex)
 
@@ -25,7 +26,7 @@ export default new Vuex.Store({
             return task
           }
         }
-      }
+      };
     }
   },
   mutations: {
@@ -46,7 +47,7 @@ export default new Vuex.Store({
             c_unit: ""
           }
         ]
-      })
+      });
     },
     CREATE_PROCESS(state, { id }) {
       note.tasks.push({
@@ -55,7 +56,7 @@ export default new Vuex.Store({
         info: {
           name: ""
         }
-      })
+      });
     },
     UPDATE_CHEMICAL(state, { chemical, key, value }) {
       // chemical[key] = value
@@ -67,13 +68,61 @@ export default new Vuex.Store({
     REMOVE_TASK(state, { note, taskIndex }) {
       note.tasks.splice(taskIndex, 1)
     },
-    SAVE_PROJECT(state, { note_data }) {
-      console.log(note_data)
-    }
+    SAVE_PROJECT(state, { data }) {
+      
+      data = note;
+
+      // load data
+      let user_id = data.user_id
+      let project_id = data.id
+      let tasks = data.tasks
+
+      for(let i = 0, max = tasks.length; i<max; i++) {
+
+          let d = {'project': project_id,
+                  'order': i,
+                  'author': user_id,
+                  'type': function() {
+                      if (tasks[i].type == "chemical"){
+                          return "chemical";
+                      } else if (tasks[i].type == "process") {
+                          return "process";
+                      } else {
+                          // console.log(">>>>>>>>>>>>>>" + tasks[i].type)
+                          return "err";
+                      }
+                  }(),
+                  'con': function() {
+                      if (tasks[i].type == "chemical") {
+                          return tasks[i].ingredients;
+                      } else if (tasks[i].type == "process") {
+                          return tasks[i].info;
+                      } else{
+                          console.log("err");
+                      }
+                  }()
+              };
+      
+          console.log(d);
+
+          axios.post('http://49.50.167.33:3000/task/tasks', d)
+                .then(function() {
+                    console.log("saved successfully");
+                    alert("saved successfully");
+                })
+                .catch(function (error) {
+                    // alert(error);
+                    console.log("error---");
+                    console.log(error);
+                });
+      }
     // MOVE_TASK(state, { fromTaskIndex, toTaskIndex }) {
     //   const taskList = state.note.tasks
     //   const taskToMove = taskList.splice(fromTaskIndex, 1)[0]
     //   taskList.splice(toTaskIndex, 0, taskToMove)
     // }
-  }
-})
+    },
+    // LOAD_PROJECT(state, projectID) {
+
+    // }
+}});
