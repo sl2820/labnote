@@ -17,6 +17,10 @@
         />
         <label :for="chem.id">
           <span v-for="(ingr, $ingrID) of chem.ingredients" :key="$ingrID">+ {{ ingr.name }}</span>
+          <div v-if="checkAmount(chem.id)">
+            {{ chem.id }}
+            <input type="text" placeholder="TYPE HERE" />
+          </div>
         </label>
       </div>
     </div>
@@ -108,6 +112,17 @@ export default {
     }
   },
   methods: {
+    checkAmount(id) {
+      console.log(id);
+      for (const i of this.process.info.inputs) {
+        if (i.id === id) {
+          console.log(i.amount);
+          return true;
+        } else {
+          return false;
+        }
+      }
+    },
     makeOutput() {
       console.log("Make Output button clicked!");
       var id = uuid();
