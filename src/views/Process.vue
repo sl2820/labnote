@@ -13,7 +13,16 @@
         </datalist>
       </div>
 
-      <div class="mt-6 bg-teal-200">
+      <div>
+        <div v-if="process.info.name === 'Mix'">
+          <AppMix :this_process="process"></AppMix>
+        </div>
+        <div v-else-if="process.info.name === 'Inject'">
+          <AppInject :this_process="process"></AppInject>
+        </div>
+      </div>
+
+      <!-- <div class="mt-6 bg-teal-200">
         (inputs)
         <div v-for="(chem, $chemID) of prevChemicals" :key="$chemID">
           <input
@@ -27,7 +36,6 @@
           />
           <label :for="chem.id">
             <span v-for="(ingr, $ingrID) of chem.ingredients" :key="$ingrID">+ {{ ingr.name }}</span>
-            <!-- <span>: {{ checkAmount }}{{ amount }}</span> -->
           </label>
         </div>
       </div>
@@ -38,8 +46,7 @@
           <span class="mr-2">{{ key }}:</span>
           <input v-model="getDetails[key]" />
         </div>
-      </div>
-      <AppMix></AppMix>
+      </div>-->
     </div>
   </div>
 </template>
@@ -47,10 +54,8 @@
 <script>
 import { mapGetters, mapState } from "vuex";
 import processDB from "@/data/sample_process";
-import AppMix from "@/components/process/AppMix";
 
 export default {
-  components: { AppMix },
   data() {
     return {
       processFuncs: processDB.functions,
