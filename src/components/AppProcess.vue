@@ -5,7 +5,7 @@
         🔬
         <div class="inline-block font-bold mr-4">{{ process.info.name }}</div>
 
-        <div class="inline-block" v-if="Object.keys(process.info).includes('inputs')">{{ inputs }}</div>
+        <!-- <div class="inline-block" v-if="Object.keys(process.info).includes('inputs')">{{ inputs }}</div>
         <div
           class="inline-block"
           v-if="Object.keys(process.info).includes('chem_for')"
@@ -13,12 +13,7 @@
         <div
           class="inline-block"
           v-if="Object.keys(process.info).includes('chem_to')"
-        >➡️{{ chem_to }}</div>
-        <!-- <br /> -->
-        <div class="inline-block text-sm text-gray-600 ml-8">
-          <!-- 📑
-          <span v-for="(d, $dId) in details" :key="$dId">{{ d }}:</span>-->
-        </div>
+        >➡️{{ chem_to }}</div>-->
       </li>
       <li class="mr-2">
         <button class="inline-block text-sm" @click.stop="removeProcess(note, taskIndex)">✖️</button>
