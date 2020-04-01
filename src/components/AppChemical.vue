@@ -11,6 +11,9 @@
           <div class="inline-block font-bold" v-html="toFormula(ingredient.name)"></div>
           <div v-if="$ingredientIndex + 1 < ingredientLength" class="inline-block font-bold">+</div>
         </div>
+        <div class="inline-block ml-5 italic">
+            {{ chemical.ingredients[0].state }}
+        </div>
 
         <div class="inline-block ml-5 italic" v-if="chemical.ingredients.length === 1">
           {{ chemical.ingredients[0].concentration
