@@ -62,10 +62,7 @@ export default {
           }
         ],
         gradually: true,
-        time: 10,
-        output: {
-          name: "+"
-        }
+        time: 10
       }
     },
     {
@@ -140,10 +137,7 @@ export default {
         },
         stirring: true,
         gradually: true,
-        time: 20,
-        output: {
-          name: "+"
-        }
+        time: 20
       }
     },
     {
@@ -196,6 +190,20 @@ export default {
           p_unit: "Pa"
         }
       ]
+    },
+    {
+      id: "p3",
+      type: "process",
+      info: {
+        name: "Stirring",
+        chem_for: {
+          id: "c4",
+          amount: 60
+        },
+        rpm: 10,
+        time: 60,
+        heating: true
+      }
     }
   ]
 }
