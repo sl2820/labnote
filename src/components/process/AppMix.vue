@@ -1,7 +1,7 @@
 <template>
   <div>
     <div>APP MIX</div>
-    <div>{{ this_process.info }}</div>
+    <!-- <div>{{ this_process.info }}</div> -->
 
     <div class="mt-6 bg-teal-200">
       (inputs)
@@ -18,7 +18,7 @@
         <label :for="chem.id">
           <span v-for="(ingr, $ingrID) of chem.ingredients" :key="$ingrID">+ {{ ingr.name }}</span>
           <div v-if="checkAmount(chem.id)">
-            {{ chem.id }}
+            <!-- {{ chem.id }} -->
             <input type="text" placeholder="TYPE HERE" />
           </div>
         </label>
@@ -117,7 +117,7 @@ export default {
       for (const i of this.process.info.inputs) {
         if (i.id === id) {
           console.log(i.amount);
-          return true;
+          return false;
         } else {
           return false;
         }

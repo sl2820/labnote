@@ -145,6 +145,57 @@ export default {
           name: "+"
         }
       }
+    },
+    {
+      id: "c5",
+      type: "chemical",
+      ingredients: [
+        {
+          id: "c3_1",
+          name: "PSSS",
+          product_number: "243051",
+          state: "solution",
+          solvent: "water",
+          volumn: 150,
+          v_unit: "uL",
+          concentration: 0.05,
+          c_unit: "g/L",
+          weight: null,
+          w_unit: "g",
+          pressure: null,
+          p_unit: "Pa"
+        },
+        {
+          id: "c3_2",
+          name: "NaBH4",
+          product_number: "686018",
+          state: "solution",
+          solvent: "water",
+          volumn: 200,
+          v_unit: "uL",
+          concentration: 10,
+          c_unit: "mM",
+          weight: null,
+          w_unit: "g",
+          pressure: null,
+          p_unit: "Pa"
+        },
+        {
+          id: "c4_1",
+          name: "AgNO3",
+          product_number: "31630",
+          state: "solution",
+          solvent: "water",
+          volumn: 60,
+          v_unit: "uL",
+          concentration: 30,
+          c_unit: "mM",
+          weight: null,
+          w_unit: "g",
+          pressure: null,
+          p_unit: "Pa"
+        }
+      ]
     }
   ]
 }
