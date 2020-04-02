@@ -240,28 +240,28 @@ export default {
       }
     },
     {
-        name: "Water bath",
-        chem_for: {
-            id: null
-        },
-        temperature: null,
-        time: 0,
-        stirring: false,
-        output: {
-            name: "",
-            property: "after heating on an water bath"
-        }
-    },
-      {
-          name: "Filtering",
-          chem_for: {
-              id: null
-          },
-          feeding: [{ name: null }],
-          output: {
-              name: "",
-              property: "filtered"
-          }
+      name: "Water bath",
+      chem_for: {
+        id: null
+      },
+      temperature: null,
+      time: 0,
+      stirring: false,
+      output: {
+        name: "",
+        property: "after heating on an water bath"
       }
+    },
+    {
+      name: "Filtering",
+      chem_for: {
+        id: null
+      },
+      feeding: [{ name: null }],
+      output: {
+        name: "",
+        property: "filtered"
+      }
+    }
   ]
 }

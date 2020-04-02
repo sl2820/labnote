@@ -4,7 +4,6 @@
     <!-- <div>{{ this_process.info }}</div> -->
 
     <div class="mt-6 bg-teal-200">
-      (inputs)
       <div v-for="(chem, $chemID) of prevChemicals" :key="$chemID">
         <input
           type="checkbox"
@@ -17,16 +16,23 @@
         />
         <label :for="chem.id">
           <span v-for="(ingr, $ingrID) of chem.ingredients" :key="$ingrID">+ {{ ingr.name }}</span>
-          <div v-if="checkAmount(chem.id)">
-            <!-- {{ chem.id }} -->
-            <input type="text" placeholder="TYPE HERE" />
-          </div>
+          :
+          <input
+            type="text"
+            v-model="process.info.inputs[$chemID].amount"
+            @change="
+              updateProcessAmount(
+                $event,
+                'amount',
+                process.info.inputs[$chemID].amount
+              )
+            "
+          />
         </label>
       </div>
     </div>
 
     <div class="mt-6 bg-gray-200">
-      (details for {{ process.info.name }})
       <div v-for="(value, key, index) in getDetails" :key="index">
         <span class="mr-2">{{ key }}:</span>
         <input v-model="getDetails[key]" />
@@ -99,7 +105,6 @@ export default {
     },
     getDetails() {
       const info = this.process.info;
-      // console.log(info);
       const keys = Object.keys(info);
       const deletion = ["name", "inputs", "chem_for", "chem_to", "output"];
       let details = {};
@@ -112,17 +117,6 @@ export default {
     }
   },
   methods: {
-    checkAmount(id) {
-      console.log(id);
-      for (const i of this.process.info.inputs) {
-        if (i.id === id) {
-          console.log(i.amount);
-          return false;
-        } else {
-          return false;
-        }
-      }
-    },
     makeOutput() {
       console.log("Make Output button clicked!");
       var id = uuid();
@@ -135,6 +129,13 @@ export default {
         process: this.process.info,
         key,
         value: this.selectedChems
+      });
+    },
+    updateProcessAmount(e, key, amount) {
+      this.$store.commit("UPDATE_PROCESS", {
+        process: this.process.info.inputs,
+        key,
+        value: amount
       });
     },
     updateSelected(e) {
