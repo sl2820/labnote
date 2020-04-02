@@ -20,8 +20,9 @@
         </div>
         <!-- Below is State Listing -->
         <div class="inline-block font-black pr-2">State:</div>
-        <div class="inline-block text-l">
+        <div class="inline-block text-l mr-48">
           <input
+            class = "w-24 mr-2"
             placeholder="Choose type"
             type="text"
             :value="chem.state"
@@ -33,8 +34,9 @@
           </datalist>
         </div>
 
-        <div v-if="chem==null || chem.property.length>=1" class="inline-block font-black pr-2">Property:</div>
+        <div v-if="chem!=null & chem.property.length>=1" class="inline-block text-sm pr-2 font-bold italic">
           {{list_property(chem)}}
+        </div>
         <div></div>
         <div class="inline-block font-black pr-2">Product #:</div>
         <div class="inline-block text-l">

@@ -22,7 +22,7 @@ export default {
           w_unit: "g",
           pressure: null,
           p_unit: "Pa",
-          property: ["working","and", "working"]
+          property: ["after washing"]
         }
       ]
     },
