@@ -36,7 +36,14 @@
     </div>
 
     <div class="note-gui">
-      <AppPipeline />
+      <AppButton
+        class="absolute top-0 right-0 m-5 bg-yellow-500 rounded-sm"
+        @click.native="save()"
+      >Save</AppButton>
+      <AppButton
+        class="absolute bottom-0 right-0 m-5 bg-gray-600 rounded-sm"
+        @click.native="clear()"
+      >refresh</AppButton>
     </div>
 
     <div class="task-bg" v-if="isTaskOpen" @click.self="closeTask">
@@ -51,10 +58,9 @@ import { uuid } from "@/utils";
 import AppButton from "@/components/AppButton";
 import AppChemical from "@/components/AppChemical";
 import AppProcess from "@/components/AppProcess";
-import AppPipeline from "@/components/AppPipeline";
 
 export default {
-  components: { AppButton, AppChemical, AppProcess, AppPipeline },
+  components: { AppButton, AppChemical, AppProcess },
   data() {
     return {};
   },
@@ -88,6 +94,15 @@ export default {
     },
     closeTask() {
       this.$router.push({ name: "note" });
+    },
+    save() {
+      this.$store.commit("SAVE_PROJECT", {
+        note_data: localStorage.getItem("note")
+      });
+    },
+    clear() {
+      localStorage.clear();
+      location.reload();
     }
     // moveTask(e, toTaskIndex) {
     //   const fromTaskIndex = e.dataTransfer.getData("from-task-index");

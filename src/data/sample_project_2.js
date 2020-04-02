@@ -49,12 +49,24 @@ export default {
     {
       id: "p1",
       type: "process",
-      inputs: ["c1", "c2"],
-      details: {
-        reactive: false,
-        method: "Mix"
-      },
-      output: "c3"
+      info: {
+        name: "Mix",
+        inputs: [
+          {
+            id: "c1",
+            amount: 150
+          },
+          {
+            id: "c2",
+            amount: 200
+          }
+        ],
+        gradually: true,
+        time: 10,
+        output: {
+          name: "+"
+        }
+      }
     },
     {
       id: "c3",
@@ -66,7 +78,7 @@ export default {
           product_number: "243051",
           state: "solution",
           solvent: "water",
-          volumn: 250,
+          volumn: 150,
           v_unit: "uL",
           concentration: 0.05,
           c_unit: "g/L",
@@ -81,7 +93,7 @@ export default {
           product_number: "686018",
           state: "solution",
           solvent: "water",
-          volumn: 300,
+          volumn: 200,
           v_unit: "uL",
           concentration: 10,
           c_unit: "mM",
@@ -99,12 +111,12 @@ export default {
         {
           id: "c4_1",
           name: "AgNO3",
-          product_number: "S7276",
+          product_number: "31630",
           state: "solution",
           solvent: "water",
-          volumn: 5,
-          v_unit: "mL",
-          concentration: 0.5,
+          volumn: 110,
+          v_unit: "uL",
+          concentration: 30,
           c_unit: "mM",
           weight: null,
           w_unit: "g",
@@ -116,28 +128,35 @@ export default {
     {
       id: "p2",
       type: "process",
-      inputs: ["c3", "c4"],
-      details: {
-        reactive: true,
-        method: "Mix",
-        detail: "Stir",
-        instrument: "Syringe",
-        rpm: 100,
-        temperature: 27
-      },
-      output: "c5"
+      info: {
+        name: "Inject",
+        chem_for: {
+          id: "c4",
+          amount: 60
+        },
+        chem_to: {
+          id: "c3",
+          amount: 350
+        },
+        stirring: true,
+        gradually: true,
+        time: 20,
+        output: {
+          name: "+"
+        }
+      }
     },
     {
       id: "c5",
       type: "chemical",
       ingredients: [
         {
-          id: "c5_1",
+          id: "c3_1",
           name: "PSSS",
           product_number: "243051",
           state: "solution",
           solvent: "water",
-          volumn: 250,
+          volumn: 150,
           v_unit: "uL",
           concentration: 0.05,
           c_unit: "g/L",
@@ -147,12 +166,12 @@ export default {
           p_unit: "Pa"
         },
         {
-          id: "c5_2",
+          id: "c3_2",
           name: "NaBH4",
           product_number: "686018",
           state: "solution",
           solvent: "water",
-          volumn: 300,
+          volumn: 200,
           v_unit: "uL",
           concentration: 10,
           c_unit: "mM",
@@ -162,14 +181,14 @@ export default {
           p_unit: "Pa"
         },
         {
-          id: "c5_3",
+          id: "c4_1",
           name: "AgNO3",
-          product_number: "S7276",
+          product_number: "31630",
           state: "solution",
           solvent: "water",
-          volumn: 5,
-          v_unit: "mL",
-          concentration: 0.5,
+          volumn: 60,
+          v_unit: "uL",
+          concentration: 30,
           c_unit: "mM",
           weight: null,
           w_unit: "g",
