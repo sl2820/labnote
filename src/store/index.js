@@ -48,6 +48,13 @@ export default new Vuex.Store({
         ]
       })
     },
+    CREATE_OUTPUT(state, { id, index, ingr }) {
+      note.tasks.splice(index, 0, {
+        id: id,
+        type: "chemical",
+        ingredients: ingr
+      })
+    },
     CREATE_PROCESS(state, { id }) {
       note.tasks.push({
         id: id,

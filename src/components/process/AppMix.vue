@@ -1,8 +1,5 @@
 <template>
   <div>
-    <div>APP MIX</div>
-    <!-- <div>{{ this_process.info }}</div> -->
-
     <div class="mt-6 bg-teal-200">
       <div v-for="(chem, $chemID) of prevChemicals" :key="$chemID">
         <input
@@ -118,10 +115,23 @@ export default {
   },
   methods: {
     makeOutput() {
-      console.log("Make Output button clicked!");
+      // console.log("Make Output button clicked!");
+      let ingredients = [];
+      for (const i of this.process.info.inputs) {
+        let ingrs = this.note.tasks.find(({ id }) => id === i.id).ingredients;
+        for (const j of ingrs) {
+          let data = Object.create(j);
+          data.id = uuid();
+          data.volumn = i.amount;
+          ingredients.push(data);
+        }
+      }
+      const new_index = this.note.tasks.indexOf(this.process) + 1;
       var id = uuid();
-      this.$store.commit("CREATE_CHEMICAL", {
-        id: id
+      this.$store.commit("CREATE_OUTPUT", {
+        id: id,
+        index: new_index,
+        ingr: ingredients
       });
     },
     updateProcessInputs(e, key) {
