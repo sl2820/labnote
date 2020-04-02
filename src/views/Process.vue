@@ -17,8 +17,8 @@
         <div v-if="process.info.name === 'Mix'">
           <AppMix :this_process="process"></AppMix>
         </div>
-        <div v-else-if="process.info.name === 'Inject'">
-          <AppInject :this_process="process"></AppInject>
+        <div v-else-if="process.info.name === 'Stirring'">
+          <AppStirring :this_process="process"></AppStirring>
         </div>
       </div>
     </div>
