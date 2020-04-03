@@ -23,6 +23,9 @@
         <div v-else-if="process.info.name === 'Heat'">
           <AppHeat :this_process="process"></AppHeat>
         </div>
+        <div v-else-if="process.info.name === 'Water bath'">
+          <AppWaterbath :this_process="process"></AppWaterbath>
+        </div>
       </div>
     </div>
   </div>

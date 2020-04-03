@@ -128,24 +128,6 @@ export default {
       ]
     },
     {
-      id: "p2",
-      type: "process",
-      info: {
-        name: "Inject",
-        chem_for: {
-          id: "c4",
-          amount: 60
-        },
-        chem_to: {
-          id: "c3",
-          amount: 350
-        },
-        stirring: true,
-        gradually: true,
-        time: 20
-      }
-    },
-    {
       id: "c5",
       type: "chemical",
       ingredients: [
@@ -223,6 +205,19 @@ export default {
         },
         temperature: 120,
         time: 30,
+        stirring: false
+      }
+    },
+    {
+      id: "p5",
+      type: "process",
+      info: {
+        name: "Water bath",
+        chem_for: {
+          id: "c2"
+        },
+        temperature: 70,
+        time: 600,
         stirring: false
       }
     }
