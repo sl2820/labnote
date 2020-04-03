@@ -19,9 +19,10 @@
           </datalist>
         </div>
         <!-- Below is State Listing -->
-        <div class="inline-block text-xl font-black pr-2">State:</div>
-        <div class="inline-block text-l w-20">
+        <div class="inline-block font-black pr-2">State:</div>
+        <div class="inline-block text-l mr-48">
           <input
+            class = "w-24 mr-2"
             placeholder="Choose type"
             type="text"
             :value="chem.state"
@@ -31,6 +32,10 @@
           <datalist id="state">
             <option v-for="(state, $stateID) of get_state_list" :key="$stateID" :value="state"></option>
           </datalist>
+        </div>
+
+        <div v-if="chem!=null & chem.property.length>=1" class="inline-block text-sm pr-2 font-bold italic">
+          {{list_property(chem)}}
         </div>
         <div></div>
         <div class="inline-block font-black pr-2">Product #:</div>
@@ -55,7 +60,14 @@
               :value="chem.weight"
               @change="updateChemicalProperty($event, 'weight', chem.id)"
             />
-            {{ chem.w_unit }}
+            Unit:
+            <input
+              class="w-20 min-w-0 text-xs"
+              placeholder="Enter Unit"
+              type="text"
+              :value="chem.w_unit"
+              @change="updateChemicalProperty($event, 'w_unit', chem.id)"
+            />
           </div>
         </div>
         <div v-else-if="chem.state == 'solution'" class="font-black">
@@ -79,7 +91,14 @@
               :value="chem.concentration"
               @change="updateChemicalProperty($event, 'weight', chem.id)"
             />
-            {{ chem.c_unit }}
+            Unit:
+            <input
+              class="w-20 min-w-0 text-xs"
+              placeholder="Enter Unit"
+              type="text"
+              :value="chem.c_unit"
+              @change="updateChemicalProperty($event, 'c_unit', chem.id)"
+            />
           </div>
           <div class="font-medium pr-2">
             - Volume:
@@ -90,7 +109,14 @@
               :value="chem.volumn"
               @change="updateChemicalProperty($event, 'volumn', chem.id)"
             />
-            {{ chem.v_unit }}
+            Unit:
+            <input
+              class="w-20 min-w-0 text-xs"
+              placeholder="Enter Unit"
+              type="text"
+              :value="chem.v_unit"
+              @change="updateChemicalProperty($event, 'v_unit', chem.id)"
+            />
           </div>
         </div>
         <div v-else-if="chem.state == 'liquid'" class="font-black">
@@ -104,7 +130,14 @@
               :value="chem.weight"
               @change="updateChemicalProperty($event, 'weight', chem.id)"
             />
-            {{ chem.w_unit }}
+            Unit:
+            <input
+              class="w-20 min-w-0 text-xs"
+              placeholder="Enter Unit"
+              type="text"
+              :value="chem.w_unit"
+              @change="updateChemicalProperty($event, 'w_unit', chem.id)"
+            />
           </div>
         </div>
         <div v-else-if="chem.state == 'gas'" class="font-black">
@@ -118,7 +151,14 @@
               :value="chem.volumn"
               @change="updateChemicalProperty($event, 'volumn', chem.id)"
             />
-            {{ chem.v_unit }}
+            Unit:
+            <input
+              class="w-20 min-w-0 text-xs"
+              placeholder="Enter Unit"
+              type="text"
+              :value="chem.v_unit"
+              @change="updateChemicalProperty($event, 'v_unit', chem.id)"
+            />
           </div>
           <div class="font-medium pr-2">
             - Pressure:
@@ -129,13 +169,21 @@
               :value="chem.pressure"
               @change="updateChemicalProperty($event, 'pressure', chem.id)"
             />
-            {{ chem.p_unit }}
+            Unit:
+            <input
+              class="w-20 min-w-0 text-xs"
+              placeholder="Enter Unit"
+              type="text"
+              :value="chem.p_unit"
+              @change="updateChemicalProperty($event, 'p_unit', chem.id)"
+            />
           </div>
         </div>
         <div v-else class="font-black">
           Details:
           <p class="font-medium">Unidentified states. Plese check</p>
         </div>
+
       </div>
     </div>
   </div>
@@ -226,7 +274,17 @@ export default {
       } else {
         return name;
       }
+    },
+  list_property(chem){
+    var list="";
+    let i = 0;
+    while (i <(chem.property.length)){
+      list = list+" "+chem.property[i];
+      i++;
     }
+
+    return list;
+  }
   }
 };
 </script>
@@ -234,7 +292,7 @@ export default {
 <style scoped>
 .chemical-view {
   @apply relative flex flex-row my-32 mx-auto bg-white p-4 inset-0 text-left rounded shadow;
-  max-width: 600px;
+  max-width: 800px;
   min-height: 0%;
 }
 </style>

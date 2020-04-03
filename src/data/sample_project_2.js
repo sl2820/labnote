@@ -21,7 +21,8 @@ export default {
           weight: null,
           w_unit: "g",
           pressure: null,
-          p_unit: "Pa"
+          p_unit: "Pa",
+          property: ["after washing"]
         }
       ]
     },
@@ -42,7 +43,8 @@ export default {
           weight: null,
           w_unit: "g",
           pressure: null,
-          p_unit: "Pa"
+          p_unit: "Pa",
+          property: []
         }
       ]
     },
@@ -82,7 +84,8 @@ export default {
           weight: null,
           w_unit: "g",
           pressure: null,
-          p_unit: "Pa"
+          p_unit: "Pa",
+          property: []
         },
         {
           id: "c3_2",
@@ -97,7 +100,8 @@ export default {
           weight: null,
           w_unit: "g",
           pressure: null,
-          p_unit: "Pa"
+          p_unit: "Pa",
+          property: []
         }
       ]
     },
@@ -118,7 +122,8 @@ export default {
           weight: null,
           w_unit: "g",
           pressure: null,
-          p_unit: "Pa"
+          p_unit: "Pa",
+          property: []
         }
       ]
     },
