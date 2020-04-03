@@ -12,12 +12,20 @@
           <div v-if="$ingredientIndex + 1 < ingredientLength" class="inline-block font-bold">+</div>
         </div>
 
-        <div class="inline-block ml-5 italic" v-if="chemical.ingredients.length === 1">
-          {{ chemical.ingredients[0].concentration
-          }}{{ chemical.ingredients[0].c_unit }}
+
+        <div class = "inline-block" v-if="chemical.ingredients.length === 1">
+          <div class="inline-block ml-5 italic">
+              {{ per_state_elements(chemical.ingredients[0])[0] }}
+          </div>
+          <div class="inline-block ml-5 underline">
+              {{ per_state_elements(chemical.ingredients[0])[1] }}
+          </div>
+          <div class = "inline-block text-sm font-bold italic ml-5" v-if="chemical.ingredients[0].property !=null & chemical.ingredients[0].property.length >=1">
+              {{ show_property(chemical.ingredients[0].property) }}
+          </div>
         </div>
 
-        <div class="inline-block ml-5 underline">{{ summedVolumn }}mL</div>
+
       </li>
       <li class="mr-2">
         <button class="inline-block text-sm" @click.stop="removeChemical(note, taskIndex)">✖️</button>
@@ -76,6 +84,37 @@ export default {
       } else {
         return name;
       }
+    },
+    per_state_elements(chemical_){
+      var state = chemical_.state;
+      var italic = "";
+      var underline = "";
+      if (state == "solid"){
+        underline = underline + chemical_.weight +" "+chemical_.w_unit;
+      }else if(state =="solution"){
+        italic = italic + chemical_.concentration +" "+chemical_.c_unit;
+        underline = underline + chemical_.volumn + " "+chemical_.v_unit;
+
+      }else if (state =="gas"){
+        italic = italic + chemical_.pressure +" "+chemical_.p_unit;
+        underline = underline + chemical_.volumn + " "+chemical_.v_unit;
+
+      }else if (state == "liquid"){
+        underline = underline + chemical_.volumn + " "+chemical_.v_unit;
+      }else{
+        properties = "wrong"
+      }
+
+      var properties = [italic, underline];
+      return properties;
+
+    },
+    show_property(property){
+      var pt = "";
+      for (let i = 0; i<property.length; i++){
+        pt = pt+property[i] + " ";
+      }
+      return pt;
     }
   }
 };

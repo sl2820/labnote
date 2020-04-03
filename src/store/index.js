@@ -43,7 +43,12 @@ export default new Vuex.Store({
             volumn: null,
             v_unit: "",
             concentration: null,
-            c_unit: ""
+            c_unit: "",
+            weight: null,
+            w_unit: "g",
+            pressure: null,
+            p_unit: "Pa",
+            property: []
           }
         ]
       })
