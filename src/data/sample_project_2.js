@@ -220,6 +220,19 @@ export default {
         time: 600,
         stirring: false
       }
+    },
+    {
+      id: "p6",
+      type: "process",
+      info: {
+        name: "Cooling",
+        chem_for: {
+          id: "c1"
+        },
+        temperature: -10,
+        time: 400,
+        feeding_gas: [{ name: "hydrogen" }, { name: "oxygen" }]
+      }
     }
   ]
 }
