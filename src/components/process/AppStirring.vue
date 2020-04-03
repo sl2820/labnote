@@ -2,14 +2,18 @@
   <div>
     <!-- <div>{{ this_process.info }}</div> -->
     <!-- <div>{{ prevChemicals }}</div> -->
-    <div v-for="(chem, $chemID) of prevChemicals" :key="$chemID">
+    <div v-for="(chem, $chemID) of prevChemicals" :key="$chemID + 'chem'">
       <input type="radio" v-model="chosen" name="chosen" :value="chem.id" />
       {{ chem.id }}
     </div>
     chosen: {{ chosen }}
-    <div>rpm</div>
-    <div>time</div>
-    <div>heating</div>
+    <div v-for="(value, key, index) in getDetails" :key="index + 'det'">
+      <span class="mr-2">{{ key }}:</span>
+      <input v-model="getDetails[key]" @change="updateProcessInfo($event, key)" />
+    </div>
+
+    <br />
+    <AppButton class="bg-teal-400 rounded-sm" @click.native="makeOutput()">Make Output</AppButton>
   </div>
 </template>
 
@@ -18,7 +22,10 @@
 //     name: "",
 //     property: "after stirring"
 import { mapGetters, mapState } from "vuex";
+import { uuid } from "@/utils";
+import AppButton from "@/components/AppButton";
 export default {
+  components: { AppButton },
   data() {
     return { chosen: null };
   },
@@ -47,6 +54,41 @@ export default {
         }
       }
       return chemicals;
+    },
+    getDetails() {
+      const info = this.this_process.info;
+      const keys = Object.keys(info);
+      const deletion = ["name", "inputs", "chem_for", "chem_to", "output"];
+      let details = {};
+      for (let k of keys) {
+        if (deletion.indexOf(k) === -1) {
+          details[k] = info[k];
+        }
+      }
+      return details;
+    }
+  },
+  methods: {
+    updateProcessInfo(e, key) {
+      this.$store.commit("UPDATE_PROCESS", {
+        process: this.this_process.info,
+        key,
+        value: e.target.value
+      });
+    },
+    makeOutput() {
+      let ingredients = this.note.tasks.find(({ id }) => id === this.chosen)
+        .ingredients;
+      for (let c of ingredients) {
+        c.property.push("after stirring");
+      }
+      const new_index = this.note.tasks.indexOf(this.this_process) + 1;
+      var id = uuid();
+      this.$store.commit("CREATE_OUTPUT", {
+        id: id,
+        index: new_index,
+        ingr: ingredients
+      });
     }
   }
 };
