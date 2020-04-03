@@ -233,6 +233,17 @@ export default {
         time: 400,
         feeding_gas: [{ name: "hydrogen" }, { name: "oxygen" }]
       }
+    },
+    {
+      id: "p7",
+      type: "process",
+      info: {
+        name: "Filtering",
+        chem_for: {
+          id: "c1"
+        },
+        feeding: [{ name: "paper" }]
+      }
     }
   ]
 }
