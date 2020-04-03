@@ -5,7 +5,10 @@
       {{ chem.id }}
     </div>
     chosen: {{ chosen }}
-    <div>AMOUNT?</div>
+    <div>
+      <span>amount:</span>
+      <input v-model="this_process.info.chem_for.amount" />
+    </div>
     <div v-for="(value, key, index) in getDetails" :key="index + 'det'">
       <span class="mr-2">{{ key }}:</span>
       <input v-model="getDetails[key]" @change="updateProcessInfo($event, key)" />
