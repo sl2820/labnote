@@ -1,10 +1,9 @@
 <template>
   <div>
-    <div v-for="(chem, $chemID) of prevChemicals" :key="$chemID + 'chem'">
+    <span class="pr-4" v-for="(chem, $chemID) of prevChemicals" :key="$chemID + 'chem'">
       <input type="radio" v-model="chosen" name="chosen" :value="chem.id" />
       {{ chem.id }}
-    </div>
-    chosen: {{ chosen }}
+    </span>
     <div>
       <span>amount:</span>
       <input v-model="this_process.info.chem_for.amount" />
