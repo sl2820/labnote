@@ -119,8 +119,9 @@ export default {
       let ingredients = [];
       for (const i of this.process.info.inputs) {
         let ingrs = this.note.tasks.find(({ id }) => id === i.id).ingredients;
-        for (const j of ingrs) {
-          let data = Object.create(j);
+        for (const ingr of ingrs) {
+          const _s = JSON.stringify(ingr);
+          let data = JSON.parse(_s);
           data.id = uuid();
           data.volumn = i.amount;
           ingredients.push(data);
