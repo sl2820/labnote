@@ -20,6 +20,9 @@
         <div v-else-if="process.info.name === 'Stirring'">
           <AppStirring :this_process="process"></AppStirring>
         </div>
+        <div v-else-if="process.info.name === 'Heat'">
+          <AppHeat :this_process="process"></AppHeat>
+        </div>
       </div>
     </div>
   </div>

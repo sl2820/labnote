@@ -1,12 +1,11 @@
 <template>
   <div>
-    <!-- <div>{{ this_process.info }}</div> -->
-    <!-- <div>{{ prevChemicals }}</div> -->
     <div v-for="(chem, $chemID) of prevChemicals" :key="$chemID + 'chem'">
       <input type="radio" v-model="chosen" name="chosen" :value="chem.id" />
       {{ chem.id }}
     </div>
     chosen: {{ chosen }}
+    <div>AMOUNT?</div>
     <div v-for="(value, key, index) in getDetails" :key="index + 'det'">
       <span class="mr-2">{{ key }}:</span>
       <input v-model="getDetails[key]" @change="updateProcessInfo($event, key)" />
@@ -18,9 +17,6 @@
 </template>
 
 <script>
-//     output: {
-//     name: "",
-//     property: "after stirring"
 import { mapGetters, mapState } from "vuex";
 import { uuid } from "@/utils";
 import AppButton from "@/components/AppButton";
@@ -77,10 +73,15 @@ export default {
       });
     },
     makeOutput() {
-      let ingredients = this.note.tasks.find(({ id }) => id === this.chosen)
+      let ingredients = [];
+      const ingrs = this.note.tasks.find(({ id }) => id === this.chosen)
         .ingredients;
-      for (let c of ingredients) {
-        c.property.push("after stirring");
+      for (const ingr of ingrs) {
+        let _s = JSON.stringify(ingr);
+        let data = JSON.parse(_s);
+        data.id = uuid();
+        data.property.push("after stirring");
+        ingredients.push(data);
       }
       const new_index = this.note.tasks.indexOf(this.this_process) + 1;
       var id = uuid();

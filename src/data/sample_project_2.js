@@ -212,6 +212,19 @@ export default {
         time: 60,
         heating: true
       }
+    },
+    {
+      id: "p4",
+      type: "process",
+      info: {
+        name: "Heat",
+        chem_for: {
+          id: "c2"
+        },
+        temperature: 120,
+        time: 30,
+        stirring: false
+      }
     }
   ]
 }
