@@ -117,8 +117,8 @@
               class="w-20 min-w-0 text-xs"
               placeholder="Enter volume"
               type="text"
-              :value="chem.volumn"
-              @change="updateChemicalProperty($event, 'volumn', chem.id)"
+              :value="chem.volume"
+              @change="updateChemicalProperty($event, 'volume', chem.id)"
             />
             Unit:
             <input
@@ -133,13 +133,13 @@
         <div v-else-if="chem.state == 'liquid'" class="font-black">
           Details:
           <div class="font-medium pr-2">
-            - Volumn:
+            - volume:
             <input
               class="w-20 min-w-0 text-xs"
-              placeholder="Enter volumn"
+              placeholder="Enter volume"
               type="text"
-              :value="chem.volumn"
-              @change="updateChemicalProperty($event, 'volumn', chem.id)"
+              :value="chem.volume"
+              @change="updateChemicalProperty($event, 'volume', chem.id)"
             />
             Unit:
             <input
@@ -154,13 +154,13 @@
         <div v-else-if="chem.state == 'gas'" class="font-black">
           Details:
           <div class="font-medium pr-2">
-            - Volumn:
+            - volume:
             <input
               class="w-20 min-w-0 text-xs"
               placeholder="Enter volume"
               type="text"
-              :value="chem.volumn"
-              @change="updateChemicalProperty($event, 'volumn', chem.id)"
+              :value="chem.volume"
+              @change="updateChemicalProperty($event, 'volume', chem.id)"
             />
             Unit:
             <input

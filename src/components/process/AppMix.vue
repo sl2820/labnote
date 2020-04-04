@@ -77,8 +77,8 @@ export default {
           const _s = JSON.stringify(ingr)
           let data = JSON.parse(_s)
           data.id = uuid()
-          // data.volumn = i.amount
-          data.volumn = null
+          // data.volume = i.amount
+          data.volume = null
           if (i.amount > 0) {
             ingredients.push(data)
           }

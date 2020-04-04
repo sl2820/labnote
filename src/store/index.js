@@ -38,7 +38,7 @@ export default new Vuex.Store({
             product_number: "",
             state: "",
             solvent: "",
-            volumn: null,
+            volume: null,
             v_unit: "",
             concentration: null,
             c_unit: "",
