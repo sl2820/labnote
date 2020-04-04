@@ -15,14 +15,18 @@
             @change="updateChemicalProperty($event, 'name', chem.id)"
           />
           <datalist id="name">
-            <option v-for="(name, $nameID) of get_chem_list" :key="$nameID" :value="name"></option>
+            <option
+              v-for="(name, $nameID) of get_chem_list"
+              :key="$nameID"
+              :value="name"
+            ></option>
           </datalist>
         </div>
         <!-- Below is State Listing -->
         <div class="inline-block font-black pr-2">State:</div>
         <div class="inline-block text-l mr-48">
           <input
-            class = "w-24 mr-2"
+            class="w-24 mr-2"
             placeholder="Choose type"
             type="text"
             :value="chem.state"
@@ -30,12 +34,19 @@
             @change="updateChemicalProperty($event, 'state', chem.id)"
           />
           <datalist id="state">
-            <option v-for="(state, $stateID) of get_state_list" :key="$stateID" :value="state"></option>
+            <option
+              v-for="(state, $stateID) of get_state_list"
+              :key="$stateID"
+              :value="state"
+            ></option>
           </datalist>
         </div>
 
-        <div v-if="chem!=null & chem.property.length>=1" class="inline-block text-sm pr-2 font-bold italic">
-          {{list_property(chem)}}
+        <div
+          v-if="(chem != null) & (chem.property.length >= 1)"
+          class="inline-block text-sm pr-2 font-bold italic"
+        >
+          {{ list_property(chem) }}
         </div>
         <div></div>
         <div class="inline-block font-black pr-2">Product #:</div>
@@ -89,7 +100,7 @@
               placeholder="Enter concentration"
               type="text"
               :value="chem.concentration"
-              @change="updateChemicalProperty($event, 'weight', chem.id)"
+              @change="updateChemicalProperty($event, 'concentration', chem.id)"
             />
             Unit:
             <input
@@ -122,21 +133,21 @@
         <div v-else-if="chem.state == 'liquid'" class="font-black">
           Details:
           <div class="font-medium pr-2">
-            - Weight:
+            - Volumn:
             <input
               class="w-20 min-w-0 text-xs"
-              placeholder="Enter weight"
+              placeholder="Enter volumn"
               type="text"
-              :value="chem.weight"
-              @change="updateChemicalProperty($event, 'weight', chem.id)"
+              :value="chem.volumn"
+              @change="updateChemicalProperty($event, 'volumn', chem.id)"
             />
             Unit:
             <input
               class="w-20 min-w-0 text-xs"
               placeholder="Enter Unit"
               type="text"
-              :value="chem.w_unit"
-              @change="updateChemicalProperty($event, 'w_unit', chem.id)"
+              :value="chem.v_unit"
+              @change="updateChemicalProperty($event, 'v_unit', chem.id)"
             />
           </div>
         </div>
@@ -183,16 +194,15 @@
           Details:
           <p class="font-medium">Unidentified states. Plese check</p>
         </div>
-
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import { mapGetters } from "vuex";
-import sigma from "@/data/sample_sigmaaldrich";
-import data_autocomplete from "@/data/data_autocomplete";
+import { mapGetters } from "vuex"
+import sigma from "@/data/sample_sigmaaldrich"
+import data_autocomplete from "@/data/data_autocomplete"
 
 export default {
   data() {
@@ -203,90 +213,90 @@ export default {
       temp_name: null,
       temp_state: null,
       sigma_obj: sigma.sigmaaldrich
-    };
+    }
   },
   computed: {
     ...mapGetters(["getTask"]),
     chemical() {
-      return this.getTask(this.$route.params.id);
+      return this.getTask(this.$route.params.id)
     },
     get_chem_list() {
-      var formatted = [];
+      var formatted = []
       for (let i = 0; i < this.sigma_obj.length; i++) {
         for (let j = 0; j < this.sigma_obj[i].names.length; j++) {
           var value =
-            this.sigma_obj[i].formula + "-" + this.sigma_obj[i].names[j];
-          formatted.push(value);
+            this.sigma_obj[i].formula + "-" + this.sigma_obj[i].names[j]
+          formatted.push(value)
         }
       }
       // var random = ["a", "b"];
-      return formatted.sort();
+      return formatted.sort()
     },
     get_state_list() {
-      var clean;
+      var clean
       if (this.temp_name != null) {
-        clean = this.temp_name.split("-")[0];
+        clean = this.temp_name.split("-")[0]
       } else {
-        clean = "";
+        clean = ""
       }
-      var formatted = [];
+      var formatted = []
       for (let i = 0; i < this.sigma_obj.length; i++) {
         if (clean.localeCompare(this.sigma_obj[i].formula) == 0) {
           for (let j = 0; j < this.sigma_obj[i].states.length; j++) {
-            var value = this.sigma_obj[i].states[j];
-            formatted.push(value);
+            var value = this.sigma_obj[i].states[j]
+            formatted.push(value)
           }
         }
       }
-      return formatted;
+      return formatted
     }
   },
   methods: {
     updateChemicalProperty(e, key, chemid) {
-      const found = this.chemical.ingredients.find(({ id }) => id === chemid);
-      var value_;
+      const found = this.chemical.ingredients.find(({ id }) => id === chemid)
+      var value_
       if (key == "name") {
-        value_ = e.target.value.split("-")[0];
-        this.temp_name = e.target.value;
+        value_ = e.target.value.split("-")[0]
+        this.temp_name = e.target.value
       } else {
-        value_ = e.target.value;
-        this.temp_state = e.target.value;
+        value_ = e.target.value
+        this.temp_state = e.target.value
       }
       this.$store.commit("UPDATE_CHEMICAL", {
         chemical: found,
         key,
         value: value_
-      });
+      })
     },
     toFormula(name) {
-      let num = name.match(/\d/g);
-      let sub = [];
+      let num = name.match(/\d/g)
+      let sub = []
       if (num) {
         for (const n of name) {
           if (n.match(/\d/)) {
-            sub.push("<sub>" + n.toString() + "</sub>");
+            sub.push("<sub>" + n.toString() + "</sub>")
           } else {
-            sub.push(n);
+            sub.push(n)
           }
         }
         // console.log(sub)
-        return sub.join("");
+        return sub.join("")
       } else {
-        return name;
+        return name
       }
     },
-  list_property(chem){
-    var list="";
-    let i = 0;
-    while (i <(chem.property.length)){
-      list = list+" "+chem.property[i];
-      i++;
-    }
+    list_property(chem) {
+      var list = ""
+      let i = 0
+      while (i < chem.property.length) {
+        list = list + " " + chem.property[i]
+        i++
+      }
 
-    return list;
+      return list
+    }
   }
-  }
-};
+}
 </script>
 
 <style scoped>
