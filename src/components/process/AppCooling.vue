@@ -1,13 +1,15 @@
 <template>
   <div>
-    <span
-      class="pr-4"
-      v-for="(chem, $chemID) of prevChemicals"
-      :key="$chemID + 'chem'"
-    >
-      <input type="radio" v-model="chosen" name="chosen" :value="chem.id" />
-      {{ names(chem.id) }}
-    </span>
+    <ul>
+      <li
+        class="pr-4"
+        v-for="(chem, $chemID) of prevChemicals"
+        :key="$chemID + 'chem'"
+      >
+        <input type="radio" v-model="chosen" name="chosen" :value="chem.id" />
+        {{ names(chem.id) }}
+      </li>
+    </ul>
 
     <div v-for="(value, key, index) in getDetails" :key="index + 'det'">
       <span class="mr-2">{{ key }}:</span>

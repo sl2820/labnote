@@ -1,20 +1,22 @@
 <template>
   <div>
-    <span
-      class="pr-4"
-      v-for="(chem, $chemID) of prevChemicals"
-      :key="$chemID + 'chem'"
-    >
-      <input
-        type="radio"
-        v-model="chosen"
-        name="chosen"
-        :value="chem.id"
-        :checked="radios(chosen)[chem.id]"
-      />
-      {{ names(chem.id) }}
-      <!-- {{ radios(chosen)[chem.id] }} -->
-    </span>
+    <ul>
+      <li
+        class="pr-4"
+        v-for="(chem, $chemID) of prevChemicals"
+        :key="$chemID + 'chem'"
+      >
+        <input
+          type="radio"
+          v-model="chosen"
+          name="chosen"
+          :value="chem.id"
+          :checked="radios(chosen)[chem.id]"
+        />
+        {{ names(chem.id) }}
+        <!-- {{ radios(chosen)[chem.id] }} -->
+      </li>
+    </ul>
     <div>
       <span>amount:</span>
       <input v-model="this_process.info.chem_for.amount" />
