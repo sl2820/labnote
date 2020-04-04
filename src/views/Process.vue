@@ -9,7 +9,11 @@
           @change="updateProcessProperty($event, 'info')"
         />
         <datalist id="method">
-          <option v-for="(func, $funcID) of getlist" :key="$funcID" :value="func"></option>
+          <option
+            v-for="(func, $funcID) of getlist"
+            :key="$funcID"
+            :value="func"
+          ></option>
         </datalist>
       </div>
 
@@ -38,58 +42,58 @@
 </template>
 
 <script>
-import { mapGetters, mapState } from "vuex";
-import processDB from "@/data/sample_process";
-import processTemplate from "@/data/process_template";
+import { mapGetters, mapState } from "vuex"
+import processDB from "@/data/sample_process"
+import processTemplate from "@/data/process_template"
 
 export default {
   data() {
     return {
       processFuncs: processDB.functions
-    };
+    }
   },
   computed: {
     ...mapGetters(["getTask"]),
     ...mapState(["note"]),
     process() {
-      return this.getTask(this.$route.params.id);
+      return this.getTask(this.$route.params.id)
     },
     getlist() {
-      var funcs = [];
+      var funcs = []
       for (let i = 0; i < this.processFuncs.length; i++) {
-        funcs.push(this.processFuncs[i].name);
+        funcs.push(this.processFuncs[i].name)
       }
-      return funcs;
+      return funcs
     },
     prevChemicals() {
-      const procId = this.$route.params.id;
-      let taskIds = [];
+      const procId = this.$route.params.id
+      let taskIds = []
       for (const t of this.note.tasks) {
-        taskIds.push(t.id);
+        taskIds.push(t.id)
       }
-      let chemicals = [];
+      let chemicals = []
       for (const task of this.note.tasks) {
         if (taskIds.indexOf(procId) < taskIds.indexOf(task.id)) {
-          break;
+          break
         }
         if (task.type === "chemical") {
-          chemicals.push(task);
+          chemicals.push(task)
         }
       }
-      return chemicals;
+      return chemicals
     }
   },
   methods: {
     updateProcessProperty(e, key) {
       const procTemp = processTemplate.templates.find(
         ({ name }) => name === e.target.value
-      );
-      let data = procTemp.info;
-      data.name = e.target.value;
-      console.log(data);
+      )
+      let data = procTemp.info
+      data.name = e.target.value
+
       if (e.target.value === "Mix") {
         for (const c of this.prevChemicals) {
-          data.inputs.push({ id: c.id, amount: 0 });
+          data.inputs.push({ id: c.id, amount: 0 })
         }
       }
 
@@ -97,10 +101,10 @@ export default {
         process: this.process,
         key,
         value: data
-      });
+      })
     }
   }
-};
+}
 </script>
 
 <style scoped>

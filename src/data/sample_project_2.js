@@ -60,7 +60,7 @@ export default {
           },
           {
             id: "c2",
-            amount: 200
+            amount: 0
           }
         ],
         gradually: true,
