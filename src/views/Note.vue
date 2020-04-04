@@ -5,11 +5,13 @@
         <AppButton
           class="mx-3 mb-5 bg-teal-500 rounded-sm"
           @click.native="createChemical()"
-        >Create Chemical</AppButton>
+          >Create Chemical</AppButton
+        >
         <AppButton
           class="mx-3 mb-5 bg-indigo-500 rounded-full"
           @click.native="createProcess()"
-        >Create Process</AppButton>
+          >Create Process</AppButton
+        >
         <!-- <div
           v-for="(task, $taskIndex) in note.tasks"
           :key="$taskIndex + '-chemical'"
@@ -36,8 +38,17 @@
     </div>
 
     <div class="note-gui">
-      <AppButton class="m-5 bg-yellow-500 rounded-sm" @click.native="save()">Save</AppButton>
-      <AppButton class="m-5 bg-yellow-500 rounded-sm" @click.native="load()">Load</AppButton>
+      <AppButton class="m-5 bg-yellow-500 rounded-sm" @click.native="save()"
+        >Save</AppButton
+      >
+      <AppButton class="m-5 bg-yellow-500 rounded-sm" @click.native="load()"
+        >Load</AppButton
+      >
+      <AppButton
+        class="m-5 bg-yellow-600 rounded-sm"
+        @click.native="openAnalysis()"
+        >Analysis</AppButton
+      >
       <AppPipeline />
     </div>
 
@@ -48,58 +59,65 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
-import { uuid } from "@/utils";
-import AppButton from "@/components/AppButton";
-import AppChemical from "@/components/AppChemical";
-import AppProcess from "@/components/AppProcess";
-import AppPipeline from "@/components/AppPipeline";
+import { mapState } from "vuex"
+import { uuid } from "@/utils"
+import AppButton from "@/components/AppButton"
+import AppChemical from "@/components/AppChemical"
+import AppProcess from "@/components/AppProcess"
+import AppPipeline from "@/components/AppPipeline"
 
 export default {
   components: { AppButton, AppChemical, AppProcess, AppPipeline },
   data() {
-    return {};
+    return {}
   },
   computed: {
     ...mapState(["note"]),
     isTaskOpen() {
-      return this.$route.name === "chemical" || this.$route.name === "process";
+      return (
+        this.$route.name === "chemical" ||
+        this.$route.name === "process" ||
+        this.$route.name === "analysis"
+      )
     }
   },
   methods: {
     createChemical() {
-      var id = uuid();
+      var id = uuid()
       this.$store.commit("CREATE_CHEMICAL", {
         id: id
-      });
-      this.$router.push({ name: "chemical", params: { id: id } });
+      })
+      this.$router.push({ name: "chemical", params: { id: id } })
     },
     createProcess() {
-      var id = uuid();
+      var id = uuid()
       this.$store.commit("CREATE_PROCESS", {
         id: id
-      });
-      this.$router.push({ name: "process", params: { id: id } });
+      })
+      this.$router.push({ name: "process", params: { id: id } })
     },
     openTask(task) {
       if (task.type === "chemical") {
-        this.$router.push({ name: "chemical", params: { id: task.id } });
+        this.$router.push({ name: "chemical", params: { id: task.id } })
       } else if (task.type === "process") {
-        this.$router.push({ name: "process", params: { id: task.id } });
+        this.$router.push({ name: "process", params: { id: task.id } })
       }
     },
     closeTask() {
-      this.$router.push({ name: "note" });
+      this.$router.push({ name: "note" })
+    },
+    openAnalysis() {
+      this.$router.push({ name: "analysis", params: { id: this.note.id } })
     },
     save() {
       this.$store.commit("SAVE_PROJECT", {
         note_data: localStorage.getItem("note")
-      });
+      })
     },
     load() {
       this.$store.commit("LOAD_PROJECT", {
         projectID: 2
-      });
+      })
     }
     // moveTask(e, toTaskIndex) {
     //   const fromTaskIndex = e.dataTransfer.getData("from-task-index");
@@ -114,7 +132,7 @@ export default {
     //   e.dataTransfer.setData("from-task-index", fromTaskIndex);
     // }
   }
-};
+}
 </script>
 
 <style lang="css">
