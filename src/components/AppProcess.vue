@@ -5,6 +5,9 @@
         🔬
         <div class="inline-block font-bold mr-4">{{ process.info.name }}</div>
 
+        <span>
+          {{ details(this.process.info) }}
+        </span>
         <!-- <div class="inline-block" v-if="Object.keys(process.info).includes('inputs')">{{ inputs }}</div>
         <div
           class="inline-block"
@@ -16,14 +19,19 @@
         >➡️{{ chem_to }}</div>-->
       </li>
       <li class="mr-2">
-        <button class="inline-block text-sm" @click.stop="removeProcess(note, taskIndex)">✖️</button>
+        <button
+          class="inline-block text-sm"
+          @click.stop="removeProcess(note, taskIndex)"
+        >
+          ✖️
+        </button>
       </li>
     </ul>
   </div>
 </template>
 
 <script>
-import { mapState } from "vuex";
+import { mapState } from "vuex"
 export default {
   props: {
     process: {
@@ -38,60 +46,79 @@ export default {
   computed: {
     ...mapState(["note"]),
     inputs() {
-      let ids = [];
+      let ids = []
       for (const i of this.process.info.inputs) {
-        ids.push(i);
+        ids.push(i)
       }
-      let names = [];
+      let names = []
       for (const i of ids) {
         for (const c of this.note.tasks) {
           if (c.id === i) {
             for (const j of c.ingredients) {
-              names.push(j.name);
+              names.push(j.name)
             }
           }
         }
       }
-      return names.join(" ➕");
+      return names.join(" ➕")
     },
     chem_for() {
-      let cid = this.process.info.chem_for.id;
-      let name = "";
+      let cid = this.process.info.chem_for.id
+      let name = ""
       for (const c of this.note.tasks) {
         if (c.id === cid) {
           for (const j of c.ingredients) {
-            name = j.name;
+            name = j.name
           }
         }
       }
-      return name;
+      return name
     },
     chem_to() {
-      let cid = this.process.info.chem_to.id;
-      let name = "";
+      let cid = this.process.info.chem_to.id
+      let name = ""
       for (const c of this.note.tasks) {
         if (c.id === cid) {
           for (const j of c.ingredients) {
-            name = j.name;
+            name = j.name
           }
         }
       }
-      return name;
-    },
-    details() {
-      let k = Object.keys(this.process.info);
-      const del_ = ["name", "inputs", "chem_for", "chem_to", "output"];
-      k = k.filter(item => !del_.includes(item));
-      console.log(k);
-      return "";
+      return name
     }
   },
   methods: {
     removeProcess(note, taskIndex) {
-      this.$store.commit("REMOVE_TASK", { note, taskIndex });
+      this.$store.commit("REMOVE_TASK", { note, taskIndex })
+    },
+
+    details(info) {
+      const name = info.name
+      let data = null
+
+      if (name === "Mix") {
+        const inputs = info.inputs
+        let d = []
+        for (const i of inputs) {
+          d.push(i.id)
+        }
+        // data = d.join(",")
+        data = null
+      } else {
+        let this_id = info.chem_for.id
+        let name = []
+        const ingrs = this.note.tasks.find(({ id }) => id === this_id)
+          .ingredients
+        for (const i of ingrs) {
+          name.push(i.name)
+        }
+        data = name.join("+")
+      }
+
+      return data
     }
   }
-};
+}
 </script>
 
 <style scoped></style>

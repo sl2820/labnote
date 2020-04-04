@@ -16,6 +16,12 @@
         @change="updateProcessInfo($event, key)"
       />
     </div>
+    <div>
+      <div class="pr-4">Feeding:</div>
+      <span v-for="(gas, $gasID) in this_process.info.feeding" :key="$gasID">
+        <input type="text" v-model="gas.name" />
+      </span>
+    </div>
 
     <br />
     <AppButton class="bg-teal-400 rounded-sm" @click.native="makeOutput()"
@@ -62,7 +68,14 @@ export default {
     getDetails() {
       const info = this.this_process.info
       const keys = Object.keys(info)
-      const deletion = ["name", "inputs", "chem_for", "chem_to", "output"]
+      const deletion = [
+        "name",
+        "inputs",
+        "chem_for",
+        "chem_to",
+        "output",
+        "feeding"
+      ]
       let details = {}
       for (let k of keys) {
         if (deletion.indexOf(k) === -1) {
@@ -96,7 +109,7 @@ export default {
         let _s = JSON.stringify(ingr)
         let data = JSON.parse(_s)
         data.id = uuid()
-        data.property.push("after heating")
+        data.property.push("filtered")
         ingredients.push(data)
       }
       const new_index = this.note.tasks.indexOf(this.this_process) + 1
