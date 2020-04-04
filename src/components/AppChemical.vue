@@ -2,23 +2,28 @@
   <div>
     <ul class="flex justify-between">
       <li class="mr-2">
-        🧪
-        <div
-          class="inline-block mb-0"
-          v-for="(ingredient, $ingredientIndex) in chemical.ingredients"
-          :key="$ingredientIndex"
-        >
-          <div
-            class="inline-block font-bold"
-            v-html="toFormula(ingredient.name)"
-          ></div>
-          <div
-            v-if="$ingredientIndex + 1 < ingredientLength"
-            class="inline-block font-bold"
-          >
-            +
-          </div>
-        </div>
+        <span>🧪</span>
+        <span>
+          <span v-if="!chemical.additional">
+            <div
+              class="inline-block mb-0"
+              v-for="(ingredient, $ingredientIndex) in chemical.ingredients"
+              :key="$ingredientIndex"
+            >
+              <div
+                class="inline-block font-bold"
+                v-html="toFormula(ingredient.name)"
+              ></div>
+              <div
+                v-if="$ingredientIndex + 1 < ingredientLength"
+                class="inline-block font-bold"
+              >
+                +
+              </div>
+            </div>
+          </span>
+          <span class="font-bold" v-else>{{ chemical.additional }}</span>
+        </span>
 
         <div class="inline-block" v-if="chemical.ingredients.length === 1">
           <div class="inline-block ml-5 italic">
