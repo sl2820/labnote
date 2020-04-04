@@ -195,6 +195,14 @@
           <p class="font-medium">Unidentified states. Plese check</p>
         </div>
       </div>
+      <div class="mt-6 bg-yellow-100">
+        <textarea
+          v-model="additional"
+          placeholder="add notes"
+          cols="60"
+          @change="additionalNote(additional)"
+        ></textarea>
+      </div>
     </div>
   </div>
 </template>
@@ -212,7 +220,8 @@ export default {
       products: data_autocomplete.products,
       temp_name: null,
       temp_state: null,
-      sigma_obj: sigma.sigmaaldrich
+      sigma_obj: sigma.sigmaaldrich,
+      additional: null
     }
   },
   computed: {
@@ -294,6 +303,14 @@ export default {
       }
 
       return list
+    },
+    additionalNote(n) {
+      this.additional = n
+      this.$store.commit("UPDATE_CHEMICAL", {
+        chemical: this.chemical,
+        key: "additional",
+        value: n
+      })
     }
   }
 }
