@@ -2,8 +2,8 @@
   <div>
     <div class="mt-6 bg-teal-200">
       <div v-for="(chem, $chemID) of this_process.info.inputs" :key="$chemID">
-        <span>{{ names(chem.id) }}</span
-        >: <input v-model="chem.amount" />
+        <span>{{ names(chem.id) }}</span>
+        : <input v-model="chem.amount" />
       </div>
     </div>
 
@@ -77,7 +77,8 @@ export default {
           const _s = JSON.stringify(ingr)
           let data = JSON.parse(_s)
           data.id = uuid()
-          data.volumn = i.amount
+          // data.volumn = i.amount
+          data.volumn = null
           if (i.amount > 0) {
             ingredients.push(data)
           }
@@ -90,6 +91,7 @@ export default {
         index: new_index,
         ingr: ingredients
       })
+      this.$router.push({ name: "note" })
     }
   }
 }

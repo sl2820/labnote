@@ -13,16 +13,6 @@
         <v-card flat>
           <div class="note-tui">
             <div class="items-start">
-              <AppButton
-                class="mx-3 mb-5 bg-teal-500 rounded-sm"
-                @click.native="createChemical()"
-                >Create Chemical</AppButton
-              >
-              <AppButton
-                class="mx-3 mb-5 bg-indigo-500 rounded-full"
-                @click.native="createProcess()"
-                >Create Process</AppButton
-              >
               <!-- <div
             v-for="(task, $taskIndex) in note.tasks"
             :key="$taskIndex + '-chemical'"
@@ -48,7 +38,19 @@
             </div>
           </div>
 
-          <div class="note-gui">
+          <div class="note-gui static">
+            <div class="absolute top-0 m-10">
+              <AppButton
+                class="mx-3 mb-5 bg-teal-500 rounded-sm shadow-md"
+                @click.native="createChemical()"
+                >Create Chemical</AppButton
+              >
+              <AppButton
+                class="mx-3 mb-5 bg-indigo-500 rounded-full"
+                @click.native="createProcess()"
+                >Create Process</AppButton
+              >
+            </div>
             <AppButton
               class="absolute top-0 right-0 m-5 bg-yellow-500 rounded-sm"
               @click.native="save()"
