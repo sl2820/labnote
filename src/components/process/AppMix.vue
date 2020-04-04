@@ -135,6 +135,7 @@ export default {
       });
     },
     updateProcessInputs(e, key) {
+      // console.log(this.selectedChems);
       this.$store.commit("UPDATE_PROCESS", {
         process: this.process.info,
         key,
