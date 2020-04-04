@@ -12,8 +12,7 @@
           @input="updateSelected($event)"
         />
         <label :for="chem.id">
-          <span v-for="(ingr, $ingrID) of chem.ingredients" :key="$ingrID">+ {{ ingr.name }}</span>
-          :
+          <span v-for="(ingr, $ingrID) of chem.ingredients" :key="$ingrID">+ {{ ingr.name }}:</span>
           <input
             type="text"
             v-model="process.info.inputs[$chemID].amount"

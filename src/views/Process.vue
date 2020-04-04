@@ -6,7 +6,7 @@
           type="text"
           :value="process.info.name"
           list="method"
-          @change="updateProcessProperty($event, 'name')"
+          @change="updateProcessProperty($event, 'info')"
         />
         <datalist id="method">
           <option v-for="(func, $funcID) of getlist" :key="$funcID" :value="func"></option>
@@ -38,8 +38,9 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
+import { mapGetters, mapState } from "vuex";
 import processDB from "@/data/sample_process";
+import processTemplate from "@/data/process_template";
 
 export default {
   data() {
@@ -49,6 +50,7 @@ export default {
   },
   computed: {
     ...mapGetters(["getTask"]),
+    ...mapState(["note"]),
     process() {
       return this.getTask(this.$route.params.id);
     },
@@ -58,14 +60,43 @@ export default {
         funcs.push(this.processFuncs[i].name);
       }
       return funcs;
+    },
+    prevChemicals() {
+      const procId = this.$route.params.id;
+      let taskIds = [];
+      for (const t of this.note.tasks) {
+        taskIds.push(t.id);
+      }
+      let chemicals = [];
+      for (const task of this.note.tasks) {
+        if (taskIds.indexOf(procId) < taskIds.indexOf(task.id)) {
+          break;
+        }
+        if (task.type === "chemical") {
+          chemicals.push(task);
+        }
+      }
+      return chemicals;
     }
   },
   methods: {
     updateProcessProperty(e, key) {
+      const procTemp = processTemplate.templates.find(
+        ({ name }) => name === e.target.value
+      );
+      let data = procTemp.info;
+      data.name = e.target.value;
+      console.log(data);
+      if (e.target.value === "Mix") {
+        for (const c of this.prevChemicals) {
+          data.inputs.push({ id: c.id, amount: 0 });
+        }
+      }
+
       this.$store.commit("UPDATE_PROCESS", {
-        process: this.process.info,
+        process: this.process,
         key,
-        value: e.target.value
+        value: data
       });
     }
   }

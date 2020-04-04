@@ -195,45 +195,45 @@ export default {
         heating: true
       }
     },
-    {
-      id: "p4",
-      type: "process",
-      info: {
-        name: "Heat",
-        chem_for: {
-          id: "c2"
-        },
-        temperature: 120,
-        time: 30,
-        stirring: false
-      }
-    },
-    {
-      id: "p5",
-      type: "process",
-      info: {
-        name: "Water bath",
-        chem_for: {
-          id: "c2"
-        },
-        temperature: 70,
-        time: 600,
-        stirring: false
-      }
-    },
-    {
-      id: "p6",
-      type: "process",
-      info: {
-        name: "Cooling",
-        chem_for: {
-          id: "c1"
-        },
-        temperature: -10,
-        time: 400,
-        feeding_gas: [{ name: "hydrogen" }, { name: "oxygen" }]
-      }
-    },
+    // {
+    //   id: "p4",
+    //   type: "process",
+    //   info: {
+    //     name: "Heat",
+    //     chem_for: {
+    //       id: "c2"
+    //     },
+    //     temperature: 120,
+    //     time: 30,
+    //     stirring: false
+    //   }
+    // },
+    // {
+    //   id: "p5",
+    //   type: "process",
+    //   info: {
+    //     name: "Water bath",
+    //     chem_for: {
+    //       id: "c2"
+    //     },
+    //     temperature: 70,
+    //     time: 600,
+    //     stirring: false
+    //   }
+    // },
+    // {
+    //   id: "p6",
+    //   type: "process",
+    //   info: {
+    //     name: "Cooling",
+    //     chem_for: {
+    //       id: "c1"
+    //     },
+    //     temperature: -10,
+    //     time: 400,
+    //     feeding_gas: [{ name: "hydrogen" }, { name: "oxygen" }]
+    //   }
+    // },
     {
       id: "p7",
       type: "process",
