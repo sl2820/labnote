@@ -1,13 +1,20 @@
 <template>
   <div>
-    <span class="pr-4" v-for="(chem, $chemID) of prevChemicals" :key="$chemID + 'chem'">
+    <span
+      class="pr-4"
+      v-for="(chem, $chemID) of prevChemicals"
+      :key="$chemID + 'chem'"
+    >
       <input type="radio" v-model="chosen" name="chosen" :value="chem.id" />
-      {{ chem.id }}
+      {{ names(chem.id) }}
     </span>
 
     <div v-for="(value, key, index) in getDetails" :key="index + 'det'">
       <span class="mr-2">{{ key }}:</span>
-      <input v-model="getDetails[key]" @change="updateProcessInfo($event, key)" />
+      <input
+        v-model="getDetails[key]"
+        @change="updateProcessInfo($event, key)"
+      />
     </div>
     <div>
       <div class="pr-4">Feeding:</div>
@@ -17,18 +24,20 @@
     </div>
 
     <br />
-    <AppButton class="bg-teal-400 rounded-sm" @click.native="makeOutput()">Make Output</AppButton>
+    <AppButton class="bg-teal-400 rounded-sm" @click.native="makeOutput()"
+      >Make Output</AppButton
+    >
   </div>
 </template>
 
 <script>
-import { mapGetters, mapState } from "vuex";
-import { uuid } from "@/utils";
-import AppButton from "@/components/AppButton";
+import { mapGetters, mapState } from "vuex"
+import { uuid } from "@/utils"
+import AppButton from "@/components/AppButton"
 export default {
   components: { AppButton },
   data() {
-    return { chosen: null };
+    return { chosen: null }
   },
   props: {
     this_process: {
@@ -40,25 +49,25 @@ export default {
     ...mapGetters(["getTask"]),
     ...mapState(["note"]),
     prevChemicals() {
-      const procId = this.$route.params.id;
-      let taskIds = [];
+      const procId = this.$route.params.id
+      let taskIds = []
       for (const t of this.note.tasks) {
-        taskIds.push(t.id);
+        taskIds.push(t.id)
       }
-      let chemicals = [];
+      let chemicals = []
       for (const task of this.note.tasks) {
         if (taskIds.indexOf(procId) < taskIds.indexOf(task.id)) {
-          break;
+          break
         }
         if (task.type === "chemical") {
-          chemicals.push(task);
+          chemicals.push(task)
         }
       }
-      return chemicals;
+      return chemicals
     },
     getDetails() {
-      const info = this.this_process.info;
-      const keys = Object.keys(info);
+      const info = this.this_process.info
+      const keys = Object.keys(info)
       const deletion = [
         "name",
         "inputs",
@@ -66,45 +75,53 @@ export default {
         "chem_to",
         "output",
         "feeding"
-      ];
-      let details = {};
+      ]
+      let details = {}
       for (let k of keys) {
         if (deletion.indexOf(k) === -1) {
-          details[k] = info[k];
+          details[k] = info[k]
         }
       }
-      return details;
+      return details
     }
   },
   methods: {
+    names(this_id) {
+      let names = []
+      const ingrs = this.note.tasks.find(({ id }) => id === this_id).ingredients
+      for (const ingr of ingrs) {
+        names.push(ingr.name)
+      }
+      return names.join(" + ")
+    },
     updateProcessInfo(e, key) {
       this.$store.commit("UPDATE_PROCESS", {
         process: this.this_process.info,
         key,
         value: e.target.value
-      });
+      })
     },
     makeOutput() {
-      let ingredients = [];
+      let ingredients = []
       const ingrs = this.note.tasks.find(({ id }) => id === this.chosen)
-        .ingredients;
+        .ingredients
       for (let ingr of ingrs) {
-        let _s = JSON.stringify(ingr);
-        let data = JSON.parse(_s);
-        data.id = uuid();
-        data.property.push("filtered");
-        ingredients.push(data);
+        let _s = JSON.stringify(ingr)
+        let data = JSON.parse(_s)
+        data.id = uuid()
+        data.property.push("filtered")
+        ingredients.push(data)
       }
-      const new_index = this.note.tasks.indexOf(this.this_process) + 1;
-      var id = uuid();
+      const new_index = this.note.tasks.indexOf(this.this_process) + 1
+      var id = uuid()
       this.$store.commit("CREATE_OUTPUT", {
         id: id,
         index: new_index,
         ingr: ingredients
-      });
+      })
     }
   }
-};
+}
 </script>
 
 <style></style>
