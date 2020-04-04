@@ -214,7 +214,7 @@ export default {
       info: {
         name: "Water bath",
         chem_for: {
-          id: "c2"
+          id: "c5"
         },
         temperature: 70,
         time: 600,
@@ -240,7 +240,7 @@ export default {
       info: {
         name: "Filtering",
         chem_for: {
-          id: "c1"
+          id: "c3"
         },
         feeding: [{ name: "paper" }]
       }
