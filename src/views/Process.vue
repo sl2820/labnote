@@ -92,9 +92,12 @@ export default {
       data.name = e.target.value
 
       if (e.target.value === "Mix") {
+        let ins = []
         for (const c of this.prevChemicals) {
-          data.inputs.push({ id: c.id, amount: 0 })
+          let d = JSON.stringify({ id: c.id, amount: 0 })
+          ins.push(JSON.parse(d))
         }
+        data.inputs = ins
       }
 
       this.$store.commit("UPDATE_PROCESS", {
