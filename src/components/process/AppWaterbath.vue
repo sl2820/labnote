@@ -1,4 +1,4 @@
-<template>
+b<template>
   <div>
     <span
       class="pr-4"
@@ -96,7 +96,7 @@ export default {
         let _s = JSON.stringify(ingr)
         let data = JSON.parse(_s)
         data.id = uuid()
-        data.property.push("after heating")
+        data.property.push("after heating on an water bath")
         ingredients.push(data)
       }
       const new_index = this.note.tasks.indexOf(this.this_process) + 1

@@ -21,7 +21,8 @@ export default {
           weight: null,
           w_unit: "g",
           pressure: null,
-          p_unit: "Pa"
+          p_unit: "Pa",
+          property: ["after washing"]
         }
       ]
     },
@@ -42,7 +43,8 @@ export default {
           weight: null,
           w_unit: "g",
           pressure: null,
-          p_unit: "Pa"
+          p_unit: "Pa",
+          property: []
         }
       ]
     },
@@ -58,14 +60,11 @@ export default {
           },
           {
             id: "c2",
-            amount: 200
+            amount: 0
           }
         ],
         gradually: true,
-        time: 10,
-        output: {
-          name: "+"
-        }
+        time: 10
       }
     },
     {
@@ -85,7 +84,8 @@ export default {
           weight: null,
           w_unit: "g",
           pressure: null,
-          p_unit: "Pa"
+          p_unit: "Pa",
+          property: []
         },
         {
           id: "c3_2",
@@ -100,7 +100,8 @@ export default {
           weight: null,
           w_unit: "g",
           pressure: null,
-          p_unit: "Pa"
+          p_unit: "Pa",
+          property: []
         }
       ]
     },
@@ -121,30 +122,10 @@ export default {
           weight: null,
           w_unit: "g",
           pressure: null,
-          p_unit: "Pa"
+          p_unit: "Pa",
+          property: []
         }
       ]
-    },
-    {
-      id: "p2",
-      type: "process",
-      info: {
-        name: "Inject",
-        chem_for: {
-          id: "c4",
-          amount: 60
-        },
-        chem_to: {
-          id: "c3",
-          amount: 350
-        },
-        stirring: true,
-        gradually: true,
-        time: 20,
-        output: {
-          name: "+"
-        }
-      }
     },
     {
       id: "c5",
@@ -163,7 +144,8 @@ export default {
           weight: null,
           w_unit: "g",
           pressure: null,
-          p_unit: "Pa"
+          p_unit: "Pa",
+          property: []
         },
         {
           id: "c3_2",
@@ -178,7 +160,8 @@ export default {
           weight: null,
           w_unit: "g",
           pressure: null,
-          p_unit: "Pa"
+          p_unit: "Pa",
+          property: []
         },
         {
           id: "c4_1",
@@ -193,9 +176,74 @@ export default {
           weight: null,
           w_unit: "g",
           pressure: null,
-          p_unit: "Pa"
+          p_unit: "Pa",
+          property: []
         }
       ]
+    },
+    {
+      id: "p3",
+      type: "process",
+      info: {
+        name: "Stirring",
+        chem_for: {
+          id: "c4",
+          amount: 60
+        },
+        rpm: 10,
+        time: 60,
+        heating: true
+      }
+    },
+    {
+      id: "p4",
+      type: "process",
+      info: {
+        name: "Heat",
+        chem_for: {
+          id: "c2"
+        },
+        temperature: 120,
+        time: 30,
+        stirring: false
+      }
+    },
+    {
+      id: "p5",
+      type: "process",
+      info: {
+        name: "Water bath",
+        chem_for: {
+          id: "c5"
+        },
+        temperature: 70,
+        time: 600,
+        stirring: false
+      }
+    },
+    {
+      id: "p6",
+      type: "process",
+      info: {
+        name: "Cooling",
+        chem_for: {
+          id: "c1"
+        },
+        temperature: -10,
+        time: 400,
+        feeding_gas: [{ name: "hydrogen" }, { name: "oxygen" }]
+      }
+    },
+    {
+      id: "p7",
+      type: "process",
+      info: {
+        name: "Filtering",
+        chem_for: {
+          id: "c3"
+        },
+        feeding: [{ name: "paper" }]
+      }
     }
   ]
 }

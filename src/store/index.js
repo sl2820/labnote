@@ -1,12 +1,10 @@
 import Vue from "vue"
 import Vuex from "vuex"
-// import experiment from "../experiment"
-import project from "@/data/sample_project_2"
+import project from "@/data/sample_project_empty"
 import { saveStatePlugin, uuid } from "../utils"
-// import Note from "./Note";
+
 Vue.use(Vuex)
 
-// const note = JSON.parse(localStorage.getItem("note")) || experiment
 const note = JSON.parse(localStorage.getItem("note")) || project
 
 export default new Vuex.Store({
@@ -43,7 +41,12 @@ export default new Vuex.Store({
             volumn: null,
             v_unit: "",
             concentration: null,
-            c_unit: ""
+            c_unit: "",
+            weight: null,
+            w_unit: "g",
+            pressure: null,
+            p_unit: "Pa",
+            property: []
           }
         ]
       })
