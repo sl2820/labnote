@@ -2,6 +2,7 @@
 // import { uuid } from "./utils"
 
 export default {
-  id: "empty1234",
+  id: 1,
+  user_id: 2,
   tasks: []
 }
