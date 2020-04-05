@@ -1,10 +1,9 @@
 import Vue from "vue"
 import Vuex from "vuex"
 import axios from "axios"
-// import experiment from "../experiment"
-import project from "@/data/sample_project_2"
+import project from "@/data/sample_project_empty"
 import { saveStatePlugin, uuid } from "../utils"
-// import Note from "./Note";
+
 Vue.use(Vuex)
 
 // const note = JSON.parse(localStorage.getItem("note")) || experiment
