@@ -70,13 +70,13 @@ export default {
   },
   computed: {
     ...mapState(["note"]),
-    summedVolumn() {
+    summedvolume() {
       let sv = 0
       for (const chem of this.chemical.ingredients) {
         if (chem.v_unit === "uL") {
-          sv += chem.volumn * 0.001
+          sv += chem.volume * 0.001
         } else if (chem.v_unit === "mL") {
-          sv += chem.volumn
+          sv += chem.volume
         }
       }
       return sv
@@ -114,12 +114,12 @@ export default {
         underline = underline + chemical_.weight + " " + chemical_.w_unit
       } else if (state == "solution") {
         italic = italic + chemical_.concentration + " " + chemical_.c_unit
-        underline = underline + chemical_.volumn + " " + chemical_.v_unit
+        underline = underline + chemical_.volume + " " + chemical_.v_unit
       } else if (state == "gas") {
         italic = italic + chemical_.pressure + " " + chemical_.p_unit
-        underline = underline + chemical_.volumn + " " + chemical_.v_unit
+        underline = underline + chemical_.volume + " " + chemical_.v_unit
       } else if (state == "liquid") {
-        underline = underline + chemical_.volumn + " " + chemical_.v_unit
+        underline = underline + chemical_.volume + " " + chemical_.v_unit
       } else {
         properties = "wrong"
       }

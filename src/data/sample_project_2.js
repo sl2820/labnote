@@ -1,8 +1,10 @@
 // data
 // import { uuid } from "./utils"
-
+/* ID should be integer!!! */
+/* user_id should be 20!!! */
 export default {
-  id: "asdf1234",
+  id: "2",
+  user_id: 20,
   tasks: [
     {
       id: "c1",
@@ -14,7 +16,7 @@ export default {
           product_number: "243051",
           state: "solution",
           solvent: "water",
-          volumn: 250,
+          volume: 250,
           v_unit: "uL",
           concentration: 0.05,
           c_unit: "g/L",
@@ -36,7 +38,7 @@ export default {
           product_number: "686018",
           state: "solution",
           solvent: "water",
-          volumn: 300,
+          volume: 300,
           v_unit: "uL",
           concentration: 10,
           c_unit: "mM",
@@ -77,7 +79,7 @@ export default {
           product_number: "243051",
           state: "solution",
           solvent: "water",
-          volumn: 150,
+          volume: 150,
           v_unit: "uL",
           concentration: 0.05,
           c_unit: "g/L",
@@ -93,7 +95,7 @@ export default {
           product_number: "686018",
           state: "solution",
           solvent: "water",
-          volumn: 200,
+          volume: 200,
           v_unit: "uL",
           concentration: 10,
           c_unit: "mM",
@@ -115,7 +117,7 @@ export default {
           product_number: "31630",
           state: "solution",
           solvent: "water",
-          volumn: 110,
+          volume: 110,
           v_unit: "uL",
           concentration: 30,
           c_unit: "mM",
@@ -137,7 +139,7 @@ export default {
           product_number: "243051",
           state: "solution",
           solvent: "water",
-          volumn: 150,
+          volume: 150,
           v_unit: "uL",
           concentration: 0.05,
           c_unit: "g/L",
@@ -153,7 +155,7 @@ export default {
           product_number: "686018",
           state: "solution",
           solvent: "water",
-          volumn: 200,
+          volume: 200,
           v_unit: "uL",
           concentration: 10,
           c_unit: "mM",
@@ -169,7 +171,7 @@ export default {
           product_number: "31630",
           state: "solution",
           solvent: "water",
-          volumn: 60,
+          volume: 60,
           v_unit: "uL",
           concentration: 30,
           c_unit: "mM",

@@ -6,9 +6,11 @@
       <v-btn text @click="length--">Remove Project</v-btn>
     </v-card-text>
     <v-tabs>
-      <v-tab>Acetaminophen synthesis trial 9</v-tab>
-      <v-tab>*untitled project</v-tab>
-      <v-tab>*untitled project 2</v-tab>
+      <v-tab>Acetaminophen synthesis trial 11</v-tab>
+      <v-tab>Acetaminophen synthesis trial 12</v-tab>
+      <v-tab>Acetaminophen synthesis trial 13</v-tab>
+      <v-tab>Acetaminophen synthesis trial 14</v-tab>
+      <v-tab>Acetaminophen synthesis trial 15</v-tab>
       <v-tab-item>
         <v-card flat>
           <div class="note-tui">
@@ -39,7 +41,7 @@
           </div>
 
           <div class="note-gui static">
-            <div class="absolute top-0 m-10">
+            <div class="absolute top-0 m-20">
               <AppButton
                 class="mx-3 mb-5 bg-teal-500 rounded-sm shadow-md"
                 @click.native="createChemical()"
@@ -51,11 +53,24 @@
                 >Create Process</AppButton
               >
             </div>
-            <AppButton
-              class="absolute top-0 right-0 m-5 bg-yellow-500 rounded-sm"
-              @click.native="save()"
-              >Save</AppButton
-            >
+            <div class="absolute top-0 right-0 ">
+              <AppButton
+                class="m-5 bg-yellow-500 rounded-sm"
+                @click.native="save()"
+                >Save</AppButton
+              >
+              <AppButton
+                class="m-5 bg-yellow-500 rounded-sm"
+                @click.native="load()"
+                >Load</AppButton
+              >
+              <AppButton
+                class="m-5 bg-yellow-600 rounded-sm"
+                @click.native="openAnalysis()"
+                >Analysis</AppButton
+              >
+            </div>
+
             <div class="absolute bottom-0 right-0">
               <AppButton
                 class="m-5 bg-gray-600 rounded-sm"
@@ -89,7 +104,11 @@ export default {
   computed: {
     ...mapState(["note"]),
     isTaskOpen() {
-      return this.$route.name === "chemical" || this.$route.name === "process"
+      return (
+        this.$route.name === "chemical" ||
+        this.$route.name === "process" ||
+        this.$route.name === "analysis"
+      )
     }
   },
   methods: {
@@ -117,6 +136,9 @@ export default {
     closeTask() {
       this.$router.push({ name: "note" })
     },
+    openAnalysis() {
+      this.$router.push({ name: "analysis", params: { id: this.note.id } })
+    },
     save() {
       this.$store.commit("SAVE_PROJECT", {
         note_data: localStorage.getItem("note")
@@ -125,6 +147,11 @@ export default {
     refresh() {
       localStorage.clear()
       location.reload()
+    },
+    load() {
+      this.$store.commit("LOAD_PROJECT", {
+        projectID: 2
+      })
     }
     // moveTask(e, toTaskIndex) {
     //   const fromTaskIndex = e.dataTransfer.getData("from-task-index");
