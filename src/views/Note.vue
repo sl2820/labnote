@@ -6,9 +6,11 @@
       <v-btn text @click="length--">Remove Project</v-btn>
     </v-card-text>
     <v-tabs>
-      <v-tab>Acetaminophen synthesis trial 9</v-tab>
-      <v-tab>*untitled project</v-tab>
-      <v-tab>*untitled project 2</v-tab>
+      <v-tab>Acetaminophen synthesis trial 11</v-tab>
+      <v-tab>Acetaminophen synthesis trial 12</v-tab>
+      <v-tab>Acetaminophen synthesis trial 13</v-tab>
+      <v-tab>Acetaminophen synthesis trial 14</v-tab>
+      <v-tab>Acetaminophen synthesis trial 15</v-tab>
       <v-tab-item>
         <v-card flat>
           <div class="note-tui">
