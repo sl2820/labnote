@@ -43,5 +43,17 @@
     "vue-cli-plugin-vuetify": "^2.0.3",
     "vue-template-compiler": "^2.6.10",
     "vuetify-loader": "^1.3.0"
-  }
+  },
+  "description": "## Temporary website",
+  "main": ".eslintrc.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hngskj/labnote.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/hngskj/labnote/issues"
+  },
+  "homepage": "https://github.com/hngskj/labnote#readme"
 }

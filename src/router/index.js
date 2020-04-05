@@ -3,6 +3,7 @@ import VueRouter from "vue-router"
 import Note from "../views/Note.vue"
 import Chemical from "../views/Chemical.vue"
 import Process from "../views/Process.vue"
+import Analysis from "../views/Analysis.vue"
 
 Vue.use(VueRouter)
 
@@ -21,6 +22,11 @@ const routes = [
         path: "process/:id",
         name: "process",
         component: Process
+      },
+      {
+        path: "analysis/:id",
+        name: "analysis",
+        component: Analysis
       }
     ]
   }

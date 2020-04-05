@@ -1,4 +1,5 @@
 <template>
+<<<<<<< HEAD
   <v-card>
     <v-card-text class="text-center title-menu">
       <v-btn text @click="length++">Add Project</v-btn>
@@ -38,8 +39,41 @@
                 </div>
               </div>
             </div>
+=======
+  <div>
+    <div class="note-tui">
+      <div class="items-start">
+        <AppButton
+          class="mx-3 mb-5 bg-teal-500 rounded-sm"
+          @click.native="createChemical()"
+          >Create Chemical</AppButton
+        >
+        <AppButton
+          class="mx-3 mb-5 bg-indigo-500 rounded-full"
+          @click.native="createProcess()"
+          >Create Process</AppButton
+        >
+        <!-- <div
+          v-for="(task, $taskIndex) in note.tasks"
+          :key="$taskIndex + '-chemical'"
+          draggable
+          @drop="moveTask($event, $taskIndex)"
+          @dragover.prevent
+          @dragenter.prevent
+          @dragstart.self="pickupTask($event, $taskIndex)"
+          @click="openTask(task)"
+        >-->
+        <div
+          v-for="(task, $taskIndex) in note.tasks"
+          :key="$taskIndex + '-chemical'"
+          @click="openTask(task)"
+        >
+          <div class="chemical" v-if="task.type === 'chemical'">
+            <AppChemical :chemical="task" :taskIndex="$taskIndex" />
+>>>>>>> server
           </div>
 
+<<<<<<< HEAD
           <div class="note-gui static">
             <div class="absolute top-0 m-10">
               <AppButton
@@ -66,6 +100,22 @@
               >
             </div>
           </div>
+=======
+    <div class="note-gui">
+      <AppButton class="m-5 bg-yellow-500 rounded-sm" @click.native="save()"
+        >Save</AppButton
+      >
+      <AppButton class="m-5 bg-yellow-500 rounded-sm" @click.native="load()"
+        >Load</AppButton
+      >
+      <AppButton
+        class="m-5 bg-yellow-600 rounded-sm"
+        @click.native="openAnalysis()"
+        >Analysis</AppButton
+      >
+      <AppPipeline />
+    </div>
+>>>>>>> server
 
           <div class="task-bg" v-if="isTaskOpen" @click.self="closeTask">
             <router-view />
@@ -82,6 +132,10 @@ import { uuid } from "@/utils"
 import AppButton from "@/components/AppButton"
 import AppChemical from "@/components/AppChemical"
 import AppProcess from "@/components/AppProcess"
+<<<<<<< HEAD
+=======
+import AppPipeline from "@/components/AppPipeline"
+>>>>>>> server
 
 export default {
   components: { AppButton, AppChemical, AppProcess },
@@ -91,7 +145,15 @@ export default {
   computed: {
     ...mapState(["note"]),
     isTaskOpen() {
+<<<<<<< HEAD
       return this.$route.name === "chemical" || this.$route.name === "process"
+=======
+      return (
+        this.$route.name === "chemical" ||
+        this.$route.name === "process" ||
+        this.$route.name === "analysis"
+      )
+>>>>>>> server
     }
   },
   methods: {
@@ -118,15 +180,28 @@ export default {
     },
     closeTask() {
       this.$router.push({ name: "note" })
+<<<<<<< HEAD
+=======
+    },
+    openAnalysis() {
+      this.$router.push({ name: "analysis", params: { id: this.note.id } })
+>>>>>>> server
     },
     save() {
       this.$store.commit("SAVE_PROJECT", {
         note_data: localStorage.getItem("note")
       })
     },
+<<<<<<< HEAD
     refresh() {
       localStorage.clear()
       location.reload()
+=======
+    load() {
+      this.$store.commit("LOAD_PROJECT", {
+        projectID: 2
+      })
+>>>>>>> server
     }
     // moveTask(e, toTaskIndex) {
     //   const fromTaskIndex = e.dataTransfer.getData("from-task-index");
