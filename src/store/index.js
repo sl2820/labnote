@@ -1,7 +1,7 @@
 import Vue from "vue"
 import Vuex from "vuex"
 import axios from "axios"
-import project from "@/data/sample_project_empty"
+import project from "@/data/sample_project_2"
 import { saveStatePlugin, uuid } from "../utils"
 
 Vue.use(Vuex)
@@ -115,42 +115,43 @@ export default new Vuex.Store({
 
         console.log(d)
 
-//<<<<<<< HEAD
-//        axios
-//          .post("http://49.50.167.33:3000/task/tasks", d)
-//          .then(function() {
-//            console.log("saved successfully")
-//            alert("saved successfully")
-//          })
-//          .catch(function(error) {
-//            // alert(error);
-//            console.log("error---")
-//            console.log(error)
-//          })
-//      }
-//      // MOVE_TASK(state, { fromTaskIndex, toTaskIndex }) {
-//      //   const taskList = state.note.tasks
-//      //   const taskToMove = taskList.splice(fromTaskIndex, 1)[0]
-//      //   taskList.splice(toTaskIndex, 0, taskToMove)
-//      // }
-//=======
-          axios.post('http://49.50.167.33:3000/task/tasks', d)
-                .then(function() {
-                    console.log("saved successfully");
-                  })
-                  .catch(function (error) {
-                    // alert(error);
-                    console.log("error---");
-                    console.log(error);
-                  });
-                }
-                alert("saved successfully");
-    // MOVE_TASK(state, { fromTaskIndex, toTaskIndex }) {
-    //   const taskList = state.note.tasks
-    //   const taskToMove = taskList.splice(fromTaskIndex, 1)[0]
-    //   taskList.splice(toTaskIndex, 0, taskToMove)
-    // }
-//>>>>>>> server
+        //<<<<<<< HEAD
+        //        axios
+        //          .post("http://49.50.167.33:3000/task/tasks", d)
+        //          .then(function() {
+        //            console.log("saved successfully")
+        //            alert("saved successfully")
+        //          })
+        //          .catch(function(error) {
+        //            // alert(error);
+        //            console.log("error---")
+        //            console.log(error)
+        //          })
+        //      }
+        //      // MOVE_TASK(state, { fromTaskIndex, toTaskIndex }) {
+        //      //   const taskList = state.note.tasks
+        //      //   const taskToMove = taskList.splice(fromTaskIndex, 1)[0]
+        //      //   taskList.splice(toTaskIndex, 0, taskToMove)
+        //      // }
+        //=======
+        axios
+          .post("http://49.50.167.33:3000/task/tasks", d)
+          .then(function() {
+            console.log("saved successfully")
+          })
+          .catch(function(error) {
+            // alert(error);
+            console.log("error---")
+            console.log(error)
+          })
+      }
+      alert("saved successfully")
+      // MOVE_TASK(state, { fromTaskIndex, toTaskIndex }) {
+      //   const taskList = state.note.tasks
+      //   const taskToMove = taskList.splice(fromTaskIndex, 1)[0]
+      //   taskList.splice(toTaskIndex, 0, taskToMove)
+      // }
+      //>>>>>>> server
     },
     LOAD_PROJECT(projectID) {
       axios
