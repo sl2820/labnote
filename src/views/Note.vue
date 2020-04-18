@@ -1,103 +1,16 @@
 <template>
-  <v-card>
-    <v-card-text class="text-center title-menu">
-      <v-btn text @click="length++">Add Project</v-btn>
-      <v-divider class="mx-4" vertical></v-divider>
-      <v-btn text @click="length--">Remove Project</v-btn>
-    </v-card-text>
-    <v-tabs>
-      <v-tab>Acetaminophen synthesis trial 11</v-tab>
-      <v-tab>Acetaminophen synthesis trial 12</v-tab>
-      <v-tab>Acetaminophen synthesis trial 13</v-tab>
-      <v-tab>Acetaminophen synthesis trial 14</v-tab>
-      <v-tab>Acetaminophen synthesis trial 15</v-tab>
-      <v-tab-item>
-        <v-card flat>
-          <div class="note-tui">
-            <div class="items-start">
-              <!-- <div
-            v-for="(task, $taskIndex) in note.tasks"
-            :key="$taskIndex + '-chemical'"
-            draggable
-            @drop="moveTask($event, $taskIndex)"
-            @dragover.prevent
-            @dragenter.prevent
-            @dragstart.self="pickupTask($event, $taskIndex)"
-            @click="openTask(task)"
-          >-->
-              <div
-                v-for="(task, $taskIndex) in note.tasks"
-                :key="$taskIndex + '-chemical'"
-                @click="openTask(task)"
-              >
-                <div class="chemical" v-if="task.type === 'chemical'">
-                  <AppChemical :chemical="task" :taskIndex="$taskIndex" />
-                </div>
-                <div class="process" v-else-if="task.type === 'process'">
-                  <AppProcess :process="task" :taskIndex="$taskIndex" />
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="note-gui static">
-            <div class="absolute top-0 m-20">
-              <AppButton
-                class="mx-3 mb-5 bg-teal-500 rounded-sm shadow-md"
-                @click.native="createChemical()"
-                >Create Chemical</AppButton
-              >
-              <AppButton
-                class="mx-3 mb-5 bg-indigo-500 rounded-full"
-                @click.native="createProcess()"
-                >Create Process</AppButton
-              >
-            </div>
-            <div class="absolute top-0 right-0 ">
-              <AppButton
-                class="m-5 bg-yellow-500 rounded-sm"
-                @click.native="save()"
-                >Save</AppButton
-              >
-              <AppButton
-                class="m-5 bg-yellow-500 rounded-sm"
-                @click.native="load()"
-                >Load</AppButton
-              >
-              <AppButton
-                class="m-5 bg-yellow-600 rounded-sm"
-                @click.native="openAnalysis()"
-                >Analysis</AppButton
-              >
-            </div>
-
-            <div class="absolute bottom-0 right-0">
-              <AppButton
-                class="m-5 bg-gray-600 rounded-sm"
-                @click.native="refresh()"
-                >refresh</AppButton
-              >
-            </div>
-          </div>
-
-          <div class="task-bg" v-if="isTaskOpen" @click.self="closeTask">
-            <router-view />
-          </div>
-        </v-card>
-      </v-tab-item>
-    </v-tabs>
-  </v-card>
+  <div>hello</div>
 </template>
 
 <script>
 import { mapState } from "vuex"
 import { uuid } from "@/utils"
-import AppButton from "@/components/AppButton"
-import AppChemical from "@/components/AppChemical"
-import AppProcess from "@/components/AppProcess"
+// import AppButton from "@/components/AppButton";
+// import AppChemical from "@/components/AppChemical";
+// import AppProcess from "@/components/AppProcess";
 
 export default {
-  components: { AppButton, AppChemical, AppProcess },
+  // components: { AppButton, AppChemical, AppProcess },
   data() {
     return {}
   },
@@ -109,20 +22,20 @@ export default {
         this.$route.name === "process" ||
         this.$route.name === "analysis"
       )
-    }
+    },
   },
   methods: {
     createChemical() {
       var id = uuid()
       this.$store.commit("CREATE_CHEMICAL", {
-        id: id
+        id: id,
       })
       this.$router.push({ name: "chemical", params: { id: id } })
     },
     createProcess() {
       var id = uuid()
       this.$store.commit("CREATE_PROCESS", {
-        id: id
+        id: id,
       })
       this.$router.push({ name: "process", params: { id: id } })
     },
@@ -141,7 +54,7 @@ export default {
     },
     save() {
       this.$store.commit("SAVE_PROJECT", {
-        note_data: localStorage.getItem("note")
+        note_data: localStorage.getItem("note"),
       })
     },
     refresh() {
@@ -150,9 +63,9 @@ export default {
     },
     load() {
       this.$store.commit("LOAD_PROJECT", {
-        projectID: 2
+        projectID: 2,
       })
-    }
+    },
     // moveTask(e, toTaskIndex) {
     //   const fromTaskIndex = e.dataTransfer.getData("from-task-index");
     //   this.$store.commit("MOVE_TASK", {
@@ -165,7 +78,7 @@ export default {
     //   e.dataTransfer.dropEffect = "move";
     //   e.dataTransfer.setData("from-task-index", fromTaskIndex);
     // }
-  }
+  },
 }
 </script>
 
@@ -185,8 +98,5 @@ export default {
 }
 .process {
   @apply bg-indigo-200 p-3 mb-4 text-left shadow-md rounded-full;
-}
-.note-gui {
-  @apply w-3/5 overflow-auto bg-gray-300 h-screen inline-block shadow-inner;
 }
 </style>
