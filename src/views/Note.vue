@@ -1,18 +1,42 @@
 <template>
-  <div>hello</div>
+  <div class="board">
+    <div class="flex flex-row items-start">
+      <NoteColumn
+        v-for="(column, $columnIndex) of note.columns"
+        :key="$columnIndex"
+        :column="column"
+        :columnIndex="$columnIndex"
+        :note="note"
+      />
+
+      <div class="column flex">
+        <input
+          type="text"
+          class="p-2 mr-2 flex-grow"
+          placeholder="New Column Name"
+          v-model="newColumnName"
+          @keyup.enter="createColumn"
+        />
+      </div>
+
+      <div class="task-bg" v-if="isTaskOpen" @click.self="closeTask">
+        <router-view />
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
 import { mapState } from "vuex"
 import { uuid } from "@/utils"
-// import AppButton from "@/components/AppButton";
-// import AppChemical from "@/components/AppChemical";
-// import AppProcess from "@/components/AppProcess";
+import NoteColumn from "@/components/NoteColumn"
 
 export default {
-  // components: { AppButton, AppChemical, AppProcess },
+  components: { NoteColumn },
   data() {
-    return {}
+    return {
+      newColumnName: "",
+    }
   },
   computed: {
     ...mapState(["note"]),
@@ -20,11 +44,13 @@ export default {
       return (
         this.$route.name === "chemical" ||
         this.$route.name === "process" ||
+        this.$route.name === "memo" ||
         this.$route.name === "analysis"
       )
     },
   },
   methods: {
+    createColumn() {},
     createChemical() {
       var id = uuid()
       this.$store.commit("CREATE_CHEMICAL", {
@@ -44,6 +70,8 @@ export default {
         this.$router.push({ name: "chemical", params: { id: task.id } })
       } else if (task.type === "process") {
         this.$router.push({ name: "process", params: { id: task.id } })
+      } else if (task.type === "memo") {
+        this.$router.push({ name: "memo", params: { id: task.id } })
       }
     },
     closeTask() {
@@ -86,17 +114,11 @@ export default {
 .title-menu {
   background: #eceff1;
 }
-.note-tui {
-  @apply p-4 bg-gray-100 h-screen w-2/5 overflow-auto inline-block;
-}
-.chemical {
-  @apply bg-teal-200 p-3 mb-4 text-left shadow-md rounded-sm;
+.board {
+  @apply p-4 bg-gray-200 h-screen overflow-auto;
 }
 .task-bg {
   @apply inset-0 absolute;
   background: rgba(0, 0, 0, 0.5);
-}
-.process {
-  @apply bg-indigo-200 p-3 mb-4 text-left shadow-md rounded-full;
 }
 </style>

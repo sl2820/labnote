@@ -3,7 +3,7 @@
 export default {
   id: "123",
   user_id: 20,
-  steps: [
+  columns: [
     {
       id: "s1",
       name: "seed",
@@ -208,11 +208,11 @@ export default {
           ],
         },
         {
-          id: "s2_n1",
-          type: "note",
+          id: "s2_m1",
+          type: "memo",
           info: {
             title: "hello world",
-            description: "Hello, there. This is the description of new note.",
+            description: "Hello, there. This is the description of new memo.",
           },
         },
       ],
