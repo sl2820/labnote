@@ -7,13 +7,18 @@
       <AppProcess :process="task" :taskIndex="$taskIndex" />
     </div>
     <div class="memo" v-else-if="task.type === 'memo'">
-      <AppProcess :memo="task" :taskIndex="$taskIndex" />
+      <AppMemo :memo="task" :taskIndex="$taskIndex" />
     </div>
   </div>
 </template>
 
 <script>
+import AppChemical from "@/components/AppChemical"
+import AppProcess from "@/components/AppProcess"
+import AppMemo from "@/components/AppMemo"
+
 export default {
+  components: { AppChemical, AppProcess, AppMemo },
   props: {
     task: {
       type: Object,
