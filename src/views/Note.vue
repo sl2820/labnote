@@ -1,105 +1,42 @@
 <template>
-  <v-card>
-    <v-card-text class="text-center title-menu">
-      <v-btn text @click="length++">Add Project</v-btn>
-      <v-divider class="mx-4" vertical></v-divider>
-      <v-btn text @click="length--">Remove Project</v-btn>
-    </v-card-text>
-    <v-tabs>
-      <v-tab>Acetaminophen synthesis trial 11</v-tab>
-      <v-tab>Acetaminophen synthesis trial 12</v-tab>
-      <v-tab>Acetaminophen synthesis trial 13</v-tab>
-      <v-tab>Acetaminophen synthesis trial 14</v-tab>
-      <v-tab>Acetaminophen synthesis trial 15</v-tab>
-      <v-tab-item>
-        <v-card flat>
-          <div class="note-tui">
-            <div class="items-start">
-              <!-- <div
-            v-for="(task, $taskIndex) in note.tasks"
-            :key="$taskIndex + '-chemical'"
-            draggable
-            @drop="moveTask($event, $taskIndex)"
-            @dragover.prevent
-            @dragenter.prevent
-            @dragstart.self="pickupTask($event, $taskIndex)"
-            @click="openTask(task)"
-          >-->
-              <div
-                v-for="(task, $taskIndex) in note.tasks"
-                :key="$taskIndex + '-chemical'"
-                @click="openTask(task)"
-              >
-                <div class="chemical" v-if="task.type === 'chemical'">
-                  <AppChemical :chemical="task" :taskIndex="$taskIndex" />
-                </div>
-                <div class="process" v-else-if="task.type === 'process'">
-                  <AppProcess :process="task" :taskIndex="$taskIndex" />
-                </div>
-              </div>
-            </div>
-          </div>
+  <div class="board">
+    <div class="flex flex-row items-start">
+      <NoteColumn
+        v-for="(column, $columnIndex) of note.columns"
+        :key="$columnIndex"
+        :column="column"
+        :columnIndex="$columnIndex"
+        :note="note"
+      />
 
-          <div class="note-gui static">
-            <div class="absolute top-0 m-20">
-              <AppButton
-                class="mx-3 mb-5 bg-teal-500 rounded-sm shadow-md"
-                @click.native="createChemical()"
-                >Create Chemical</AppButton
-              >
-              <AppButton
-                class="mx-3 mb-5 bg-indigo-500 rounded-full"
-                @click.native="createProcess()"
-                >Create Process</AppButton
-              >
-            </div>
-            <div class="absolute top-0 right-0 ">
-              <AppButton
-                class="m-5 bg-yellow-500 rounded-sm"
-                @click.native="save()"
-                >Save</AppButton
-              >
-              <AppButton
-                class="m-5 bg-yellow-500 rounded-sm"
-                @click.native="load()"
-                >Load</AppButton
-              >
-              <AppButton
-                class="m-5 bg-yellow-600 rounded-sm"
-                @click.native="openAnalysis()"
-                >Analysis</AppButton
-              >
-            </div>
+      <div class="column flex">
+        <input
+          type="text"
+          class="p-2 mr-2 flex-grow"
+          placeholder="New Column Name"
+          v-model="newColumnName"
+          @keyup.enter="createColumn"
+        />
+      </div>
 
-            <div class="absolute bottom-0 right-0">
-              <AppButton
-                class="m-5 bg-gray-600 rounded-sm"
-                @click.native="refresh()"
-                >refresh</AppButton
-              >
-            </div>
-          </div>
-
-          <div class="task-bg" v-if="isTaskOpen" @click.self="closeTask">
-            <router-view />
-          </div>
-        </v-card>
-      </v-tab-item>
-    </v-tabs>
-  </v-card>
+      <div class="task-bg" v-if="isTaskOpen" @click.self="closeTask">
+        <router-view />
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
 import { mapState } from "vuex"
 import { uuid } from "@/utils"
-import AppButton from "@/components/AppButton"
-import AppChemical from "@/components/AppChemical"
-import AppProcess from "@/components/AppProcess"
+import NoteColumn from "@/components/NoteColumn"
 
 export default {
-  components: { AppButton, AppChemical, AppProcess },
+  components: { NoteColumn },
   data() {
-    return {}
+    return {
+      newColumnName: "",
+    }
   },
   computed: {
     ...mapState(["note"]),
@@ -107,22 +44,24 @@ export default {
       return (
         this.$route.name === "chemical" ||
         this.$route.name === "process" ||
+        this.$route.name === "memo" ||
         this.$route.name === "analysis"
       )
-    }
+    },
   },
   methods: {
+    createColumn() {},
     createChemical() {
       var id = uuid()
       this.$store.commit("CREATE_CHEMICAL", {
-        id: id
+        id: id,
       })
       this.$router.push({ name: "chemical", params: { id: id } })
     },
     createProcess() {
       var id = uuid()
       this.$store.commit("CREATE_PROCESS", {
-        id: id
+        id: id,
       })
       this.$router.push({ name: "process", params: { id: id } })
     },
@@ -131,6 +70,8 @@ export default {
         this.$router.push({ name: "chemical", params: { id: task.id } })
       } else if (task.type === "process") {
         this.$router.push({ name: "process", params: { id: task.id } })
+      } else if (task.type === "memo") {
+        this.$router.push({ name: "memo", params: { id: task.id } })
       }
     },
     closeTask() {
@@ -141,7 +82,7 @@ export default {
     },
     save() {
       this.$store.commit("SAVE_PROJECT", {
-        note_data: localStorage.getItem("note")
+        note_data: localStorage.getItem("note"),
       })
     },
     refresh() {
@@ -150,9 +91,9 @@ export default {
     },
     load() {
       this.$store.commit("LOAD_PROJECT", {
-        projectID: 2
+        projectID: 2,
       })
-    }
+    },
     // moveTask(e, toTaskIndex) {
     //   const fromTaskIndex = e.dataTransfer.getData("from-task-index");
     //   this.$store.commit("MOVE_TASK", {
@@ -165,7 +106,7 @@ export default {
     //   e.dataTransfer.dropEffect = "move";
     //   e.dataTransfer.setData("from-task-index", fromTaskIndex);
     // }
-  }
+  },
 }
 </script>
 
@@ -173,20 +114,11 @@ export default {
 .title-menu {
   background: #eceff1;
 }
-.note-tui {
-  @apply p-4 bg-gray-100 h-screen w-2/5 overflow-auto inline-block;
-}
-.chemical {
-  @apply bg-teal-200 p-3 mb-4 text-left shadow-md rounded-sm;
+.board {
+  @apply p-4 bg-gray-200 h-screen overflow-auto;
 }
 .task-bg {
   @apply inset-0 absolute;
   background: rgba(0, 0, 0, 0.5);
-}
-.process {
-  @apply bg-indigo-200 p-3 mb-4 text-left shadow-md rounded-full;
-}
-.note-gui {
-  @apply w-3/5 overflow-auto bg-gray-300 h-screen inline-block shadow-inner;
 }
 </style>

@@ -1,7 +1,7 @@
 import Vue from "vue"
 import Vuex from "vuex"
 import axios from "axios"
-import project from "@/data/sample_project_2"
+import project from "@/data/sample_project_3"
 import { saveStatePlugin, uuid } from "../utils"
 
 Vue.use(Vuex)
@@ -15,18 +15,18 @@ export default new Vuex.Store({
   //   Note
   // },
   state: {
-    note
+    note,
   },
   getters: {
     getTask(state) {
-      return id => {
+      return (id) => {
         for (const task of state.note.tasks) {
           if (task.id === id) {
             return task
           }
         }
       }
-    }
+    },
   },
   mutations: {
     CREATE_CHEMICAL(state, { id }) {
@@ -48,16 +48,16 @@ export default new Vuex.Store({
             w_unit: "g",
             pressure: null,
             p_unit: "Pa",
-            property: []
-          }
-        ]
+            property: [],
+          },
+        ],
       })
     },
     CREATE_OUTPUT(state, { id, index, ingr }) {
       note.tasks.splice(index, 0, {
         id: id,
         type: "chemical",
-        ingredients: ingr
+        ingredients: ingr,
       })
     },
     CREATE_PROCESS(state, { id }) {
@@ -65,8 +65,8 @@ export default new Vuex.Store({
         id: id,
         type: "process",
         info: {
-          name: ""
-        }
+          name: "",
+        },
       })
     },
     UPDATE_CHEMICAL(state, { chemical, key, value }) {
@@ -110,7 +110,7 @@ export default new Vuex.Store({
             } else {
               console.log("err")
             }
-          })()
+          })(),
         }
 
         console.log(d)
@@ -183,6 +183,6 @@ export default new Vuex.Store({
           console.log(error)
         })
         .finally(function() {})
-    }
-  }
+    },
+  },
 })
