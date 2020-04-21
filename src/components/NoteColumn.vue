@@ -14,7 +14,9 @@
       />
 
       <div>
-        <div>+c +p +m</div>
+        <button @click.stop="createChemical()">+C</button>
+        <button @click.stop="createProcess()">+P</button>
+        <button @click.stop="createMemo()">+M</button>
       </div>
     </div>
   </div>
@@ -41,6 +43,8 @@ export default {
   },
   methods: {
     createTask() {},
+    createProcess() {},
+    createMemo() {},
   },
 }
 </script>
