@@ -26,6 +26,20 @@ export default {
     ],
   },
 
-  new_process: {},
-  new_memo: {},
+  new_process: {
+    id: null,
+    type: "process",
+    info: {
+      name: "",
+    },
+  },
+
+  new_memo: {
+    id: null,
+    type: "memo",
+    info: {
+      title: "",
+      description: "",
+    },
+  },
 }

@@ -34,6 +34,8 @@ export default {
   data() {
     return {
       new_chemical: templates.new_chemical,
+      new_process: templates.new_process,
+      new_memo: templates.new_memo,
     }
   },
   props: {
@@ -57,14 +59,26 @@ export default {
       let data = this.new_chemical
       data.id = id
 
-      this.$store.commit("CREATE_CHEMICAL", { columnID, data })
+      this.$store.commit("CREATE_TASK", { columnID, data })
       this.$router.push({ name: "chemical", params: { id: id } })
     },
     createProcess() {
-      console.log("+ process clicked")
+      const columnID = this.column.id
+      const id = uuid()
+      let data = this.new_process
+      data.id = id
+
+      this.$store.commit("CREATE_TASK", { columnID, data })
+      this.$router.push({ name: "process", params: { id: id } })
     },
     createMemo() {
-      console.log("+ memo clicked")
+      const columnID = this.column.id
+      const id = uuid()
+      let data = this.new_memo
+      data.id = id
+
+      this.$store.commit("CREATE_TASK", { columnID, data })
+      this.$router.push({ name: "memo", params: { id: id } })
     },
   },
 }

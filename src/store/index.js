@@ -29,7 +29,7 @@ export default new Vuex.Store({
     },
   },
   mutations: {
-    CREATE_CHEMICAL(state, { columnID, data }) {
+    CREATE_TASK(state, { columnID, data }) {
       let targetColumn = note.columns.find(({ id }) => id === columnID)
       targetColumn.tasks.push(data)
     },
@@ -38,15 +38,6 @@ export default new Vuex.Store({
         id: id,
         type: "chemical",
         ingredients: ingr,
-      })
-    },
-    CREATE_PROCESS(state, { id }) {
-      note.tasks.push({
-        id: id,
-        type: "process",
-        info: {
-          name: "",
-        },
       })
     },
     UPDATE_CHEMICAL(state, { chemical, key, value }) {
