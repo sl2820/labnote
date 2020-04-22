@@ -9,7 +9,7 @@
         :note="note"
       />
 
-      <div class="column flex">
+      <div class="column">
         <input
           type="text"
           class="p-2 mr-2 flex-grow"

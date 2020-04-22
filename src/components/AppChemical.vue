@@ -26,14 +26,14 @@
         </span>
 
         <div class="inline-block" v-if="chemical.ingredients.length === 1">
-          <div class="inline-block ml-5 italic">
+          <div class="inline-block ml-2 italic">
             {{ per_state_elements(chemical.ingredients[0])[0] }}
           </div>
-          <div class="inline-block ml-5 underline">
+          <div class="inline-block ml-2 underline">
             {{ per_state_elements(chemical.ingredients[0])[1] }}
           </div>
           <div
-            class="inline-block text-sm font-bold italic ml-5"
+            class="inline-block text-sm font-bold italic ml-2"
             v-if="
               (chemical.ingredients[0].property != null) &
                 (chemical.ingredients[0].property.length >= 1)
@@ -61,12 +61,12 @@ export default {
   props: {
     chemical: {
       type: Object,
-      required: true
+      required: true,
     },
     taskIndex: {
       type: Number,
-      required: true
-    }
+      required: true,
+    },
   },
   computed: {
     ...mapState(["note"]),
@@ -83,7 +83,7 @@ export default {
     },
     ingredientLength() {
       return this.chemical.ingredients.length
-    }
+    },
   },
   methods: {
     removeChemical(note, taskIndex) {
@@ -133,8 +133,8 @@ export default {
         pt = pt + property[i] + " "
       }
       return pt
-    }
-  }
+    },
+  },
 }
 </script>
 
