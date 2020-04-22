@@ -2,11 +2,8 @@
   <div>
     <ul class="flex justify-between">
       <li class="mr-2">
-        🔬
-        <div class="inline-block font-bold mr-4">{{ process.info.name }}</div>
-        <span>
-          <!-- {{ details(this.process.info) }} -->
-        </span>
+        📝
+        <div class="inline-block font-bold mr-4">{{ memo.info.title }}</div>
       </li>
       <li class="mr-2">
         <button
@@ -24,17 +21,17 @@
 import { mapState } from "vuex"
 export default {
   props: {
-    process: {
+    memo: {
       type: Object,
-      required: true
+      required: true,
     },
     taskIndex: {
       type: Number,
-      required: true
-    }
+      required: true,
+    },
   },
   computed: {
-    ...mapState(["note"])
+    ...mapState(["note"]),
     // inputs() {
     //   let ids = []
     //   for (const i of this.process.info.inputs) {
@@ -106,8 +103,8 @@ export default {
       }
 
       return data
-    }
-  }
+    },
+  },
 }
 </script>
 

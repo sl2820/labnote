@@ -14,19 +14,28 @@
       />
 
       <div>
-        <button @click.stop="createChemical()">+C</button>
-        <button @click.stop="createProcess()">+P</button>
-        <button @click.stop="createMemo()">+M</button>
+        <ul class="flex justify-between mt-2 mr-5 ml-5 text-2xl">
+          <li><button @click.stop="createChemical()">+🧪</button></li>
+          <li><button @click.stop="createProcess()">+🔬</button></li>
+          <li><button @click.stop="createMemo()">+📝</button></li>
+        </ul>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import { uuid } from "@/utils"
+import templates from "@/data/new_templates"
 import ColumnTask from "@/components/ColumnTask"
 
 export default {
   components: { ColumnTask },
+  data() {
+    return {
+      new_chemical: templates.new_chemical,
+    }
+  },
   props: {
     column: {
       type: Object,
@@ -42,16 +51,28 @@ export default {
     },
   },
   methods: {
-    createTask() {},
-    createProcess() {},
-    createMemo() {},
+    createChemical() {
+      const columnID = this.column.id
+      const id = uuid()
+      let data = this.new_chemical
+      data.id = id
+
+      this.$store.commit("CREATE_CHEMICAL", { columnID, data })
+      this.$router.push({ name: "chemical", params: { id: id } })
+    },
+    createProcess() {
+      console.log("+ process clicked")
+    },
+    createMemo() {
+      console.log("+ memo clicked")
+    },
   },
 }
 </script>
 
 <style lang="css">
 .column {
-  @apply bg-gray-100 p-2 mr-4 text-left shadow rounded;
+  @apply bg-gray-100 p-2 mr-4 text-left shadow rounded w-1/4;
   min-width: 300px;
 }
 </style>

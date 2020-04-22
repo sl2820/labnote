@@ -2,7 +2,7 @@ import Vue from "vue"
 import Vuex from "vuex"
 import axios from "axios"
 import project from "@/data/sample_project_3"
-import { saveStatePlugin, uuid } from "../utils"
+import { saveStatePlugin } from "../utils"
 
 Vue.use(Vuex)
 
@@ -29,29 +29,9 @@ export default new Vuex.Store({
     },
   },
   mutations: {
-    CREATE_CHEMICAL(state, { id }) {
-      note.tasks.push({
-        id: id,
-        type: "chemical",
-        ingredients: [
-          {
-            id: uuid(),
-            name: "",
-            product_number: "",
-            state: "",
-            solvent: "",
-            volume: null,
-            v_unit: "",
-            concentration: null,
-            c_unit: "",
-            weight: null,
-            w_unit: "g",
-            pressure: null,
-            p_unit: "Pa",
-            property: [],
-          },
-        ],
-      })
+    CREATE_CHEMICAL(state, { columnID, data }) {
+      let targetColumn = note.columns.find(({ id }) => id === columnID)
+      targetColumn.tasks.push(data)
     },
     CREATE_OUTPUT(state, { id, index, ingr }) {
       note.tasks.splice(index, 0, {
