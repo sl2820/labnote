@@ -20,9 +20,11 @@ export default new Vuex.Store({
   getters: {
     getTask(state) {
       return (id) => {
-        for (const task of state.note.tasks) {
-          if (task.id === id) {
-            return task
+        for (const column of state.note.columns) {
+          for (const task of column.tasks) {
+            if (task.id === id) {
+              return task
+            }
           }
         }
       }
