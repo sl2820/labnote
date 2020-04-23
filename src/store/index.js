@@ -42,6 +42,9 @@ export default new Vuex.Store({
     },
   },
   mutations: {
+    CREATE_COLUMN(state, { data }) {
+      note.columns.push(data)
+    },
     CREATE_TASK(state, { columnID, data }) {
       let targetColumn = note.columns.find(({ id }) => id === columnID)
       targetColumn.tasks.push(data)
@@ -63,8 +66,11 @@ export default new Vuex.Store({
     UPDATE_MEMO(state, { memo, key, value }) {
       Vue.set(memo, key, value)
     },
-    REMOVE_TASK(state, { note, taskIndex }) {
-      note.tasks.splice(taskIndex, 1)
+    REMOVE_COLUMN(state, { note, columnIndex }) {
+      note.columns.splice(columnIndex, 1)
+    },
+    REMOVE_TASK(state, { note, columnIndex, taskIndex }) {
+      note.columns[columnIndex].tasks.splice(taskIndex, 1)
     },
     SAVE_PROJECT(state, { data }) {
       data = note

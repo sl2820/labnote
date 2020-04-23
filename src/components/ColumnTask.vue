@@ -1,13 +1,21 @@
 <template>
   <div @click="openTask(task)">
     <div class="chemical" v-if="task.type === 'chemical'">
-      <AppChemical :chemical="task" :taskIndex="taskIndex" />
+      <AppChemical
+        :chemical="task"
+        :taskIndex="taskIndex"
+        :columnIndex="columnIndex"
+      />
     </div>
     <div class="process" v-else-if="task.type === 'process'">
-      <AppProcess :process="task" :taskIndex="taskIndex" />
+      <AppProcess
+        :process="task"
+        :taskIndex="taskIndex"
+        :columnIndex="columnIndex"
+      />
     </div>
     <div class="memo" v-else-if="task.type === 'memo'">
-      <AppMemo :memo="task" :taskIndex="taskIndex" />
+      <AppMemo :memo="task" :taskIndex="taskIndex" :columnIndex="columnIndex" />
     </div>
   </div>
 </template>

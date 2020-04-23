@@ -10,8 +10,8 @@
       </li>
       <li class="mr-2">
         <button
-          class="inline-block text-sm"
-          @click.stop="removeProcess(note, taskIndex)"
+          class="inline-block text-xs"
+          @click.stop="removeProcess(note, columnIndex, taskIndex)"
         >
           ✖️
         </button>
@@ -26,15 +26,19 @@ export default {
   props: {
     process: {
       type: Object,
-      required: true
+      required: true,
+    },
+    columnIndex: {
+      type: Number,
+      required: true,
     },
     taskIndex: {
       type: Number,
-      required: true
-    }
+      required: true,
+    },
   },
   computed: {
-    ...mapState(["note"])
+    ...mapState(["note"]),
     // inputs() {
     //   let ids = []
     //   for (const i of this.process.info.inputs) {
@@ -78,8 +82,8 @@ export default {
     // }
   },
   methods: {
-    removeProcess(note, taskIndex) {
-      this.$store.commit("REMOVE_TASK", { note, taskIndex })
+    removeProcess(note, columnIndex, taskIndex) {
+      this.$store.commit("REMOVE_TASK", { note, columnIndex, taskIndex })
     },
 
     details(info) {
@@ -106,8 +110,8 @@ export default {
       }
 
       return data
-    }
-  }
+    },
+  },
 }
 </script>
 
