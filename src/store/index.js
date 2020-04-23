@@ -60,6 +60,9 @@ export default new Vuex.Store({
     UPDATE_PROCESS(state, { process, key, value }) {
       Vue.set(process, key, value)
     },
+    UPDATE_MEMO(state, { memo, key, value }) {
+      Vue.set(memo, key, value)
+    },
     REMOVE_TASK(state, { note, taskIndex }) {
       note.tasks.splice(taskIndex, 1)
     },

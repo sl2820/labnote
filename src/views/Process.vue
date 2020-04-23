@@ -110,7 +110,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="css">
 .process-view {
   @apply relative flex flex-row my-32 mx-auto bg-white p-4 inset-0 text-left rounded shadow;
   max-width: 600px;
