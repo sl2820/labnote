@@ -30,12 +30,14 @@
 import { mapState } from "vuex"
 import { uuid } from "@/utils"
 import NoteColumn from "@/components/NoteColumn"
+import templates from "@/data/new_templates"
 
 export default {
   components: { NoteColumn },
   data() {
     return {
       newColumnName: "",
+      new_column: templates.new_column,
     }
   },
   computed: {
@@ -50,20 +52,12 @@ export default {
     },
   },
   methods: {
-    createColumn() {},
-    createChemical() {
-      var id = uuid()
-      this.$store.commit("CREATE_CHEMICAL", {
-        id: id,
-      })
-      this.$router.push({ name: "chemical", params: { id: id } })
-    },
-    createProcess() {
-      var id = uuid()
-      this.$store.commit("CREATE_PROCESS", {
-        id: id,
-      })
-      this.$router.push({ name: "process", params: { id: id } })
+    createColumn() {
+      let data = this.new_column
+      data.id = uuid()
+      data.name = this.newColumnName
+      this.$store.commit("CREATE_COLUMN", { data })
+      this.newColumnName = ""
     },
     openTask(task) {
       if (task.type === "chemical") {

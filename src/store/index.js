@@ -42,6 +42,9 @@ export default new Vuex.Store({
     },
   },
   mutations: {
+    CREATE_COLUMN(state, { data }) {
+      note.columns.push(data)
+    },
     CREATE_TASK(state, { columnID, data }) {
       let targetColumn = note.columns.find(({ id }) => id === columnID)
       targetColumn.tasks.push(data)

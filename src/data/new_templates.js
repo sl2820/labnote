@@ -3,6 +3,12 @@ import { uuid } from "@/utils"
 export default {
   name: "new_templates",
 
+  new_column: {
+    id: null,
+    name: "",
+    tasks: [],
+  },
+
   new_chemical: {
     id: null,
     type: "chemical",
