@@ -10,7 +10,7 @@
       </li>
       <li class="mr-2">
         <button
-          class="inline-block text-sm"
+          class="inline-block text-xs"
           @click.stop="removeProcess(note, columnIndex, taskIndex)"
         >
           ✖️
