@@ -29,6 +29,17 @@ export default new Vuex.Store({
         }
       }
     },
+    getColumn(state) {
+      return (id) => {
+        for (const column of state.note.columns) {
+          for (const task of column.tasks) {
+            if (task.id === id) {
+              return column
+            }
+          }
+        }
+      }
+    },
   },
   mutations: {
     CREATE_TASK(state, { columnID, data }) {

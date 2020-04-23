@@ -5,14 +5,14 @@
         📝
         <div class="inline-block font-bold mr-4">{{ memo.info.title }}</div>
       </li>
-      <li class="mr-2">
+      <!-- <li class="mr-2">
         <button
           class="inline-block text-sm"
           @click.stop="removeProcess(note, taskIndex)"
         >
           ✖️
         </button>
-      </li>
+      </li> -->
     </ul>
   </div>
 </template>
@@ -25,10 +25,10 @@ export default {
       type: Object,
       required: true,
     },
-    taskIndex: {
-      type: Number,
-      required: true,
-    },
+    // taskIndex: {
+    //   type: Number,
+    //   required: true,
+    // },
   },
   computed: {
     ...mapState(["note"]),
