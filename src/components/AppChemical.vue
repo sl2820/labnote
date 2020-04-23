@@ -46,7 +46,7 @@
       <li class="mr-2">
         <button
           class="inline-block text-sm"
-          @click.stop="removeChemical(note, taskIndex)"
+          @click.stop="removeChemical(note, columnIndex, taskIndex)"
         >
           ✖️
         </button>
@@ -61,6 +61,10 @@ export default {
   props: {
     chemical: {
       type: Object,
+      required: true,
+    },
+    columnIndex: {
+      type: Number,
       required: true,
     },
     taskIndex: {
@@ -86,8 +90,8 @@ export default {
     },
   },
   methods: {
-    removeChemical(note, taskIndex) {
-      this.$store.commit("REMOVE_TASK", { note, taskIndex })
+    removeChemical(note, columnIndex, taskIndex) {
+      this.$store.commit("REMOVE_TASK", { note, columnIndex, taskIndex })
     },
     toFormula(name) {
       let num = name.match(/\d/g)

@@ -63,8 +63,8 @@ export default new Vuex.Store({
     UPDATE_MEMO(state, { memo, key, value }) {
       Vue.set(memo, key, value)
     },
-    REMOVE_TASK(state, { note, taskIndex }) {
-      note.tasks.splice(taskIndex, 1)
+    REMOVE_TASK(state, { note, columnIndex, taskIndex }) {
+      note.columns[columnIndex].tasks.splice(taskIndex, 1)
     },
     SAVE_PROJECT(state, { data }) {
       data = note
