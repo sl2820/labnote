@@ -31,10 +31,10 @@
 
 <script>
 import { mapState } from "vuex"
-import { uuid } from "@/utils"
 import NoteNav from "@/components/NoteNav"
 import NoteColumn from "@/components/NoteColumn"
 import templates from "@/data/new_templates"
+import { uuid } from "@/utils"
 
 export default {
   components: { NoteNav, NoteColumn },
@@ -63,55 +63,15 @@ export default {
       this.$store.commit("CREATE_COLUMN", { data })
       this.newColumnName = ""
     },
-    openTask(task) {
-      if (task.type === "chemical") {
-        this.$router.push({ name: "chemical", params: { id: task.id } })
-      } else if (task.type === "process") {
-        this.$router.push({ name: "process", params: { id: task.id } })
-      } else if (task.type === "memo") {
-        this.$router.push({ name: "memo", params: { id: task.id } })
-      }
-    },
     closeTask() {
+      // WILL BE REMOVED
       this.$router.push({ name: "note" })
     },
-    openAnalysis() {
-      this.$router.push({ name: "analysis", params: { id: this.note.id } })
-    },
-    save() {
-      this.$store.commit("SAVE_PROJECT", {
-        note_data: localStorage.getItem("note"),
-      })
-    },
-    refresh() {
-      localStorage.clear()
-      location.reload()
-    },
-    load() {
-      this.$store.commit("LOAD_PROJECT", {
-        projectID: 2,
-      })
-    },
-    // moveTask(e, toTaskIndex) {
-    //   const fromTaskIndex = e.dataTransfer.getData("from-task-index");
-    //   this.$store.commit("MOVE_TASK", {
-    //     fromTaskIndex,
-    //     toTaskIndex
-    //   });
-    // },
-    // pickupTask(e, fromTaskIndex) {
-    //   e.dataTransfer.effectAllowed = "move";
-    //   e.dataTransfer.dropEffect = "move";
-    //   e.dataTransfer.setData("from-task-index", fromTaskIndex);
-    // }
   },
 }
 </script>
 
 <style lang="css">
-.title-menu {
-  background: #eceff1;
-}
 .board {
   @apply bg-gray-200 overflow-auto h-screen;
 }

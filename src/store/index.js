@@ -1,12 +1,11 @@
 import Vue from "vue"
 import Vuex from "vuex"
 import axios from "axios"
-import project from "@/data/sample_project_3"
+import project from "@/data/sample_project"
 import { saveStatePlugin } from "../utils"
 
 Vue.use(Vuex)
 
-// const note = JSON.parse(localStorage.getItem("note")) || experiment
 const note = JSON.parse(localStorage.getItem("note")) || project
 
 export default new Vuex.Store({
@@ -56,15 +55,8 @@ export default new Vuex.Store({
         ingredients: ingr,
       })
     },
-    UPDATE_CHEMICAL(state, { chemical, key, value }) {
-      // chemical[key] = value
-      Vue.set(chemical, key, value)
-    },
-    UPDATE_PROCESS(state, { process, key, value }) {
-      Vue.set(process, key, value)
-    },
-    UPDATE_MEMO(state, { memo, key, value }) {
-      Vue.set(memo, key, value)
+    UPDATE_TASK(state, { task, key, value }) {
+      Vue.set(task, key, value)
     },
     REMOVE_COLUMN(state, { note, columnIndex }) {
       note.columns.splice(columnIndex, 1)

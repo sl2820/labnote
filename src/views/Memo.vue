@@ -35,7 +35,7 @@ export default {
   },
   methods: {
     updateMemoProperty(e, key) {
-      this.$store.commit("UPDATE_MEMO", {
+      this.$store.commit("UPDATE_TASK", {
         memo: this.memo.info,
         key,
         value: e.target.value,

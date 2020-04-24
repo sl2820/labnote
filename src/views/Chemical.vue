@@ -271,7 +271,7 @@ export default {
         value_ = e.target.value
         this.temp_state = e.target.value
       }
-      this.$store.commit("UPDATE_CHEMICAL", {
+      this.$store.commit("UPDATE_TASK", {
         chemical: found,
         key,
         value: value_,
@@ -306,7 +306,7 @@ export default {
     },
     additionalNote(n) {
       this.additional = n
-      this.$store.commit("UPDATE_CHEMICAL", {
+      this.$store.commit("UPDATE_TASK", {
         chemical: this.chemical,
         key: "additional",
         value: n,

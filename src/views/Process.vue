@@ -100,7 +100,7 @@ export default {
         data.inputs = ins
       }
 
-      this.$store.commit("UPDATE_PROCESS", {
+      this.$store.commit("UPDATE_TASK", {
         process: this.process,
         key,
         value: data,
