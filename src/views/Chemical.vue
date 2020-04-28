@@ -221,7 +221,7 @@ export default {
       temp_name: null,
       temp_state: null,
       sigma_obj: sigma.sigmaaldrich,
-      additional: null
+      additional: null,
     }
   },
   computed: {
@@ -258,7 +258,7 @@ export default {
         }
       }
       return formatted
-    }
+    },
   },
   methods: {
     updateChemicalProperty(e, key, chemid) {
@@ -271,10 +271,10 @@ export default {
         value_ = e.target.value
         this.temp_state = e.target.value
       }
-      this.$store.commit("UPDATE_CHEMICAL", {
+      this.$store.commit("UPDATE_TASK", {
         chemical: found,
         key,
-        value: value_
+        value: value_,
       })
     },
     toFormula(name) {
@@ -306,17 +306,17 @@ export default {
     },
     additionalNote(n) {
       this.additional = n
-      this.$store.commit("UPDATE_CHEMICAL", {
+      this.$store.commit("UPDATE_TASK", {
         chemical: this.chemical,
         key: "additional",
-        value: n
+        value: n,
       })
-    }
-  }
+    },
+  },
 }
 </script>
 
-<style scoped>
+<style lang="css">
 .chemical-view {
   @apply relative flex flex-row my-32 mx-auto bg-white p-4 inset-0 text-left rounded shadow;
   max-width: 800px;

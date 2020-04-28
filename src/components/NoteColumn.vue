@@ -1,6 +1,18 @@
 <template>
   <div class="column">
-    <div class="flex items-center mb-2">{{ column.name }}</div>
+    <div class="flex items-center mb-2">
+      <ul class="flex justify-between">
+        <li>{{ column.name }}</li>
+        <li class="mr-2">
+          <button
+            class="inline-block text-sm"
+            @click.stop="removeColumn(note, columnIndex)"
+          >
+            ✖️
+          </button>
+        </li>
+      </ul>
+    </div>
 
     <div class="list-reset">
       <ColumnTask
@@ -39,16 +51,16 @@ export default {
     }
   },
   props: {
+    note: {
+      type: Object,
+      required: true,
+    },
     column: {
       type: Object,
       required: true,
     },
     columnIndex: {
       type: Number,
-      required: true,
-    },
-    note: {
-      type: Object,
       required: true,
     },
   },
@@ -79,6 +91,9 @@ export default {
 
       this.$store.commit("CREATE_TASK", { columnID, data })
       this.$router.push({ name: "memo", params: { id: id } })
+    },
+    removeColumn(note, columnIndex) {
+      this.$store.commit("REMOVE_COLUMN", { note, columnIndex })
     },
   },
 }

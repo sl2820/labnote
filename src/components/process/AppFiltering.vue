@@ -44,25 +44,31 @@ export default {
   props: {
     this_process: {
       type: Object,
-      required: true
-    }
+      required: true,
+    },
   },
   computed: {
     ...mapGetters(["getTask"]),
     ...mapState(["note"]),
     prevChemicals() {
-      const procId = this.$route.params.id
+      const procId = this.this_process.id
+
       let taskIds = []
-      for (const t of this.note.tasks) {
-        taskIds.push(t.id)
-      }
-      let chemicals = []
-      for (const task of this.note.tasks) {
-        if (taskIds.indexOf(procId) < taskIds.indexOf(task.id)) {
-          break
+      for (const column of this.note.columns) {
+        for (const task of column.tasks) {
+          taskIds.push(task.id)
         }
-        if (task.type === "chemical") {
-          chemicals.push(task)
+      }
+
+      let chemicals = []
+      for (const column of this.note.columns) {
+        for (const task of column.tasks) {
+          if (taskIds.indexOf(procId) < taskIds.indexOf(task.id)) {
+            break
+          }
+          if (task.type === "chemical") {
+            chemicals.push(task)
+          }
         }
       }
       return chemicals
@@ -76,7 +82,7 @@ export default {
         "chem_for",
         "chem_to",
         "output",
-        "feeding"
+        "feeding",
       ]
       let details = {}
       for (let k of keys) {
@@ -85,12 +91,12 @@ export default {
         }
       }
       return details
-    }
+    },
   },
   methods: {
     names(this_id) {
       let names = []
-      const ingrs = this.note.tasks.find(({ id }) => id === this_id).ingredients
+      const ingrs = this.getTask(this_id).ingredients
       for (const ingr of ingrs) {
         names.push(ingr.name)
       }
@@ -100,7 +106,7 @@ export default {
       this.$store.commit("UPDATE_PROCESS", {
         process: this.this_process.info,
         key,
-        value: e.target.value
+        value: e.target.value,
       })
     },
     makeOutput() {
@@ -119,10 +125,10 @@ export default {
       this.$store.commit("CREATE_OUTPUT", {
         id: id,
         index: new_index,
-        ingr: ingredients
+        ingr: ingredients,
       })
-    }
-  }
+    },
+  },
 }
 </script>
 

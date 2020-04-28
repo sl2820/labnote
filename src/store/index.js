@@ -1,12 +1,11 @@
 import Vue from "vue"
 import Vuex from "vuex"
 import axios from "axios"
-import project from "@/data/sample_project_3"
+import project from "@/data/sample_project"
 import { saveStatePlugin } from "../utils"
 
 Vue.use(Vuex)
 
-// const note = JSON.parse(localStorage.getItem("note")) || experiment
 const note = JSON.parse(localStorage.getItem("note")) || project
 
 export default new Vuex.Store({
@@ -20,15 +19,31 @@ export default new Vuex.Store({
   getters: {
     getTask(state) {
       return (id) => {
-        for (const task of state.note.tasks) {
-          if (task.id === id) {
-            return task
+        for (const column of state.note.columns) {
+          for (const task of column.tasks) {
+            if (task.id === id) {
+              return task
+            }
+          }
+        }
+      }
+    },
+    getColumn(state) {
+      return (id) => {
+        for (const column of state.note.columns) {
+          for (const task of column.tasks) {
+            if (task.id === id) {
+              return column
+            }
           }
         }
       }
     },
   },
   mutations: {
+    CREATE_COLUMN(state, { data }) {
+      note.columns.push(data)
+    },
     CREATE_TASK(state, { columnID, data }) {
       let targetColumn = note.columns.find(({ id }) => id === columnID)
       targetColumn.tasks.push(data)
@@ -40,15 +55,14 @@ export default new Vuex.Store({
         ingredients: ingr,
       })
     },
-    UPDATE_CHEMICAL(state, { chemical, key, value }) {
-      // chemical[key] = value
-      Vue.set(chemical, key, value)
+    UPDATE_TASK(state, { task, key, value }) {
+      Vue.set(task, key, value)
     },
-    UPDATE_PROCESS(state, { process, key, value }) {
-      Vue.set(process, key, value)
+    REMOVE_COLUMN(state, { note, columnIndex }) {
+      note.columns.splice(columnIndex, 1)
     },
-    REMOVE_TASK(state, { note, taskIndex }) {
-      note.tasks.splice(taskIndex, 1)
+    REMOVE_TASK(state, { note, columnIndex, taskIndex }) {
+      note.columns[columnIndex].tasks.splice(taskIndex, 1)
     },
     SAVE_PROJECT(state, { data }) {
       data = note
