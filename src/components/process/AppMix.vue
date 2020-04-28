@@ -31,13 +31,13 @@ export default {
   props: {
     this_process: {
       type: Object,
-      required: true
-    }
+      required: true,
+    },
   },
   data() {
     return {
       processFuncs: processDB.functions,
-      inputs: this.this_process.info.inputs
+      inputs: this.this_process.info.inputs,
     }
   },
   computed: {
@@ -57,12 +57,12 @@ export default {
         }
       }
       return details
-    }
+    },
   },
   methods: {
     names(this_id) {
       let names = []
-      const ingrs = this.note.tasks.find(({ id }) => id === this_id).ingredients
+      const ingrs = this.getTask(this_id).ingredients
       for (const ingr of ingrs) {
         names.push(ingr.name)
       }
@@ -89,11 +89,11 @@ export default {
       this.$store.commit("CREATE_OUTPUT", {
         id: id,
         index: new_index,
-        ingr: ingredients
+        ingr: ingredients,
       })
       this.$router.push({ name: "note" })
-    }
-  }
+    },
+  },
 }
 </script>
 
