@@ -28,12 +28,8 @@ import AppMemo from "@/components/AppMemo"
 export default {
   components: { AppChemical, AppProcess, AppMemo },
   props: {
-    task: {
+    note: {
       type: Object,
-      required: true,
-    },
-    taskIndex: {
-      type: Number,
       required: true,
     },
     column: {
@@ -44,8 +40,12 @@ export default {
       type: Number,
       required: true,
     },
-    note: {
+    task: {
       type: Object,
+      required: true,
+    },
+    taskIndex: {
+      type: Number,
       required: true,
     },
   },
@@ -64,16 +64,13 @@ export default {
 </script>
 
 <style lang="css">
-.task {
-  @apply flex items-center flex-wrap shadow mb-2 py-2 px-2 rounded bg-white no-underline;
-}
 .chemical {
-  @apply bg-teal-200 p-3 mb-4 text-left shadow-md rounded-sm;
+  @apply bg-teal-200 p-2 mb-3 text-left shadow-md rounded-sm;
 }
 .process {
-  @apply bg-indigo-200 p-3 mb-4 text-left shadow-md rounded-full;
+  @apply bg-indigo-200 p-2 mb-3 text-left shadow-md rounded-full;
 }
 .memo {
-  @apply bg-yellow-200 p-3 mb-4 text-left shadow-md rounded-full;
+  @apply bg-yellow-200 p-2 mb-3 text-left shadow-md rounded;
 }
 </style>

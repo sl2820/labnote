@@ -51,16 +51,16 @@ export default {
     }
   },
   props: {
+    note: {
+      type: Object,
+      required: true,
+    },
     column: {
       type: Object,
       required: true,
     },
     columnIndex: {
       type: Number,
-      required: true,
-    },
-    note: {
-      type: Object,
       required: true,
     },
   },

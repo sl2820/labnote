@@ -1,51 +1,44 @@
 <template>
   <div>
     <nav class="navigationbar">
-      <div class="flex items-center flex-shrink-0 mr-6 ml-2 mt-1 mb-1">
-        <!-- <img
+      <div class="flex items-center flex-shrink-0">
+        <img
           class="fill-current h-8 w-8 mr-2"
           width="54"
           height="54"
           viewBox="0 0 54 54"
-          src="../assets/icon.png"
-        /> -->
+          src="../assets/icon-transparent.png"
+        />
         <span class="font-semibold tracking-tight">labNote</span>
       </div>
       <div class="font-bold text-xl">Acetaminophen synthesis trial 11</div>
-      <div class="block lg:hidden">
-        <button
-          class="flex items-center px-3 py-2 border rounded text-teal-200 border-teal-400 hover:text-white hover:border-white"
-        >
-          <svg
-            class="fill-current h-3 w-3"
-            viewBox="0 0 20 20"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <title>Menu</title>
-            <path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z" />
-          </svg>
-        </button>
-      </div>
+
       <div class="w-full block flex-grow lg:flex lg:items-center lg:w-auto">
         <div class="text-sm lg:flex-grow">
-          <a
-            href="#responsive-header"
-            class="block lg:inline-block lg:mt-0 hover:text-white mr-4"
+          <button
+            class="block lg:inline-block lg:mt-0 hover:text-white mr-4 hover:underline"
+            @click="save()"
           >
             Save
-          </a>
-          <a
-            href="#responsive-header"
-            class="block lg:inline-block lg:mt-0 hover:text-white mr-4"
+          </button>
+          <button
+            class="block lg:inline-block lg:mt-0 hover:text-white mr-4 hover:underline"
+            @click="load()"
           >
             Load
-          </a>
-          <a
-            href="#responsive-header"
-            class="block lg:inline-block lg:mt-0 hover:text-white"
+          </button>
+          <button
+            class="block lg:inline-block lg:mt-0 hover:text-white mr-4 hover:underline"
+            @click="openAnalysis()"
           >
             Analysis
-          </a>
+          </button>
+          <button
+            class="block lg:inline-block lg:mt-0 hover:text-white mr-4 hover:underline"
+            @click="refresh()"
+          >
+            Refresh
+          </button>
         </div>
         <div class="mr-2">User name</div>
       </div>
@@ -54,7 +47,27 @@
 </template>
 
 <script>
-export default {}
+export default {
+  methods: {
+    save() {
+      this.$store.commit("SAVE_PROJECT", {
+        note_data: localStorage.getItem("note"),
+      })
+    },
+    load() {
+      this.$store.commit("LOAD_PROJECT", {
+        projectID: 2,
+      })
+    },
+    openAnalysis() {
+      this.$router.push({ name: "analysis", params: { id: this.note.id } })
+    },
+    refresh() {
+      localStorage.clear()
+      location.reload()
+    },
+  },
+}
 </script>
 
 <style lang="css">
