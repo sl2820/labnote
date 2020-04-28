@@ -39,47 +39,6 @@ export default {
   },
   computed: {
     ...mapState(["note"]),
-    // inputs() {
-    //   let ids = []
-    //   for (const i of this.process.info.inputs) {
-    //     ids.push(i)
-    //   }
-    //   let names = []
-    //   for (const i of ids) {
-    //     for (const c of this.note.tasks) {
-    //       if (c.id === i) {
-    //         for (const j of c.ingredients) {
-    //           names.push(j.name)
-    //         }
-    //       }
-    //     }
-    //   }
-    //   return names.join(" ➕")
-    // },
-    // chem_for() {
-    //   let cid = this.process.info.chem_for.id
-    //   let name = ""
-    //   for (const c of this.note.tasks) {
-    //     if (c.id === cid) {
-    //       for (const j of c.ingredients) {
-    //         name = j.name
-    //       }
-    //     }
-    //   }
-    //   return name
-    // },
-    // chem_to() {
-    //   let cid = this.process.info.chem_to.id
-    //   let name = ""
-    //   for (const c of this.note.tasks) {
-    //     if (c.id === cid) {
-    //       for (const j of c.ingredients) {
-    //         name = j.name
-    //       }
-    //     }
-    //   }
-    //   return name
-    // }
   },
   methods: {
     removeProcess(note, columnIndex, taskIndex) {
