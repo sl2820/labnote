@@ -19,11 +19,15 @@
     </ul>
     <div>
       <span>amount:</span>
-      <input v-model="this_process.info.chem_for.amount" />
+      <input
+        class="process-input-fields"
+        v-model="this_process.info.chem_for.amount"
+      />
     </div>
     <div v-for="(value, key, index) in getDetails" :key="index + 'det'">
       <span class="mr-2">{{ key }}:</span>
       <input
+        class="process-input-fields"
         v-model="getDetails[key]"
         @change="updateProcessInfo($event, key)"
       />
