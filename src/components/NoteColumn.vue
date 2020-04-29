@@ -108,6 +108,8 @@ export default {
 }
 .column-list {
   @apply overflow-y-auto;
+  min-height: 0%;
+  /* max-height: 80%; */
   max-height: 600px;
 }
 </style>
