@@ -9,9 +9,9 @@
           viewBox="0 0 54 54"
           src="../assets/icon-transparent.png"
         />
-        <span class="font-semibold tracking-tight">labNote</span>
+        <span class="font-semibold tracking-tight mr-4">labNote</span>
       </div>
-      <div class="font-bold text-xl">Acetaminophen synthesis trial 11</div>
+      <div class="font-black text-xl">Acetaminophen synthesis trial 11</div>
 
       <div class="w-full block flex-grow lg:flex lg:items-center lg:w-auto">
         <div class="text-sm lg:flex-grow">
@@ -21,7 +21,7 @@
           >
             Save
           </button>
-          <button
+          <!-- <button
             class="block lg:inline-block lg:mt-0 hover:text-white mr-4 hover:underline"
             @click="load()"
           >
@@ -32,7 +32,7 @@
             @click="openAnalysis()"
           >
             Analysis
-          </button>
+          </button> -->
           <button
             class="block lg:inline-block lg:mt-0 hover:text-white mr-4 hover:underline"
             @click="refresh()"
@@ -40,7 +40,18 @@
             Refresh
           </button>
         </div>
-        <div class="mr-2">User name</div>
+        <!-- <button
+          class="block font-medium lg:inline-block lg:mt-0 hover:text-white mr-2 hover:underline"
+        >
+          🧑🏻‍🔬Sukjoo Hong
+        </button> -->
+        <input
+          class="bg-white mr-1 text-black"
+          type="text"
+          placeholder="user id"
+          v-model="user_id"
+          @change="updateTestId($event)"
+        />
       </div>
     </nav>
   </div>
@@ -48,6 +59,11 @@
 
 <script>
 export default {
+  data() {
+    return {
+      user_id: "",
+    }
+  },
   methods: {
     save() {
       this.$store.commit("SAVE_PROJECT", {
@@ -65,6 +81,11 @@ export default {
     refresh() {
       localStorage.clear()
       location.reload()
+    },
+    updateTestId(e) {
+      this.$store.commit("UPDATE_TEST_ID", {
+        test_id: e.target.value,
+      })
     },
   },
 }
