@@ -14,7 +14,7 @@
       </div>
     </div>
 
-    <AppButton class="mt-6 bg-teal-400 rounded-sm" @click.native="makeOutput()"
+    <AppButton class="my-6 bg-teal-400 rounded-sm" @click.native="makeOutput()"
       >Make Output</AppButton
     >
   </div>
