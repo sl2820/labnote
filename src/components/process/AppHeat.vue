@@ -14,6 +14,7 @@
     <div v-for="(value, key, index) in getDetails" :key="index + 'det'">
       <span class="mr-2">{{ key }}:</span>
       <input
+        class="process-input-fields"
         v-model="getDetails[key]"
         @change="updateProcessInfo($event, key)"
       />

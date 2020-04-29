@@ -7,10 +7,10 @@
       </div>
     </div>
 
-    <div class="mt-6 bg-gray-200">
+    <div class="mt-6">
       <div v-for="(value, key, index) in getDetails" :key="index">
         <span class="mr-2">{{ key }}:</span>
-        <input v-model="getDetails[key]" />
+        <input class="process-input-fields" v-model="getDetails[key]" />
       </div>
     </div>
 

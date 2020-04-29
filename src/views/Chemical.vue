@@ -6,7 +6,7 @@
           <hr />
         </div>
         <div class="inline-block text-xl font-black pr-2">Name:</div>
-        <div class="inline-block text-l">
+        <div class="chemical-input-fields text-l">
           <input
             placeholder="Search name"
             type="text"
@@ -24,7 +24,7 @@
         </div>
         <!-- Below is State Listing -->
         <div class="inline-block font-black pr-2">State:</div>
-        <div class="inline-block text-l mr-48">
+        <div class="chemical-input-fields text-l mr-48">
           <input
             class="w-24 mr-2"
             placeholder="Choose type"
@@ -50,7 +50,7 @@
         </div>
         <div></div>
         <div class="inline-block font-black pr-2">Product #:</div>
-        <div class="inline-block text-l">
+        <div class="chemical-input-fields text-l">
           <input
             class="w-32 min-w-0 text-sm"
             placeholder="Enter product #"
@@ -65,7 +65,7 @@
           <div class="font-medium pr-2">
             - Weight:
             <input
-              class="w-20 min-w-0 text-xs"
+              class="chemical-input-fields w-20 min-w-0 text-xs"
               placeholder="Enter weight"
               type="text"
               :value="chem.weight"
@@ -73,7 +73,7 @@
             />
             Unit:
             <input
-              class="w-20 min-w-0 text-xs"
+              class="chemical-input-fields w-20 min-w-0 text-xs"
               placeholder="Enter Unit"
               type="text"
               :value="chem.w_unit"
@@ -86,7 +86,7 @@
           <div class="font-medium pr-2">
             - Solvent:
             <input
-              class="w-20 min-w-0 text-xs"
+              class="chemical-input-fields w-20 min-w-0 text-xs"
               placeholder="Enter solvent"
               type="text"
               :value="chem.solvent"
@@ -96,7 +96,7 @@
           <div class="font-medium pr-2">
             - Concentration:
             <input
-              class="w-20 min-w-0 text-xs"
+              class="chemical-input-fields w-20 min-w-0 text-xs"
               placeholder="Enter concentration"
               type="text"
               :value="chem.concentration"
@@ -104,7 +104,7 @@
             />
             Unit:
             <input
-              class="w-20 min-w-0 text-xs"
+              class="chemical-input-fields w-20 min-w-0 text-xs"
               placeholder="Enter Unit"
               type="text"
               :value="chem.c_unit"
@@ -114,7 +114,7 @@
           <div class="font-medium pr-2">
             - Volume:
             <input
-              class="w-20 min-w-0 text-xs"
+              class="chemical-input-fields w-20 min-w-0 text-xs"
               placeholder="Enter volume"
               type="text"
               :value="chem.volume"
@@ -122,7 +122,7 @@
             />
             Unit:
             <input
-              class="w-20 min-w-0 text-xs"
+              class="chemical-input-fields w-20 min-w-0 text-xs"
               placeholder="Enter Unit"
               type="text"
               :value="chem.v_unit"
@@ -135,7 +135,7 @@
           <div class="font-medium pr-2">
             - volume:
             <input
-              class="w-20 min-w-0 text-xs"
+              class="chemical-input-fields w-20 min-w-0 text-xs"
               placeholder="Enter volume"
               type="text"
               :value="chem.volume"
@@ -143,7 +143,7 @@
             />
             Unit:
             <input
-              class="w-20 min-w-0 text-xs"
+              class="chemical-input-fields w-20 min-w-0 text-xs"
               placeholder="Enter Unit"
               type="text"
               :value="chem.v_unit"
@@ -156,7 +156,7 @@
           <div class="font-medium pr-2">
             - volume:
             <input
-              class="w-20 min-w-0 text-xs"
+              class="chemical-input-fields w-20 min-w-0 text-xs"
               placeholder="Enter volume"
               type="text"
               :value="chem.volume"
@@ -164,7 +164,7 @@
             />
             Unit:
             <input
-              class="w-20 min-w-0 text-xs"
+              class="chemical-input-fields w-20 min-w-0 text-xs"
               placeholder="Enter Unit"
               type="text"
               :value="chem.v_unit"
@@ -174,7 +174,7 @@
           <div class="font-medium pr-2">
             - Pressure:
             <input
-              class="w-20 min-w-0 text-xs"
+              class="chemical-input-fields w-20 min-w-0 text-xs"
               placeholder="Enter pressure"
               type="text"
               :value="chem.pressure"
@@ -182,7 +182,7 @@
             />
             Unit:
             <input
-              class="w-20 min-w-0 text-xs"
+              class="chemical-input-fields w-20 min-w-0 text-xs"
               placeholder="Enter Unit"
               type="text"
               :value="chem.p_unit"
@@ -195,7 +195,7 @@
           <p class="font-medium">Unidentified states. Plese check</p>
         </div>
       </div>
-      <div class="mt-6 bg-yellow-100">
+      <div class="chemical-input-fields mt-6">
         <textarea
           v-model="additional"
           placeholder="add notes"
@@ -321,5 +321,8 @@ export default {
   @apply relative flex flex-row my-32 mx-auto bg-white p-4 inset-0 text-left rounded shadow;
   max-width: 800px;
   min-height: 0%;
+}
+.chemical-input-fields {
+  @apply bg-teal-100 inline-block;
 }
 </style>

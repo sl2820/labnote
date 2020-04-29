@@ -1,9 +1,10 @@
 <template>
   <div class="process-view">
     <div class="flex flex-col flex-grow items-start justify-between px-4">
-      <div class="text-2xl font-black">
+      <div class="input-fields text-2xl font-black">
         <input
           type="text"
+          class="process-input-fields"
           :value="process.info.name"
           list="method"
           @change="updateProcessProperty($event, 'info')"
@@ -121,5 +122,8 @@ export default {
   @apply relative flex flex-row my-32 mx-auto bg-white p-4 inset-0 text-left rounded shadow;
   max-width: 600px;
   min-height: 0%;
+}
+.process-input-fields {
+  @apply bg-indigo-100 inline-block;
 }
 </style>
