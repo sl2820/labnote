@@ -61,6 +61,15 @@ export default new Vuex.Store({
     UPDATE_TASK(state, { task, key, value }) {
       Vue.set(task, key, value)
     },
+    UPDATE_CHEMICAL(state, { chemical, key, value }) {
+      Vue.set(chemical, key, value)
+    },
+    UPDATE_PROCESS(state, { process, key, value }) {
+      Vue.set(process, key, value)
+    },
+    UPDATE_MEMO(state, { memo, key, value }) {
+      Vue.set(memo, key, value)
+    },
     REMOVE_COLUMN(state, { note, columnIndex }) {
       note.columns.splice(columnIndex, 1)
     },
