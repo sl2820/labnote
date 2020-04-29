@@ -15,12 +15,16 @@
 
       <div class="w-full block flex-grow lg:flex lg:items-center lg:w-auto">
         <div class="text-sm lg:flex-grow">
-          <button
-            class="block lg:inline-block lg:mt-0 hover:text-white mr-4 hover:underline"
+          <b-button
+            v-b-modal.save-modal
+            variant="outline-light"
+            size="sm"
             @click="save()"
+            >Save</b-button
           >
-            Save
-          </button>
+          <b-modal id="save-modal" title="Saved Successfully" ok-only
+            ><p>Your project was successfully saved!</p></b-modal
+          >
           <!-- <button
             class="block lg:inline-block lg:mt-0 hover:text-white mr-4 hover:underline"
             @click="load()"
@@ -34,7 +38,7 @@
             Analysis
           </button> -->
           <button
-            class="block lg:inline-block lg:mt-0 hover:text-white mr-4 hover:underline"
+            class="block lg:inline-block lg:mt-0 hover:text-white mx-4 hover:underline"
             @click="refresh()"
           >
             Refresh
