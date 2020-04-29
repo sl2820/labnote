@@ -48,8 +48,9 @@ export default new Vuex.Store({
       let targetColumn = note.columns.find(({ id }) => id === columnID)
       targetColumn.tasks.push(data)
     },
-    CREATE_OUTPUT(state, { id, index, ingr }) {
-      note.tasks.splice(index, 0, {
+    CREATE_OUTPUT(state, { id, columnID, index, ingr }) {
+      let targetColumn = note.columns.find(({ id }) => id === columnID)
+      targetColumn.tasks.splice(index, 0, {
         id: id,
         type: "chemical",
         ingredients: ingr,

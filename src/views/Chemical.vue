@@ -326,8 +326,10 @@ export default {
 
 <style lang="css">
 .chemical-view {
-  @apply relative flex flex-row my-32 mx-auto bg-white p-4 inset-0 text-left rounded shadow;
+  @apply relative flex flex-row  mx-auto bg-white p-4 inset-0 text-left rounded shadow overflow-y-auto;
+  margin-top: 7%;
   max-width: 800px;
   min-height: 0%;
+  max-height: 80%;
 }
 </style>

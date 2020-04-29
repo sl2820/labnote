@@ -41,7 +41,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(["getTask"]),
+    ...mapGetters(["getTask", "getColumn"]),
     ...mapState(["note"]),
     process() {
       return this.getTask(this.$route.params.id)
@@ -72,7 +72,7 @@ export default {
       // console.log("Make Output button clicked!");
       let ingredients = []
       for (const i of this.this_process.info.inputs) {
-        let ingrs = this.note.tasks.find(({ id }) => id === i.id).ingredients
+        let ingrs = this.getTask(i.id).ingredients
         for (const ingr of ingrs) {
           const _s = JSON.stringify(ingr)
           let data = JSON.parse(_s)
@@ -84,10 +84,13 @@ export default {
           }
         }
       }
-      const new_index = this.note.tasks.indexOf(this.process) + 1
+
+      const this_column = this.getColumn(this.$route.params.id)
+      const new_index = this_column.tasks.indexOf(this.this_process) + 1
       var id = uuid()
       this.$store.commit("CREATE_OUTPUT", {
         id: id,
+        columnID: this_column.id,
         index: new_index,
         ingr: ingredients,
       })

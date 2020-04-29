@@ -42,7 +42,7 @@ export default {
     },
   },
   computed: {
-    ...mapGetters(["getTask"]),
+    ...mapGetters(["getTask", "getColumn"]),
     ...mapState(["note"]),
     prevChemicals() {
       const procId = this.this_process.id
@@ -98,8 +98,7 @@ export default {
     },
     makeOutput() {
       let ingredients = []
-      const ingrs = this.note.tasks.find(({ id }) => id === this.chosen)
-        .ingredients
+      const ingrs = this.getTask(this.chosen).ingredients
       for (let ingr of ingrs) {
         let _s = JSON.stringify(ingr)
         let data = JSON.parse(_s)
@@ -107,10 +106,13 @@ export default {
         data.property.push("after heating")
         ingredients.push(data)
       }
-      const new_index = this.note.tasks.indexOf(this.this_process) + 1
+
+      const this_column = this.getColumn(this.$route.params.id)
+      const new_index = this_column.tasks.indexOf(this.this_process) + 1
       var id = uuid()
       this.$store.commit("CREATE_OUTPUT", {
         id: id,
+        columnID: this_column.id,
         index: new_index,
         ingr: ingredients,
       })
