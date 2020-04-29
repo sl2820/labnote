@@ -55,6 +55,9 @@ export default new Vuex.Store({
         ingredients: ingr,
       })
     },
+    UPDATE_TEST_ID(state, { test_id }) {
+      note.id = test_id
+    },
     UPDATE_TASK(state, { task, key, value }) {
       Vue.set(task, key, value)
     },
