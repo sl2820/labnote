@@ -46,7 +46,8 @@ export default new Vuex.Store({
     },
     CREATE_TASK(state, { columnID, data }) {
       let targetColumn = note.columns.find(({ id }) => id === columnID)
-      targetColumn.tasks.push(data)
+      const _data = JSON.parse(data)
+      targetColumn.tasks.push(_data)
     },
     CREATE_OUTPUT(state, { id, columnID, index, ingr }) {
       let targetColumn = note.columns.find(({ id }) => id === columnID)

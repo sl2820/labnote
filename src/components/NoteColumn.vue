@@ -72,7 +72,7 @@ export default {
       const id = uuid()
       let data = this.new_chemical
       data.id = id
-
+      data = JSON.stringify(data)
       this.$store.commit("CREATE_TASK", { columnID, data })
       this.$router.push({ name: "chemical", params: { id: id } })
     },
@@ -81,7 +81,7 @@ export default {
       const id = uuid()
       let data = this.new_process
       data.id = id
-
+      data = JSON.stringify(data)
       this.$store.commit("CREATE_TASK", { columnID, data })
       this.$router.push({ name: "process", params: { id: id } })
     },
@@ -90,7 +90,7 @@ export default {
       const id = uuid()
       let data = this.new_memo
       data.id = id
-
+      data = JSON.stringify(data)
       this.$store.commit("CREATE_TASK", { columnID, data })
       this.$router.push({ name: "memo", params: { id: id } })
     },
