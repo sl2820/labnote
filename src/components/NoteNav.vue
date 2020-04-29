@@ -46,7 +46,7 @@
           🧑🏻‍🔬Sukjoo Hong
         </button> -->
         <input
-          class="bg-white mr-1 text-black"
+          class="user_id"
           type="text"
           placeholder="user id"
           v-model="user_id"
@@ -95,5 +95,11 @@ export default {
 .navigationbar {
   @apply flex items-center justify-between flex-wrap mb-3 text-white w-screen shadow bg-gray-500 fixed;
   /* background-color: rgb(119, 182, 109); */
+}
+.user_id {
+  @apply bg-white mr-1 text-black;
+}
+::-webkit-input-placeholder {
+  text-align: center;
 }
 </style>
