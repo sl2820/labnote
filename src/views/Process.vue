@@ -106,7 +106,7 @@ export default {
         data.inputs = ins
       }
 
-      this.$store.commit("UPDATE_TASK", {
+      this.$store.commit("UPDATE_PROCESS", {
         process: this.process,
         key,
         value: data,
@@ -118,8 +118,9 @@ export default {
 
 <style lang="css">
 .process-view {
-  @apply relative flex flex-row my-32 mx-auto bg-white p-4 inset-0 text-left rounded shadow;
+  @apply relative flex flex-row mt-32 mx-auto bg-white p-4 inset-0 text-left rounded shadow overflow-y-auto;
   max-width: 600px;
   min-height: 0%;
+  max-height: 80%;
 }
 </style>

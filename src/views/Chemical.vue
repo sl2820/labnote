@@ -262,16 +262,24 @@ export default {
   },
   methods: {
     updateChemicalProperty(e, key, chemid) {
-      const found = this.chemical.ingredients.find(({ id }) => id === chemid)
+      let found = null
+      if (
+        this.chemical.ingredients.find(({ id }) => id === chemid) != undefined
+      ) {
+        found = this.chemical.ingredients.find(({ id }) => id === chemid)
+      } else {
+        found = this.chemical.ingredients[0]
+      }
+
       var value_
-      if (key == "name") {
+      if (key === "name") {
         value_ = e.target.value.split("-")[0]
         this.temp_name = e.target.value
       } else {
         value_ = e.target.value
         this.temp_state = e.target.value
       }
-      this.$store.commit("UPDATE_TASK", {
+      this.$store.commit("UPDATE_CHEMICAL", {
         chemical: found,
         key,
         value: value_,
@@ -318,8 +326,10 @@ export default {
 
 <style lang="css">
 .chemical-view {
-  @apply relative flex flex-row my-32 mx-auto bg-white p-4 inset-0 text-left rounded shadow;
+  @apply relative flex flex-row  mx-auto bg-white p-4 inset-0 text-left rounded shadow overflow-y-auto;
+  margin-top: 7%;
   max-width: 800px;
   min-height: 0%;
+  max-height: 80%;
 }
 </style>

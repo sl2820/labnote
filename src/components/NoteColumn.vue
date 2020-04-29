@@ -14,16 +14,18 @@
       </ul>
     </div>
 
-    <div class="list-reset">
-      <ColumnTask
-        v-for="(task, $taskIndex) of column.tasks"
-        :key="$taskIndex"
-        :task="task"
-        :taskIndex="$taskIndex"
-        :column="column"
-        :columnIndex="columnIndex"
-        :note="note"
-      />
+    <div>
+      <div class="column-list">
+        <ColumnTask
+          v-for="(task, $taskIndex) of column.tasks"
+          :key="$taskIndex"
+          :task="task"
+          :taskIndex="$taskIndex"
+          :column="column"
+          :columnIndex="columnIndex"
+          :note="note"
+        />
+      </div>
 
       <div>
         <ul class="flex justify-between mt-2 mr-5 ml-5 text-2xl">
@@ -70,7 +72,7 @@ export default {
       const id = uuid()
       let data = this.new_chemical
       data.id = id
-
+      data = JSON.stringify(data)
       this.$store.commit("CREATE_TASK", { columnID, data })
       this.$router.push({ name: "chemical", params: { id: id } })
     },
@@ -79,7 +81,7 @@ export default {
       const id = uuid()
       let data = this.new_process
       data.id = id
-
+      data = JSON.stringify(data)
       this.$store.commit("CREATE_TASK", { columnID, data })
       this.$router.push({ name: "process", params: { id: id } })
     },
@@ -88,7 +90,7 @@ export default {
       const id = uuid()
       let data = this.new_memo
       data.id = id
-
+      data = JSON.stringify(data)
       this.$store.commit("CREATE_TASK", { columnID, data })
       this.$router.push({ name: "memo", params: { id: id } })
     },
@@ -103,5 +105,11 @@ export default {
 .column {
   @apply bg-gray-100 p-2 mr-4 text-left shadow rounded w-1/4;
   min-width: 300px;
+}
+.column-list {
+  @apply overflow-y-auto;
+  min-height: 0%;
+  /* max-height: 80%; */
+  max-height: 600px;
 }
 </style>
