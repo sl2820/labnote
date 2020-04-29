@@ -1,5 +1,4 @@
 # labnote
 
-## Temporary website
 
-https://hngskj.github.io/labnote/
+https://labnote-ant.github.io/labnote/
