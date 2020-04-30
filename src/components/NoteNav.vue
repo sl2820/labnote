@@ -17,7 +17,7 @@
           class="font-black text-xl w-full"
           placeholder="Note Name"
           :value="note.name"
-          @change="update_note_name($event, 'name')"
+          @change="updateNoteName($event, 'name')"
         />
       </div>
 
@@ -107,7 +107,7 @@ export default {
     },
     updateNoteName(e, k) {
       this.$store.commit("UPDATE_NOTE", {
-        column: this.note,
+        note: this.note,
         key: k,
         value: e.target.value,
       })
