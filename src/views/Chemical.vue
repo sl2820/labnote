@@ -1,6 +1,18 @@
 <template>
   <div class="chemical-view">
     <div class="flex flex-col flex-grow items-start justify-between px-4">
+      <div>
+        Nickname:
+        <input
+          type="text"
+          class="chemical-input-fields"
+          placeholder="Give nick name"
+          :value="chemical.nickname"
+          @change="update_nickname_additional($event, 'nickname')"
+        />
+      </div>
+
+      <div></div>
       <div v-for="(chem, $chemId) of chemical.ingredients" :key="$chemId">
         <div v-if="$chemId > 0" class="my-4">
           <hr />
@@ -197,11 +209,11 @@
       </div>
       <div class="chemical-input-fields mt-6">
         <textarea
-          v-model="additional"
+          :value="chemical.additional"
           placeholder="add notes"
           cols="60"
-          @change="additionalNote(additional)"
-        ></textarea>
+          @change="update_nickname_additional($event, 'additional')"
+        />
       </div>
     </div>
   </div>
@@ -221,7 +233,7 @@ export default {
       temp_name: null,
       temp_state: null,
       sigma_obj: sigma.sigmaaldrich,
-      additional: null,
+      // additional: null,
     }
   },
   computed: {
@@ -285,6 +297,13 @@ export default {
         value: value_,
       })
     },
+    update_nickname_additional(e, k) {
+      this.$store.commit("UPDATE_CHEMICAL", {
+        chemical: this.chemical,
+        key: k,
+        value: e.target.value,
+      })
+    },
     toFormula(name) {
       let num = name.match(/\d/g)
       let sub = []
@@ -311,14 +330,6 @@ export default {
       }
 
       return list
-    },
-    additionalNote(n) {
-      this.additional = n
-      this.$store.commit("UPDATE_TASK", {
-        chemical: this.chemical,
-        key: "additional",
-        value: n,
-      })
     },
   },
 }

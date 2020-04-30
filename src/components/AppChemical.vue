@@ -4,7 +4,7 @@
       <li class="mr-2">
         <span>🧪</span>
         <span>
-          <span v-if="!chemical.additional">
+          <span v-if="!chemical.nickname">
             <div
               class="inline-block mb-0"
               v-for="(ingredient, $ingredientIndex) in chemical.ingredients"
@@ -22,7 +22,7 @@
               </div>
             </div>
           </span>
-          <span class="font-bold" v-else>{{ chemical.additional }}</span>
+          <span class="font-bold" v-else>{{ chemical.nickname }}</span>
         </span>
 
         <div
