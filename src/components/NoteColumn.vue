@@ -2,7 +2,15 @@
   <div class="column">
     <div class="flex items-center mb-2">
       <ul class="flex justify-between">
-        <li>{{ column.name }}</li>
+        <li>
+          <input
+            type="text"
+            placeholder="Column name"
+            :value="column.name"
+            @change="update_column_name($event, 'name')"
+          />
+        </li>
+
         <li class="mr-2">
           <button
             class="inline-block text-sm"
@@ -67,6 +75,13 @@ export default {
     },
   },
   methods: {
+    update_column_name(e, k) {
+      this.$store.commit("UPDATE_COLUMN", {
+        column: this.column,
+        key: k,
+        value: e.target.value,
+      })
+    },
     createChemical() {
       const columnID = this.column.id
       const id = uuid()

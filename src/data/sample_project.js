@@ -3,6 +3,7 @@
 export default {
   id: "123",
   user_id: 20,
+  name: "Acetaminophen synthesis trial 11",
   columns: [
     {
       id: "s1",

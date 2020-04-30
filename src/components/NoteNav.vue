@@ -11,9 +11,17 @@
         />
         <span class="font-semibold tracking-tight mr-4">labNote</span>
       </div>
-      <div class="font-black text-xl">Acetaminophen synthesis trial 11</div>
+      <div class="flex items-center flex-shrink-0">
+        <input
+          type="text"
+          class="font-black text-xl w-full"
+          placeholder="Note Name"
+          :value="note.name"
+          @change="update_note_name($event, 'name')"
+        />
+      </div>
 
-      <div class="w-full block flex-grow lg:flex lg:items-center lg:w-auto">
+      <div class="w-full block flex-grow flex items-center w-auto">
         <div class="text-sm lg:flex-grow">
           <b-button
             v-b-modal.save-modal
@@ -68,6 +76,12 @@ export default {
       user_id: "",
     }
   },
+  props: {
+    note: {
+      type: Object,
+      required: true,
+    },
+  },
   methods: {
     save() {
       this.$store.commit("SAVE_PROJECT", {
@@ -89,6 +103,13 @@ export default {
     updateTestId(e) {
       this.$store.commit("UPDATE_TEST_ID", {
         test_id: e.target.value,
+      })
+    },
+    updateNoteName(e, k) {
+      this.$store.commit("UPDATE_NOTE", {
+        column: this.note,
+        key: k,
+        value: e.target.value,
       })
     },
   },

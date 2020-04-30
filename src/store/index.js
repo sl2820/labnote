@@ -57,6 +57,12 @@ export default new Vuex.Store({
         ingredients: ingr,
       })
     },
+    UPDATE_NOTE(state, { note, key, value }) {
+      Vue.set(note, key, value)
+    },
+    UPDATE_COLUMN(state, { column, key, value }) {
+      Vue.set(column, key, value)
+    },
     UPDATE_TEST_ID(state, { test_id }) {
       note.id = test_id
     },
