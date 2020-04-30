@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="board">
-      <NoteNav />
+      <NoteNav :note="note" />
       <div class="flex flex-row items-start ml-3 mt-10">
         <NoteColumn
           v-for="(column, $columnIndex) of note.columns"
