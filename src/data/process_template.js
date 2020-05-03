@@ -6,62 +6,62 @@ export default {
       info: {
         inputs: [],
         gradually: false,
-        time: 0
-      }
+        time: 0,
+      },
     },
     {
       name: "Stirring",
       info: {
         chem_for: {
           id: "",
-          amount: 0
+          amount: 0,
         },
         rpm: 0,
         time: 0,
-        heating: false
-      }
+        heating: false,
+      },
     },
     {
       name: "Heat",
       info: {
         chem_for: {
-          id: ""
+          id: "",
         },
         temperature: 0,
         time: 30,
-        stirring: false
-      }
+        stirring: false,
+      },
     },
     {
       name: "Water bath",
       info: {
         chem_for: {
-          id: ""
+          id: "",
         },
         temperature: 0,
         time: 0,
-        stirring: false
-      }
+        stirring: false,
+      },
     },
     {
       name: "Cooling",
       info: {
         chem_for: {
-          id: ""
+          id: "",
         },
         temperature: 0,
         time: 0,
-        feeding_gas: [{ name: "" }]
-      }
+        feeding_gas: null,
+      },
     },
     {
       name: "Filtering",
       info: {
         chem_for: {
-          id: ""
+          id: "",
         },
-        feeding: [{ name: "" }]
-      }
-    }
-  ]
+        feeding: null,
+      },
+    },
+  ],
 }
