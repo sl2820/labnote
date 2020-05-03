@@ -60,6 +60,7 @@ export default {
         {
           id: "s1_p1",
           type: "process",
+          additional: "aa",
           info: {
             name: "Mix",
             inputs: [
@@ -149,6 +150,7 @@ export default {
         {
           id: "s2_p1",
           type: "process",
+          additional: "",
           info: {
             name: "Heat",
             chem_for: {
@@ -186,6 +188,7 @@ export default {
         {
           id: "s2_p2",
           type: "process",
+          additional: "asdfasfs",
           info: {
             name: "Water bath",
             chem_for: {

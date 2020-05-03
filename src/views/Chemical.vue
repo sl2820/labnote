@@ -207,8 +207,10 @@
           <p class="font-medium">Unidentified states. Plese check</p>
         </div>
       </div>
-      <div class="chemical-input-fields mt-6">
+      <div class="italic text-gray-600 mt-4">
+        Write note: <br />
         <textarea
+          class="chemical-input-fields"
           :value="chemical.additional"
           placeholder="add notes"
           cols="60"

@@ -38,6 +38,17 @@
           <AppFiltering :this_process="process"></AppFiltering>
         </div>
       </div>
+
+      <div class="italic text-gray-600">
+        Write note:
+        <textarea
+          class="process-input-fields"
+          :value="process.additional"
+          placeholder="add notes"
+          cols="60"
+          @change="update_nickname_additional($event, 'additional')"
+        />
+      </div>
     </div>
   </div>
 </template>
@@ -111,6 +122,13 @@ export default {
         process: this.process,
         key,
         value: data,
+      })
+    },
+    update_nickname_additional(e, k) {
+      this.$store.commit("UPDATE_PROCESS", {
+        process: this.process,
+        key: k,
+        value: e.target.value,
       })
     },
   },
