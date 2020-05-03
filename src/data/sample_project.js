@@ -236,7 +236,22 @@ export default {
     {
       id: "s3",
       name: "final",
-      tasks: [],
+      tasks: [
+        {
+          id: "s3_p1",
+          type: "process",
+          additional: "",
+          info: {
+            name: "Heat",
+            chem_for: {
+              id: null,
+            },
+            temperature: 0,
+            time: 0,
+            stirring: false,
+          },
+        },
+      ],
     },
   ],
 }

@@ -7,14 +7,19 @@
         :key="$chemID + 'chem'"
       >
         <input
+          class="inline-block"
           type="radio"
           v-model="chosen"
           name="chosen"
           :value="chem.id"
-          :checked="radios(chosen)[chem.id]"
+          @change="updateProcessInfoChemfor($event, 'id')"
         />
-        {{ names(chem.id) }}
-        <!-- {{ radios(chosen)[chem.id] }} -->
+        <div class="inline-block ml-2">
+          {{ names(chem.id) }}
+        </div>
+        <div class="inline-block ml-2 italic text-gray-600">
+          {{ chem.nickname }}
+        </div>
       </li>
     </ul>
     <div>
@@ -69,7 +74,7 @@ export default {
   components: { AppButton },
   data() {
     return {
-      chosen: null,
+      chosen: this.this_process.info.chem_for.id,
     }
   },
   props: {
@@ -106,24 +111,6 @@ export default {
     },
   },
   methods: {
-    radios(this_id) {
-      let s = {}
-      for (const i of this.prevChemicals) {
-        s[i.id] = false
-      }
-
-      if (this.this_process.info.chem_for.id != "") {
-        s[this.this_process.info.chem_for.id] = true
-      }
-
-      if (this_id != null) {
-        for (const i in s) {
-          s[i] = false
-        }
-        s[this_id] = true
-      }
-      return s
-    },
     names(this_id) {
       let names = []
       const ingrs = this.getTask(this_id).ingredients

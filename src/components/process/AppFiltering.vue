@@ -6,8 +6,20 @@
         v-for="(chem, $chemID) of prevChemicals"
         :key="$chemID + 'chem'"
       >
-        <input type="radio" v-model="chosen" name="chosen" :value="chem.id" />
-        {{ names(chem.id) }}
+        <input
+          class="inline-block"
+          type="radio"
+          v-model="chosen"
+          name="chosen"
+          :value="chem.id"
+          @change="updateProcessInfoChemfor($event, 'id')"
+        />
+        <div class="inline-block ml-2">
+          {{ names(chem.id) }}
+        </div>
+        <div class="inline-block ml-2 italic text-gray-600">
+          {{ chem.nickname }}
+        </div>
       </li>
     </ul>
 
@@ -35,7 +47,7 @@ import AppButton from "@/components/AppButton"
 export default {
   components: { AppButton },
   data() {
-    return { chosen: null }
+    return { chosen: this.this_process.info.chem_for.id }
   },
   props: {
     this_process: {
@@ -69,25 +81,6 @@ export default {
       }
       return chemicals
     },
-    getDetails() {
-      const info = this.this_process.info
-      const keys = Object.keys(info)
-      const deletion = [
-        "name",
-        "inputs",
-        "chem_for",
-        "chem_to",
-        "output",
-        "feeding",
-      ]
-      let details = {}
-      for (let k of keys) {
-        if (deletion.indexOf(k) === -1) {
-          details[k] = info[k]
-        }
-      }
-      return details
-    },
   },
   methods: {
     names(this_id) {
@@ -101,6 +94,13 @@ export default {
     updateProcessInfo(e, key) {
       this.$store.commit("UPDATE_PROCESS", {
         process: this.this_process.info,
+        key,
+        value: e.target.value,
+      })
+    },
+    updateProcessInfoChemfor(e, key) {
+      this.$store.commit("UPDATE_PROCESS", {
+        process: this.this_process.info.chem_for,
         key,
         value: e.target.value,
       })
