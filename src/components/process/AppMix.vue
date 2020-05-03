@@ -1,9 +1,22 @@
 <template>
   <div>
     <div class="mt-6">
-      <div v-for="(chem, $chemID) of this_process.info.inputs" :key="$chemID">
-        <span>{{ names(chem.id) }}</span>
-        : <input class="process-input-fields" v-model="chem.amount" />
+      <!-- <div
+        v-for="(chem, $chemID) of this_process.info.inputs"
+        :key="$chemID + 'chem'"
+      > -->
+      <div v-for="(chem, $chemID) of inputsFromPrevs" :key="$chemID + 'chem'">
+        <div class="inline-block">{{ names(chem.id) }}</div>
+        <div class="inline-block ml-1 italic text-gray-600">
+          {{ chem.nickname }}
+        </div>
+        :
+        <input
+          class="process-input-fields"
+          type="number"
+          v-model="chem.amount"
+          @change="updateInputsAmount()"
+        />
       </div>
     </div>
 
@@ -56,7 +69,6 @@ export default {
   data() {
     return {
       processFuncs: processDB.functions,
-      inputs: this.this_process.info.inputs,
     }
   },
   computed: {
@@ -64,6 +76,50 @@ export default {
     ...mapState(["note"]),
     process() {
       return this.getTask(this.$route.params.id)
+    },
+    inputsFromPrevs() {
+      const p_inputs = this.this_process.info.inputs
+      let assigned_inputs = []
+
+      for (const chem of this.prevChemicals) {
+        if (p_inputs.find(({ id }) => id === chem.id) != undefined) {
+          assigned_inputs.push({
+            id: chem.id,
+            amount: p_inputs.find(({ id }) => id === chem.id).amount,
+            nickname: chem.nickname,
+          })
+        } else {
+          assigned_inputs.push({
+            id: chem.id,
+            amount: 0,
+            nickname: chem.nickname,
+          })
+        }
+      }
+      return assigned_inputs
+    },
+    prevChemicals() {
+      const procId = this.this_process.id
+
+      let taskIds = []
+      for (const column of this.note.columns) {
+        for (const task of column.tasks) {
+          taskIds.push(task.id)
+        }
+      }
+
+      let chemicals = []
+      for (const column of this.note.columns) {
+        for (const task of column.tasks) {
+          if (taskIds.indexOf(procId) < taskIds.indexOf(task.id)) {
+            break
+          }
+          if (task.type === "chemical") {
+            chemicals.push(task)
+          }
+        }
+      }
+      return chemicals
     },
     // getDetails() {
     //   // DEPRECATED FUNCTION
@@ -87,6 +143,20 @@ export default {
         names.push(ingr.name)
       }
       return names.join(" + ")
+    },
+    updateInputsAmount() {
+      let data = []
+      for (const ifp of this.inputsFromPrevs) {
+        const _a = Number(ifp.amount)
+        if (_a !== 0) {
+          data.push({ id: ifp.id, amount: _a })
+        }
+      }
+      this.$store.commit("UPDATE_PROCESS", {
+        process: this.this_process.info,
+        key: "inputs",
+        value: data,
+      })
     },
     makeOutput() {
       // console.log("Make Output button clicked!");

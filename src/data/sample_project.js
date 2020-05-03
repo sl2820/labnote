@@ -70,7 +70,7 @@ export default {
               },
               {
                 id: "s1_c2",
-                amount: 0,
+                amount: 10,
               },
             ],
             gradually: true,
@@ -249,6 +249,26 @@ export default {
             temperature: 0,
             time: 0,
             stirring: false,
+          },
+        },
+        {
+          id: "s3_p2",
+          type: "process",
+          additional: "mix 2",
+          info: {
+            name: "Mix",
+            inputs: [
+              {
+                id: "s1_c3",
+                amount: 111,
+              },
+              {
+                id: "s2_c2",
+                amount: 22,
+              },
+            ],
+            gradually: true,
+            time: 1234,
           },
         },
       ],
