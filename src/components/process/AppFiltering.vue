@@ -11,19 +11,14 @@
       </li>
     </ul>
 
-    <div v-for="(value, key, index) in getDetails" :key="index + 'det'">
-      <span class="mr-2">{{ key }}:</span>
-      <input
-        class="process-input-fields"
-        v-model="getDetails[key]"
-        @change="updateProcessInfo($event, key)"
-      />
-    </div>
     <div>
-      <div class="pr-4">Feeding:</div>
-      <span v-for="(gas, $gasID) in this_process.info.feeding" :key="$gasID">
-        <input class="process-input-fields" type="text" v-model="gas.name" />
-      </span>
+      <div class="inline-block mt-4">Feeding:</div>
+      <input
+        type="text"
+        class="process-input-fields"
+        v-model="this_process.info.feeding"
+        @change="updateProcessInfo($event, 'feeding')"
+      />
     </div>
 
     <br />

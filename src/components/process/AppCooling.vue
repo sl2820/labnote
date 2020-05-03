@@ -11,22 +11,32 @@
       </li>
     </ul>
 
-    <div v-for="(value, key, index) in getDetails" :key="index + 'det'">
-      <span class="mr-2">{{ key }}:</span>
+    <div>
+      <div class="inline-block mt-4">Temperature:</div>
       <input
+        type="number"
         class="process-input-fields"
-        v-model="getDetails[key]"
-        @change="updateProcessInfo($event, key)"
+        v-model="this_process.info.temperature"
+        @change="updateProcessInfo($event, 'temperature')"
       />
     </div>
     <div>
-      <div class="pr-4">Feeding gas:</div>
-      <span
-        v-for="(gas, $gasID) in this_process.info.feeding_gas"
-        :key="$gasID"
-      >
-        <input class="process-input-fields" type="text" v-model="gas.name" />
-      </span>
+      <div class="inline-block">Time:</div>
+      <input
+        type="number"
+        class="process-input-fields"
+        v-model="this_process.info.time"
+        @change="updateProcessInfo($event, 'time')"
+      />
+    </div>
+    <div>
+      <div class="inline-block">Feeding gas:</div>
+      <input
+        type="text"
+        class="process-input-fields"
+        v-model="this_process.info.feeding_gas"
+        @change="updateProcessInfo($event, 'feeding_gas')"
+      />
     </div>
 
     <br />
@@ -76,25 +86,6 @@ export default {
         }
       }
       return chemicals
-    },
-    getDetails() {
-      const info = this.this_process.info
-      const keys = Object.keys(info)
-      const deletion = [
-        "name",
-        "inputs",
-        "chem_for",
-        "chem_to",
-        "output",
-        "feeding_gas",
-      ]
-      let details = {}
-      for (let k of keys) {
-        if (deletion.indexOf(k) === -1) {
-          details[k] = info[k]
-        }
-      }
-      return details
     },
   },
   methods: {

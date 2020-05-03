@@ -11,12 +11,32 @@
       </li>
     </ul>
 
-    <div v-for="(value, key, index) in getDetails" :key="index + 'det'">
-      <span class="mr-2">{{ key }}:</span>
+    <div>
+      <div class="inline-block mt-4">Temperature:</div>
       <input
+        type="number"
         class="process-input-fields"
-        v-model="getDetails[key]"
-        @change="updateProcessInfo($event, key)"
+        v-model="this_process.info.temperature"
+        @change="updateProcessInfo($event, 'temperature')"
+      />
+    </div>
+    <div>
+      <div class="inline-block">Time:</div>
+      <input
+        type="number"
+        class="process-input-fields"
+        v-model="this_process.info.time"
+        @change="updateProcessInfo($event, 'time')"
+      />
+    </div>
+    <div>
+      <div class="inline-block">Stirring:</div>
+      <input
+        type="checkbox"
+        id="stirring"
+        class="ml-2"
+        v-model="this_process.info.stirring"
+        @change="updateProcessInfo($event, 'stirring')"
       />
     </div>
 
@@ -67,18 +87,6 @@ export default {
         }
       }
       return chemicals
-    },
-    getDetails() {
-      const info = this.this_process.info
-      const keys = Object.keys(info)
-      const deletion = ["name", "inputs", "chem_for", "chem_to", "output"]
-      let details = {}
-      for (let k of keys) {
-        if (deletion.indexOf(k) === -1) {
-          details[k] = info[k]
-        }
-      }
-      return details
     },
   },
   methods: {

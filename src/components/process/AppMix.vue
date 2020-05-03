@@ -1,18 +1,37 @@
 <template>
   <div>
-    <div class="mt-6 bg-teal-200">
+    <div class="mt-6">
       <div v-for="(chem, $chemID) of this_process.info.inputs" :key="$chemID">
         <span>{{ names(chem.id) }}</span>
-        : <input v-model="chem.amount" />
+        : <input class="process-input-fields" v-model="chem.amount" />
       </div>
     </div>
 
-    <div class="mt-6">
+    <div>
+      <div class="inline-block mt-4">Gradually:</div>
+      <input
+        type="checkbox"
+        id="gradually"
+        class="ml-2"
+        v-model="this_process.info.gradually"
+        @change="updateProcessInfo($event, 'gradually')"
+      />
+    </div>
+    <div>
+      <div class="inline-block">Time:</div>
+      <input
+        type="number"
+        class="process-input-fields"
+        v-model="this_process.info.time"
+        @change="updateProcessInfo($event, 'time')"
+      />
+    </div>
+    <!-- <div class="mt-6">
       <div v-for="(value, key, index) in getDetails" :key="index">
         <span class="mr-2">{{ key }}:</span>
         <input class="process-input-fields" v-model="getDetails[key]" />
       </div>
-    </div>
+    </div> -->
 
     <AppButton class="my-6 bg-teal-400 rounded-sm" @click.native="makeOutput()"
       >Make Output</AppButton
@@ -46,18 +65,19 @@ export default {
     process() {
       return this.getTask(this.$route.params.id)
     },
-    getDetails() {
-      const info = this.this_process.info
-      const keys = Object.keys(info)
-      const deletion = ["name", "inputs", "chem_for", "chem_to", "output"]
-      let details = {}
-      for (let k of keys) {
-        if (deletion.indexOf(k) === -1) {
-          details[k] = info[k]
-        }
-      }
-      return details
-    },
+    // getDetails() {
+    //   // DEPRECATED FUNCTION
+    //   const info = this.this_process.info
+    //   const keys = Object.keys(info)
+    //   const deletion = ["name", "inputs", "chem_for", "chem_to", "output"]
+    //   let details = {}
+    //   for (let k of keys) {
+    //     if (deletion.indexOf(k) === -1) {
+    //       details[k] = info[k]
+    //     }
+    //   }
+    //   return details
+    // },
   },
   methods: {
     names(this_id) {
