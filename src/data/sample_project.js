@@ -3,6 +3,7 @@
 export default {
   id: "123",
   user_id: 20,
+  name: "Acetaminophen synthesis trial 11",
   columns: [
     {
       id: "s1",
@@ -11,6 +12,8 @@ export default {
         {
           id: "s1_c1",
           type: "chemical",
+          nickname: null,
+          additional: "asf",
           ingredients: [
             {
               id: "s1_c1_1",
@@ -33,6 +36,8 @@ export default {
         {
           id: "s1_c2",
           type: "chemical",
+          nickname: "my name",
+          additional: "",
           ingredients: [
             {
               id: "s1_c2_1",
@@ -74,6 +79,8 @@ export default {
         {
           id: "s1_c3",
           type: "chemical",
+          nickname: null,
+          additional: "123",
           ingredients: [
             {
               id: "s1_c3_1",
@@ -112,6 +119,8 @@ export default {
         {
           id: "s1_c4",
           type: "chemical",
+          nickname: null,
+          additional: "qweasdbasb",
           ingredients: [
             {
               id: "s1_c4_1",
@@ -153,6 +162,8 @@ export default {
         {
           id: "s2_c1",
           type: "chemical",
+          nickname: "hello",
+          additional: "",
           ingredients: [
             {
               id: "s2_c1_1",
@@ -188,6 +199,8 @@ export default {
         {
           id: "s2_c2",
           type: "chemical",
+          nickname: null,
+          additional: "asdfqwefasdvasdvasvasvsd",
           ingredients: [
             {
               id: "s2_c2_1",

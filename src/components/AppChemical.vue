@@ -4,43 +4,47 @@
       <li class="mr-2">
         <span>🧪</span>
         <span>
-          <span v-if="!chemical.additional">
+          <span v-if="!chemical.nickname">
             <div
               class="inline-block mb-0"
               v-for="(ingredient, $ingredientIndex) in chemical.ingredients"
               :key="$ingredientIndex"
             >
               <div
-                class="inline-block font-bold"
+                class="inline-block font-extrabold"
                 v-html="toFormula(ingredient.name)"
               ></div>
               <div
                 v-if="$ingredientIndex + 1 < ingredientLength"
-                class="inline-block font-bold"
+                class="inline-block font-extrabold"
               >
                 +
               </div>
             </div>
           </span>
-          <span class="font-bold" v-else>{{ chemical.additional }}</span>
+          <span class="font-bold" v-else>{{ chemical.nickname }}</span>
         </span>
 
-        <div class="inline-block" v-if="chemical.ingredients.length === 1">
+        <div
+          class="inline-block ml-2 text-sm text-gray-700"
+          v-if="chemical.ingredients.length === 1"
+        >
           <div class="inline-block ml-2 italic">
             {{ per_state_elements(chemical.ingredients[0])[0] }}
           </div>
           <div class="inline-block ml-2 underline">
             {{ per_state_elements(chemical.ingredients[0])[1] }}
           </div>
-          <div
-            class="inline-block text-sm font-bold italic ml-2"
-            v-if="
-              (chemical.ingredients[0].property != null) &
-                (chemical.ingredients[0].property.length >= 1)
-            "
-          >
-            {{ show_property(chemical.ingredients[0].property) }}
-          </div>
+        </div>
+
+        <div
+          class="inline-block text-xs italic ml-2 text-gray-600"
+          v-if="
+            (chemical.ingredients[0].property != null) &
+              (chemical.ingredients[0].property.length >= 1)
+          "
+        >
+          {{ show_property(chemical.ingredients[0].property) }}
         </div>
       </li>
       <li class="mr-2">
@@ -115,15 +119,15 @@ export default {
       var italic = ""
       var underline = ""
       if (state == "solid") {
-        underline = underline + chemical_.weight + " " + chemical_.w_unit
+        underline = underline + chemical_.weight + chemical_.w_unit
       } else if (state == "solution") {
-        italic = italic + chemical_.concentration + " " + chemical_.c_unit
-        underline = underline + chemical_.volume + " " + chemical_.v_unit
+        italic = italic + chemical_.concentration + chemical_.c_unit
+        underline = underline + chemical_.volume + chemical_.v_unit
       } else if (state == "gas") {
-        italic = italic + chemical_.pressure + " " + chemical_.p_unit
-        underline = underline + chemical_.volume + " " + chemical_.v_unit
+        italic = italic + chemical_.pressure + chemical_.p_unit
+        underline = underline + chemical_.volume + chemical_.v_unit
       } else if (state == "liquid") {
-        underline = underline + chemical_.volume + " " + chemical_.v_unit
+        underline = underline + chemical_.volume + chemical_.v_unit
       } else {
         properties = "wrong"
       }

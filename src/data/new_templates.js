@@ -12,6 +12,8 @@ export default {
   new_chemical: {
     id: null,
     type: "chemical",
+    nickname: null,
+    additional: "",
     ingredients: [
       {
         id: uuid(),

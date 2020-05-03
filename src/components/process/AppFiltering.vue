@@ -14,6 +14,7 @@
     <div v-for="(value, key, index) in getDetails" :key="index + 'det'">
       <span class="mr-2">{{ key }}:</span>
       <input
+        class="process-input-fields"
         v-model="getDetails[key]"
         @change="updateProcessInfo($event, key)"
       />
@@ -21,12 +22,12 @@
     <div>
       <div class="pr-4">Feeding:</div>
       <span v-for="(gas, $gasID) in this_process.info.feeding" :key="$gasID">
-        <input type="text" v-model="gas.name" />
+        <input class="process-input-fields" type="text" v-model="gas.name" />
       </span>
     </div>
 
     <br />
-    <AppButton class="bg-teal-400 rounded-sm" @click.native="makeOutput()"
+    <AppButton class="my-6 bg-teal-400 rounded-sm" @click.native="makeOutput()"
       >Make Output</AppButton
     >
   </div>
@@ -48,7 +49,7 @@ export default {
     },
   },
   computed: {
-    ...mapGetters(["getTask"]),
+    ...mapGetters(["getTask", "getColumn"]),
     ...mapState(["note"]),
     prevChemicals() {
       const procId = this.this_process.id
@@ -111,8 +112,7 @@ export default {
     },
     makeOutput() {
       let ingredients = []
-      const ingrs = this.note.tasks.find(({ id }) => id === this.chosen)
-        .ingredients
+      const ingrs = this.getTask(this.chosen).ingredients
       for (let ingr of ingrs) {
         let _s = JSON.stringify(ingr)
         let data = JSON.parse(_s)
@@ -120,10 +120,13 @@ export default {
         data.property.push("filtered")
         ingredients.push(data)
       }
-      const new_index = this.note.tasks.indexOf(this.this_process) + 1
+
+      const this_column = this.getColumn(this.$route.params.id)
+      const new_index = this_column.tasks.indexOf(this.this_process) + 1
       var id = uuid()
       this.$store.commit("CREATE_OUTPUT", {
         id: id,
+        columnID: this_column.id,
         index: new_index,
         ingr: ingredients,
       })

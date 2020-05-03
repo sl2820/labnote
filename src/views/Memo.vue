@@ -1,7 +1,7 @@
 <template>
   <div class="memo-view">
     <div class="flex flex-col flex-grow items-start justify-between px-4">
-      <div class="text-2xl font-black">
+      <div class="memo-input-fields text-2xl font-black">
         <input
           type="text"
           :value="memo.info.title"
@@ -11,7 +11,7 @@
 
       <div>
         <textarea
-          class="mt-3 p-2 border italic"
+          class="memo-input-fields mt-3 p-2 border italic"
           :value="memo.info.description"
           cols="50"
           rows="10"
@@ -35,7 +35,7 @@ export default {
   },
   methods: {
     updateMemoProperty(e, key) {
-      this.$store.commit("UPDATE_TASK", {
+      this.$store.commit("UPDATE_MEMO", {
         memo: this.memo.info,
         key,
         value: e.target.value,
@@ -50,5 +50,8 @@ export default {
   @apply relative flex flex-row my-32 mx-auto bg-white p-4 inset-0 text-left rounded shadow;
   max-width: 600px;
   min-height: 0%;
+}
+.memo-input-fields {
+  @apply bg-yellow-200 inline-block;
 }
 </style>

@@ -46,17 +46,37 @@ export default new Vuex.Store({
     },
     CREATE_TASK(state, { columnID, data }) {
       let targetColumn = note.columns.find(({ id }) => id === columnID)
-      targetColumn.tasks.push(data)
+      const _data = JSON.parse(data)
+      targetColumn.tasks.push(_data)
     },
-    CREATE_OUTPUT(state, { id, index, ingr }) {
-      note.tasks.splice(index, 0, {
+    CREATE_OUTPUT(state, { id, columnID, index, ingr }) {
+      let targetColumn = note.columns.find(({ id }) => id === columnID)
+      targetColumn.tasks.splice(index, 0, {
         id: id,
         type: "chemical",
         ingredients: ingr,
       })
     },
+    UPDATE_NOTE(state, { note, key, value }) {
+      Vue.set(note, key, value)
+    },
+    UPDATE_COLUMN(state, { column, key, value }) {
+      Vue.set(column, key, value)
+    },
+    UPDATE_TEST_ID(state, { test_id }) {
+      note.id = test_id
+    },
     UPDATE_TASK(state, { task, key, value }) {
       Vue.set(task, key, value)
+    },
+    UPDATE_CHEMICAL(state, { chemical, key, value }) {
+      Vue.set(chemical, key, value)
+    },
+    UPDATE_PROCESS(state, { process, key, value }) {
+      Vue.set(process, key, value)
+    },
+    UPDATE_MEMO(state, { memo, key, value }) {
+      Vue.set(memo, key, value)
     },
     REMOVE_COLUMN(state, { note, columnIndex }) {
       note.columns.splice(columnIndex, 1)
