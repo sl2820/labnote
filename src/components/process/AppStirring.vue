@@ -19,17 +19,21 @@
     </ul>
     <div>
       <span>amount:</span>
-      <input v-model="this_process.info.chem_for.amount" />
+      <input
+        class="process-input-fields"
+        v-model="this_process.info.chem_for.amount"
+      />
     </div>
     <div v-for="(value, key, index) in getDetails" :key="index + 'det'">
       <span class="mr-2">{{ key }}:</span>
       <input
+        class="process-input-fields"
         v-model="getDetails[key]"
         @change="updateProcessInfo($event, key)"
       />
     </div>
 
-    <AppButton class="mt-4 bg-teal-400 rounded-sm" @click.native="makeOutput()"
+    <AppButton class="my-4 bg-teal-400 rounded-sm" @click.native="makeOutput()"
       >Make Output</AppButton
     >
   </div>
@@ -43,31 +47,37 @@ export default {
   components: { AppButton },
   data() {
     return {
-      chosen: null
+      chosen: null,
     }
   },
   props: {
     this_process: {
       type: Object,
-      required: true
-    }
+      required: true,
+    },
   },
   computed: {
-    ...mapGetters(["getTask"]),
+    ...mapGetters(["getTask", "getColumn"]),
     ...mapState(["note"]),
     prevChemicals() {
-      const procId = this.$route.params.id
+      const procId = this.this_process.id
+
       let taskIds = []
-      for (const t of this.note.tasks) {
-        taskIds.push(t.id)
-      }
-      let chemicals = []
-      for (const task of this.note.tasks) {
-        if (taskIds.indexOf(procId) < taskIds.indexOf(task.id)) {
-          break
+      for (const column of this.note.columns) {
+        for (const task of column.tasks) {
+          taskIds.push(task.id)
         }
-        if (task.type === "chemical") {
-          chemicals.push(task)
+      }
+
+      let chemicals = []
+      for (const column of this.note.columns) {
+        for (const task of column.tasks) {
+          if (taskIds.indexOf(procId) < taskIds.indexOf(task.id)) {
+            break
+          }
+          if (task.type === "chemical") {
+            chemicals.push(task)
+          }
         }
       }
       return chemicals
@@ -83,7 +93,7 @@ export default {
         }
       }
       return details
-    }
+    },
   },
   methods: {
     radios(this_id) {
@@ -106,7 +116,7 @@ export default {
     },
     names(this_id) {
       let names = []
-      const ingrs = this.note.tasks.find(({ id }) => id === this_id).ingredients
+      const ingrs = this.getTask(this_id).ingredients
       for (const ingr of ingrs) {
         names.push(ingr.name)
       }
@@ -116,13 +126,12 @@ export default {
       this.$store.commit("UPDATE_PROCESS", {
         process: this.this_process.info,
         key,
-        value: e.target.value
+        value: e.target.value,
       })
     },
     makeOutput() {
       let ingredients = []
-      const ingrs = this.note.tasks.find(({ id }) => id === this.chosen)
-        .ingredients
+      const ingrs = this.getTask(this.chosen).ingredients
       for (const ingr of ingrs) {
         let _s = JSON.stringify(ingr)
         let data = JSON.parse(_s)
@@ -130,15 +139,19 @@ export default {
         data.property.push("after stirring")
         ingredients.push(data)
       }
-      const new_index = this.note.tasks.indexOf(this.this_process) + 1
+
+      const this_column = this.getColumn(this.$route.params.id)
+      const new_index = this_column.tasks.indexOf(this.this_process) + 1
       var id = uuid()
       this.$store.commit("CREATE_OUTPUT", {
         id: id,
+        columnID: this_column.id,
         index: new_index,
-        ingr: ingredients
+        ingr: ingredients,
       })
-    }
-  }
+      this.$router.push({ name: "note" })
+    },
+  },
 }
 </script>
 

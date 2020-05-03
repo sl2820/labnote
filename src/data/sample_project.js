@@ -1,183 +1,239 @@
-// data
 // import { uuid } from "./utils"
 
 export default {
+  id: "123",
   user_id: 20,
-  id: "asdf1234",
-  tasks: [
+  name: "Acetaminophen synthesis trial 11",
+  columns: [
     {
-      id: "c1",
-      type: "chemical",
-      ingredients: [
+      id: "s1",
+      name: "seed",
+      tasks: [
         {
-          id: "c1_1",
-          name: "PSSS",
-          product_number: "243051",
-          state: "solution",
-          solvent: "water",
-          volume: 250,
-          v_unit: "uL",
-          concentration: 0.05,
-          c_unit: "g/L",
-          weight: null,
-          w_unit: "g",
-          pressure: null,
-          p_unit: "Pa"
-        }
-      ]
-    },
-    {
-      id: "c2",
-      type: "chemical",
-      ingredients: [
-        {
-          id: "c2_1",
-          name: "NaBH4",
-          product_number: "686018",
-          state: "solution",
-          solvent: "water",
-          volume: 300,
-          v_unit: "uL",
-          concentration: 10,
-          c_unit: "mM",
-          weight: null,
-          w_unit: "g",
-          pressure: null,
-          p_unit: "Pa"
-        }
-      ]
-    },
-    {
-      id: "p1",
-      type: "process",
-      inputs: ["c1", "c2"],
-      details: {
-        reactive: false,
-        method: "Mix"
-      },
-      output: "c3"
-    },
-    {
-      id: "c3",
-      type: "chemical",
-      ingredients: [
-        {
-          id: "c3_1",
-          name: "PSSS",
-          product_number: "243051",
-          state: "solution",
-          solvent: "water",
-          volume: 250,
-          v_unit: "uL",
-          concentration: 0.05,
-          c_unit: "g/L",
-          weight: null,
-          w_unit: "g",
-          pressure: null,
-          p_unit: "Pa"
+          id: "s1_c1",
+          type: "chemical",
+          nickname: null,
+          additional: "asf",
+          ingredients: [
+            {
+              id: "s1_c1_1",
+              name: "PSSS",
+              product_number: "243051",
+              state: "solution",
+              solvent: "water",
+              volume: 250,
+              v_unit: "uL",
+              concentration: 0.05,
+              c_unit: "g/L",
+              weight: null,
+              w_unit: "g",
+              pressure: null,
+              p_unit: "Pa",
+              property: [],
+            },
+          ],
         },
         {
-          id: "c3_2",
-          name: "NaBH4",
-          product_number: "686018",
-          state: "solution",
-          solvent: "water",
-          volume: 300,
-          v_unit: "uL",
-          concentration: 10,
-          c_unit: "mM",
-          weight: null,
-          w_unit: "g",
-          pressure: null,
-          p_unit: "Pa"
-        }
-      ]
-    },
-    {
-      id: "c4",
-      type: "chemical",
-      ingredients: [
-        {
-          id: "c4_1",
-          name: "AgNO3",
-          product_number: "S7276",
-          state: "solution",
-          solvent: "water",
-          volume: 5,
-          v_unit: "mL",
-          concentration: 0.5,
-          c_unit: "mM",
-          weight: null,
-          w_unit: "g",
-          pressure: null,
-          p_unit: "Pa"
-        }
-      ]
-    },
-    {
-      id: "p2",
-      type: "process",
-      inputs: ["c3", "c4"],
-      details: {
-        reactive: true,
-        method: "Mix",
-        detail: "Stir",
-        instrument: "Syringe",
-        rpm: 100,
-        temperature: 27
-      },
-      output: "c5"
-    },
-    {
-      id: "c5",
-      type: "chemical",
-      ingredients: [
-        {
-          id: "c5_1",
-          name: "PSSS",
-          product_number: "243051",
-          state: "solution",
-          solvent: "water",
-          volume: 250,
-          v_unit: "uL",
-          concentration: 0.05,
-          c_unit: "g/L",
-          weight: null,
-          w_unit: "g",
-          pressure: null,
-          p_unit: "Pa"
+          id: "s1_c2",
+          type: "chemical",
+          nickname: "my name",
+          additional: "",
+          ingredients: [
+            {
+              id: "s1_c2_1",
+              name: "NaBH4",
+              product_number: "686018",
+              state: "solution",
+              solvent: "water",
+              volume: 300,
+              v_unit: "uL",
+              concentration: 10,
+              c_unit: "mM",
+              weight: null,
+              w_unit: "g",
+              pressure: null,
+              p_unit: "Pa",
+              property: [],
+            },
+          ],
         },
         {
-          id: "c5_2",
-          name: "NaBH4",
-          product_number: "686018",
-          state: "solution",
-          solvent: "water",
-          volume: 300,
-          v_unit: "uL",
-          concentration: 10,
-          c_unit: "mM",
-          weight: null,
-          w_unit: "g",
-          pressure: null,
-          p_unit: "Pa"
+          id: "s1_p1",
+          type: "process",
+          info: {
+            name: "Mix",
+            inputs: [
+              {
+                id: "s1_c1",
+                amount: 150,
+              },
+              {
+                id: "s1_c2",
+                amount: 0,
+              },
+            ],
+            gradually: true,
+            time: 10,
+          },
         },
         {
-          id: "c5_3",
-          name: "AgNO3",
-          product_number: "S7276",
-          state: "solution",
-          solvent: "water",
-          volume: 5,
-          v_unit: "mL",
-          concentration: 0.5,
-          c_unit: "mM",
-          weight: null,
-          w_unit: "g",
-          pressure: null,
-          p_unit: "Pa"
-        }
-      ]
-    }
-  ]
+          id: "s1_c3",
+          type: "chemical",
+          nickname: null,
+          additional: "123",
+          ingredients: [
+            {
+              id: "s1_c3_1",
+              name: "PSSS",
+              product_number: "243051",
+              state: "solution",
+              solvent: "water",
+              volume: 150,
+              v_unit: "uL",
+              concentration: 0.05,
+              c_unit: "g/L",
+              weight: null,
+              w_unit: "g",
+              pressure: null,
+              p_unit: "Pa",
+              property: [],
+            },
+            {
+              id: "s1_c3_2",
+              name: "NaBH4",
+              product_number: "686018",
+              state: "solution",
+              solvent: "water",
+              volume: 200,
+              v_unit: "uL",
+              concentration: 10,
+              c_unit: "mM",
+              weight: null,
+              w_unit: "g",
+              pressure: null,
+              p_unit: "Pa",
+              property: [],
+            },
+          ],
+        },
+        {
+          id: "s1_c4",
+          type: "chemical",
+          nickname: null,
+          additional: "qweasdbasb",
+          ingredients: [
+            {
+              id: "s1_c4_1",
+              name: "AgNO3",
+              product_number: "31630",
+              state: "solution",
+              solvent: "water",
+              volume: 110,
+              v_unit: "uL",
+              concentration: 30,
+              c_unit: "mM",
+              weight: null,
+              w_unit: "g",
+              pressure: null,
+              p_unit: "Pa",
+              property: [],
+            },
+          ],
+        },
+      ],
+    },
+    {
+      id: "s2",
+      name: "step 2",
+      tasks: [
+        {
+          id: "s2_p1",
+          type: "process",
+          info: {
+            name: "Heat",
+            chem_for: {
+              id: "s1_c4",
+            },
+            temperature: 120,
+            time: 30,
+            stirring: false,
+          },
+        },
+        {
+          id: "s2_c1",
+          type: "chemical",
+          nickname: "hello",
+          additional: "",
+          ingredients: [
+            {
+              id: "s2_c1_1",
+              name: "AgNO3",
+              product_number: "31630",
+              state: "solution",
+              solvent: "water",
+              volume: 110,
+              v_unit: "uL",
+              concentration: 30,
+              c_unit: "mM",
+              weight: null,
+              w_unit: "g",
+              pressure: null,
+              p_unit: "Pa",
+              property: ["after heating"],
+            },
+          ],
+        },
+        {
+          id: "s2_p2",
+          type: "process",
+          info: {
+            name: "Water bath",
+            chem_for: {
+              id: "s2_c1",
+            },
+            temperature: 70,
+            time: 600,
+            stirring: false,
+          },
+        },
+        {
+          id: "s2_c2",
+          type: "chemical",
+          nickname: null,
+          additional: "asdfqwefasdvasdvasvasvsd",
+          ingredients: [
+            {
+              id: "s2_c2_1",
+              name: "AgNO3",
+              product_number: "31630",
+              state: "solution",
+              solvent: "water",
+              volume: 110,
+              v_unit: "uL",
+              concentration: 30,
+              c_unit: "mM",
+              weight: null,
+              w_unit: "g",
+              pressure: null,
+              p_unit: "Pa",
+              property: ["after heating on an water bath"],
+            },
+          ],
+        },
+        {
+          id: "s2_m1",
+          type: "memo",
+          info: {
+            title: "hello world",
+            description: "Hello, there. This is the description of new memo.",
+          },
+        },
+      ],
+    },
+    {
+      id: "s3",
+      name: "final",
+      tasks: [],
+    },
+  ],
 }

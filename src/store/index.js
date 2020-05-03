@@ -1,12 +1,11 @@
 import Vue from "vue"
 import Vuex from "vuex"
 import axios from "axios"
-import project from "@/data/sample_project_empty"
-import { saveStatePlugin, uuid } from "../utils"
+import project from "@/data/sample_project"
+import { saveStatePlugin } from "../utils"
 
 Vue.use(Vuex)
 
-// const note = JSON.parse(localStorage.getItem("note")) || experiment
 const note = JSON.parse(localStorage.getItem("note")) || project
 
 export default new Vuex.Store({
@@ -15,69 +14,75 @@ export default new Vuex.Store({
   //   Note
   // },
   state: {
-    note
+    note,
   },
   getters: {
     getTask(state) {
-      return id => {
-        for (const task of state.note.tasks) {
-          if (task.id === id) {
-            return task
+      return (id) => {
+        for (const column of state.note.columns) {
+          for (const task of column.tasks) {
+            if (task.id === id) {
+              return task
+            }
           }
         }
       }
-    }
+    },
+    getColumn(state) {
+      return (id) => {
+        for (const column of state.note.columns) {
+          for (const task of column.tasks) {
+            if (task.id === id) {
+              return column
+            }
+          }
+        }
+      }
+    },
   },
   mutations: {
-    CREATE_CHEMICAL(state, { id }) {
-      note.tasks.push({
+    CREATE_COLUMN(state, { data }) {
+      note.columns.push(data)
+    },
+    CREATE_TASK(state, { columnID, data }) {
+      let targetColumn = note.columns.find(({ id }) => id === columnID)
+      const _data = JSON.parse(data)
+      targetColumn.tasks.push(_data)
+    },
+    CREATE_OUTPUT(state, { id, columnID, index, ingr }) {
+      let targetColumn = note.columns.find(({ id }) => id === columnID)
+      targetColumn.tasks.splice(index, 0, {
         id: id,
         type: "chemical",
-        ingredients: [
-          {
-            id: uuid(),
-            name: "",
-            product_number: "",
-            state: "",
-            solvent: "",
-            volume: null,
-            v_unit: "",
-            concentration: null,
-            c_unit: "",
-            weight: null,
-            w_unit: "g",
-            pressure: null,
-            p_unit: "Pa",
-            property: []
-          }
-        ]
+        ingredients: ingr,
       })
     },
-    CREATE_OUTPUT(state, { id, index, ingr }) {
-      note.tasks.splice(index, 0, {
-        id: id,
-        type: "chemical",
-        ingredients: ingr
-      })
+    UPDATE_NOTE(state, { note, key, value }) {
+      Vue.set(note, key, value)
     },
-    CREATE_PROCESS(state, { id }) {
-      note.tasks.push({
-        id: id,
-        type: "process",
-        info: {
-          name: ""
-        }
-      })
+    UPDATE_COLUMN(state, { column, key, value }) {
+      Vue.set(column, key, value)
+    },
+    UPDATE_TEST_ID(state, { test_id }) {
+      note.id = test_id
+    },
+    UPDATE_TASK(state, { task, key, value }) {
+      Vue.set(task, key, value)
     },
     UPDATE_CHEMICAL(state, { chemical, key, value }) {
-      // chemical[key] = value
       Vue.set(chemical, key, value)
     },
     UPDATE_PROCESS(state, { process, key, value }) {
       Vue.set(process, key, value)
     },
-    REMOVE_TASK(state, { note, taskIndex }) {
-      note.tasks.splice(taskIndex, 1)
+    UPDATE_MEMO(state, { memo, key, value }) {
+      Vue.set(memo, key, value)
+    },
+    REMOVE_COLUMN(state, { note, columnIndex }) {
+      note.columns.splice(columnIndex, 1)
+    },
+    REMOVE_TASK(state, { note, columnIndex, taskIndex }) {
+      note.columns[columnIndex].tasks.splice(taskIndex, 1)
     },
     SAVE_PROJECT(state, { data }) {
       data = note
@@ -110,47 +115,48 @@ export default new Vuex.Store({
             } else {
               console.log("err")
             }
-          })()
+          })(),
         }
 
         console.log(d)
 
-//<<<<<<< HEAD
-//        axios
-//          .post("http://49.50.167.33:3000/task/tasks", d)
-//          .then(function() {
-//            console.log("saved successfully")
-//            alert("saved successfully")
-//          })
-//          .catch(function(error) {
-//            // alert(error);
-//            console.log("error---")
-//            console.log(error)
-//          })
-//      }
-//      // MOVE_TASK(state, { fromTaskIndex, toTaskIndex }) {
-//      //   const taskList = state.note.tasks
-//      //   const taskToMove = taskList.splice(fromTaskIndex, 1)[0]
-//      //   taskList.splice(toTaskIndex, 0, taskToMove)
-//      // }
-//=======
-          axios.post('http://49.50.167.33:3000/task/tasks', d)
-                .then(function() {
-                    console.log("saved successfully");
-                  })
-                  .catch(function (error) {
-                    // alert(error);
-                    console.log("error---");
-                    console.log(error);
-                  });
-                }
-                alert("saved successfully");
-    // MOVE_TASK(state, { fromTaskIndex, toTaskIndex }) {
-    //   const taskList = state.note.tasks
-    //   const taskToMove = taskList.splice(fromTaskIndex, 1)[0]
-    //   taskList.splice(toTaskIndex, 0, taskToMove)
-    // }
-//>>>>>>> server
+        //<<<<<<< HEAD
+        //        axios
+        //          .post("http://49.50.167.33:3000/task/tasks", d)
+        //          .then(function() {
+        //            console.log("saved successfully")
+        //            alert("saved successfully")
+        //          })
+        //          .catch(function(error) {
+        //            // alert(error);
+        //            console.log("error---")
+        //            console.log(error)
+        //          })
+        //      }
+        //      // MOVE_TASK(state, { fromTaskIndex, toTaskIndex }) {
+        //      //   const taskList = state.note.tasks
+        //      //   const taskToMove = taskList.splice(fromTaskIndex, 1)[0]
+        //      //   taskList.splice(toTaskIndex, 0, taskToMove)
+        //      // }
+        //=======
+        axios
+          .post("http://49.50.167.33:3000/task/tasks", d)
+          .then(function() {
+            console.log("saved successfully")
+          })
+          .catch(function(error) {
+            // alert(error);
+            console.log("error---")
+            console.log(error)
+          })
+      }
+      alert("saved successfully")
+      // MOVE_TASK(state, { fromTaskIndex, toTaskIndex }) {
+      //   const taskList = state.note.tasks
+      //   const taskToMove = taskList.splice(fromTaskIndex, 1)[0]
+      //   taskList.splice(toTaskIndex, 0, taskToMove)
+      // }
+      //>>>>>>> server
     },
     LOAD_PROJECT(projectID) {
       axios
@@ -182,6 +188,6 @@ export default new Vuex.Store({
           console.log(error)
         })
         .finally(function() {})
-    }
-  }
+    },
+  },
 })

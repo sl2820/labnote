@@ -1,9 +1,10 @@
 <template>
   <div class="process-view">
     <div class="flex flex-col flex-grow items-start justify-between px-4">
-      <div class="text-2xl font-black">
+      <div class="input-fields text-2xl font-black">
         <input
           type="text"
+          class="process-input-fields"
           :value="process.info.name"
           list="method"
           @change="updateProcessProperty($event, 'info')"
@@ -49,11 +50,11 @@ import processTemplate from "@/data/process_template"
 export default {
   data() {
     return {
-      processFuncs: processDB.functions
+      processFuncs: processDB.functions,
     }
   },
   computed: {
-    ...mapGetters(["getTask"]),
+    ...mapGetters(["getTask", "getColumn"]),
     ...mapState(["note"]),
     process() {
       return this.getTask(this.$route.params.id)
@@ -66,22 +67,28 @@ export default {
       return funcs
     },
     prevChemicals() {
-      const procId = this.$route.params.id
+      const procId = this.process.id
+
       let taskIds = []
-      for (const t of this.note.tasks) {
-        taskIds.push(t.id)
-      }
-      let chemicals = []
-      for (const task of this.note.tasks) {
-        if (taskIds.indexOf(procId) < taskIds.indexOf(task.id)) {
-          break
+      for (const column of this.note.columns) {
+        for (const task of column.tasks) {
+          taskIds.push(task.id)
         }
-        if (task.type === "chemical") {
-          chemicals.push(task)
+      }
+
+      let chemicals = []
+      for (const column of this.note.columns) {
+        for (const task of column.tasks) {
+          if (taskIds.indexOf(procId) < taskIds.indexOf(task.id)) {
+            break
+          }
+          if (task.type === "chemical") {
+            chemicals.push(task)
+          }
         }
       }
       return chemicals
-    }
+    },
   },
   methods: {
     updateProcessProperty(e, key) {
@@ -103,17 +110,21 @@ export default {
       this.$store.commit("UPDATE_PROCESS", {
         process: this.process,
         key,
-        value: data
+        value: data,
       })
-    }
-  }
+    },
+  },
 }
 </script>
 
-<style scoped>
+<style lang="css">
 .process-view {
-  @apply relative flex flex-row my-32 mx-auto bg-white p-4 inset-0 text-left rounded shadow;
+  @apply relative flex flex-row mt-32 mx-auto bg-white p-4 inset-0 text-left rounded shadow overflow-y-auto;
   max-width: 600px;
   min-height: 0%;
+  max-height: 80%;
+}
+.process-input-fields {
+  @apply bg-indigo-100 inline-block;
 }
 </style>

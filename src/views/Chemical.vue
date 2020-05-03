@@ -1,12 +1,24 @@
 <template>
   <div class="chemical-view">
     <div class="flex flex-col flex-grow items-start justify-between px-4">
+      <div>
+        Nickname:
+        <input
+          type="text"
+          class="chemical-input-fields"
+          placeholder="Give nick name"
+          :value="chemical.nickname"
+          @change="update_nickname_additional($event, 'nickname')"
+        />
+      </div>
+
+      <div></div>
       <div v-for="(chem, $chemId) of chemical.ingredients" :key="$chemId">
         <div v-if="$chemId > 0" class="my-4">
           <hr />
         </div>
         <div class="inline-block text-xl font-black pr-2">Name:</div>
-        <div class="inline-block text-l">
+        <div class="chemical-input-fields text-l">
           <input
             placeholder="Search name"
             type="text"
@@ -24,7 +36,7 @@
         </div>
         <!-- Below is State Listing -->
         <div class="inline-block font-black pr-2">State:</div>
-        <div class="inline-block text-l mr-48">
+        <div class="chemical-input-fields text-l mr-48">
           <input
             class="w-24 mr-2"
             placeholder="Choose type"
@@ -50,7 +62,7 @@
         </div>
         <div></div>
         <div class="inline-block font-black pr-2">Product #:</div>
-        <div class="inline-block text-l">
+        <div class="chemical-input-fields text-l">
           <input
             class="w-32 min-w-0 text-sm"
             placeholder="Enter product #"
@@ -65,7 +77,7 @@
           <div class="font-medium pr-2">
             - Weight:
             <input
-              class="w-20 min-w-0 text-xs"
+              class="chemical-input-fields w-20 min-w-0 text-xs"
               placeholder="Enter weight"
               type="text"
               :value="chem.weight"
@@ -73,7 +85,7 @@
             />
             Unit:
             <input
-              class="w-20 min-w-0 text-xs"
+              class="chemical-input-fields w-20 min-w-0 text-xs"
               placeholder="Enter Unit"
               type="text"
               :value="chem.w_unit"
@@ -86,7 +98,7 @@
           <div class="font-medium pr-2">
             - Solvent:
             <input
-              class="w-20 min-w-0 text-xs"
+              class="chemical-input-fields w-20 min-w-0 text-xs"
               placeholder="Enter solvent"
               type="text"
               :value="chem.solvent"
@@ -96,7 +108,7 @@
           <div class="font-medium pr-2">
             - Concentration:
             <input
-              class="w-20 min-w-0 text-xs"
+              class="chemical-input-fields w-20 min-w-0 text-xs"
               placeholder="Enter concentration"
               type="text"
               :value="chem.concentration"
@@ -104,7 +116,7 @@
             />
             Unit:
             <input
-              class="w-20 min-w-0 text-xs"
+              class="chemical-input-fields w-20 min-w-0 text-xs"
               placeholder="Enter Unit"
               type="text"
               :value="chem.c_unit"
@@ -114,7 +126,7 @@
           <div class="font-medium pr-2">
             - Volume:
             <input
-              class="w-20 min-w-0 text-xs"
+              class="chemical-input-fields w-20 min-w-0 text-xs"
               placeholder="Enter volume"
               type="text"
               :value="chem.volume"
@@ -122,7 +134,7 @@
             />
             Unit:
             <input
-              class="w-20 min-w-0 text-xs"
+              class="chemical-input-fields w-20 min-w-0 text-xs"
               placeholder="Enter Unit"
               type="text"
               :value="chem.v_unit"
@@ -135,7 +147,7 @@
           <div class="font-medium pr-2">
             - volume:
             <input
-              class="w-20 min-w-0 text-xs"
+              class="chemical-input-fields w-20 min-w-0 text-xs"
               placeholder="Enter volume"
               type="text"
               :value="chem.volume"
@@ -143,7 +155,7 @@
             />
             Unit:
             <input
-              class="w-20 min-w-0 text-xs"
+              class="chemical-input-fields w-20 min-w-0 text-xs"
               placeholder="Enter Unit"
               type="text"
               :value="chem.v_unit"
@@ -156,7 +168,7 @@
           <div class="font-medium pr-2">
             - volume:
             <input
-              class="w-20 min-w-0 text-xs"
+              class="chemical-input-fields w-20 min-w-0 text-xs"
               placeholder="Enter volume"
               type="text"
               :value="chem.volume"
@@ -164,7 +176,7 @@
             />
             Unit:
             <input
-              class="w-20 min-w-0 text-xs"
+              class="chemical-input-fields w-20 min-w-0 text-xs"
               placeholder="Enter Unit"
               type="text"
               :value="chem.v_unit"
@@ -174,7 +186,7 @@
           <div class="font-medium pr-2">
             - Pressure:
             <input
-              class="w-20 min-w-0 text-xs"
+              class="chemical-input-fields w-20 min-w-0 text-xs"
               placeholder="Enter pressure"
               type="text"
               :value="chem.pressure"
@@ -182,7 +194,7 @@
             />
             Unit:
             <input
-              class="w-20 min-w-0 text-xs"
+              class="chemical-input-fields w-20 min-w-0 text-xs"
               placeholder="Enter Unit"
               type="text"
               :value="chem.p_unit"
@@ -195,13 +207,13 @@
           <p class="font-medium">Unidentified states. Plese check</p>
         </div>
       </div>
-      <div class="mt-6 bg-yellow-100">
+      <div class="chemical-input-fields mt-6">
         <textarea
-          v-model="additional"
+          :value="chemical.additional"
           placeholder="add notes"
           cols="60"
-          @change="additionalNote(additional)"
-        ></textarea>
+          @change="update_nickname_additional($event, 'additional')"
+        />
       </div>
     </div>
   </div>
@@ -221,7 +233,7 @@ export default {
       temp_name: null,
       temp_state: null,
       sigma_obj: sigma.sigmaaldrich,
-      additional: null
+      // additional: null,
     }
   },
   computed: {
@@ -258,13 +270,21 @@ export default {
         }
       }
       return formatted
-    }
+    },
   },
   methods: {
     updateChemicalProperty(e, key, chemid) {
-      const found = this.chemical.ingredients.find(({ id }) => id === chemid)
+      let found = null
+      if (
+        this.chemical.ingredients.find(({ id }) => id === chemid) != undefined
+      ) {
+        found = this.chemical.ingredients.find(({ id }) => id === chemid)
+      } else {
+        found = this.chemical.ingredients[0]
+      }
+
       var value_
-      if (key == "name") {
+      if (key === "name") {
         value_ = e.target.value.split("-")[0]
         this.temp_name = e.target.value
       } else {
@@ -274,7 +294,14 @@ export default {
       this.$store.commit("UPDATE_CHEMICAL", {
         chemical: found,
         key,
-        value: value_
+        value: value_,
+      })
+    },
+    update_nickname_additional(e, k) {
+      this.$store.commit("UPDATE_CHEMICAL", {
+        chemical: this.chemical,
+        key: k,
+        value: e.target.value,
       })
     },
     toFormula(name) {
@@ -304,22 +331,19 @@ export default {
 
       return list
     },
-    additionalNote(n) {
-      this.additional = n
-      this.$store.commit("UPDATE_CHEMICAL", {
-        chemical: this.chemical,
-        key: "additional",
-        value: n
-      })
-    }
-  }
+  },
 }
 </script>
 
-<style scoped>
+<style lang="css">
 .chemical-view {
-  @apply relative flex flex-row my-32 mx-auto bg-white p-4 inset-0 text-left rounded shadow;
+  @apply relative flex flex-row  mx-auto bg-white p-4 inset-0 text-left rounded shadow overflow-y-auto;
+  margin-top: 7%;
   max-width: 800px;
   min-height: 0%;
+  max-height: 80%;
+}
+.chemical-input-fields {
+  @apply bg-teal-100 inline-block;
 }
 </style>

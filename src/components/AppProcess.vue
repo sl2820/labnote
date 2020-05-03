@@ -10,8 +10,8 @@
       </li>
       <li class="mr-2">
         <button
-          class="inline-block text-sm"
-          @click.stop="removeProcess(note, taskIndex)"
+          class="inline-block text-xs"
+          @click.stop="removeProcess(note, columnIndex, taskIndex)"
         >
           ✖️
         </button>
@@ -26,60 +26,23 @@ export default {
   props: {
     process: {
       type: Object,
-      required: true
+      required: true,
+    },
+    columnIndex: {
+      type: Number,
+      required: true,
     },
     taskIndex: {
       type: Number,
-      required: true
-    }
+      required: true,
+    },
   },
   computed: {
-    ...mapState(["note"])
-    // inputs() {
-    //   let ids = []
-    //   for (const i of this.process.info.inputs) {
-    //     ids.push(i)
-    //   }
-    //   let names = []
-    //   for (const i of ids) {
-    //     for (const c of this.note.tasks) {
-    //       if (c.id === i) {
-    //         for (const j of c.ingredients) {
-    //           names.push(j.name)
-    //         }
-    //       }
-    //     }
-    //   }
-    //   return names.join(" ➕")
-    // },
-    // chem_for() {
-    //   let cid = this.process.info.chem_for.id
-    //   let name = ""
-    //   for (const c of this.note.tasks) {
-    //     if (c.id === cid) {
-    //       for (const j of c.ingredients) {
-    //         name = j.name
-    //       }
-    //     }
-    //   }
-    //   return name
-    // },
-    // chem_to() {
-    //   let cid = this.process.info.chem_to.id
-    //   let name = ""
-    //   for (const c of this.note.tasks) {
-    //     if (c.id === cid) {
-    //       for (const j of c.ingredients) {
-    //         name = j.name
-    //       }
-    //     }
-    //   }
-    //   return name
-    // }
+    ...mapState(["note"]),
   },
   methods: {
-    removeProcess(note, taskIndex) {
-      this.$store.commit("REMOVE_TASK", { note, taskIndex })
+    removeProcess(note, columnIndex, taskIndex) {
+      this.$store.commit("REMOVE_TASK", { note, columnIndex, taskIndex })
     },
 
     details(info) {
@@ -106,8 +69,8 @@ export default {
       }
 
       return data
-    }
-  }
+    },
+  },
 }
 </script>
 
