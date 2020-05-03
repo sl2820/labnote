@@ -1,18 +1,50 @@
 <template>
   <div>
-    <div class="mt-6 bg-teal-200">
-      <div v-for="(chem, $chemID) of this_process.info.inputs" :key="$chemID">
-        <span>{{ names(chem.id) }}</span>
-        : <input v-model="chem.amount" />
+    <div class="mt-6">
+      <!-- <div
+        v-for="(chem, $chemID) of this_process.info.inputs"
+        :key="$chemID + 'chem'"
+      > -->
+      <div v-for="(chem, $chemID) of inputsFromPrevs" :key="$chemID + 'chem'">
+        <div class="inline-block">{{ names(chem.id) }}</div>
+        <div class="inline-block ml-1 italic text-gray-600">
+          {{ chem.nickname }}
+        </div>
+        :
+        <input
+          class="process-input-fields"
+          type="number"
+          v-model="chem.amount"
+          @change="updateInputsAmount()"
+        />
       </div>
     </div>
 
-    <div class="mt-6">
+    <div>
+      <div class="inline-block mt-4">Gradually:</div>
+      <input
+        type="checkbox"
+        id="gradually"
+        class="ml-2"
+        v-model="this_process.info.gradually"
+        @change="updateProcessInfo($event, 'gradually')"
+      />
+    </div>
+    <div>
+      <div class="inline-block">Time:</div>
+      <input
+        type="number"
+        class="process-input-fields"
+        v-model="this_process.info.time"
+        @change="updateProcessInfo($event, 'time')"
+      />
+    </div>
+    <!-- <div class="mt-6">
       <div v-for="(value, key, index) in getDetails" :key="index">
         <span class="mr-2">{{ key }}:</span>
         <input class="process-input-fields" v-model="getDetails[key]" />
       </div>
-    </div>
+    </div> -->
 
     <AppButton class="my-6 bg-teal-400 rounded-sm" @click.native="makeOutput()"
       >Make Output</AppButton
@@ -37,7 +69,6 @@ export default {
   data() {
     return {
       processFuncs: processDB.functions,
-      inputs: this.this_process.info.inputs,
     }
   },
   computed: {
@@ -46,18 +77,63 @@ export default {
     process() {
       return this.getTask(this.$route.params.id)
     },
-    getDetails() {
-      const info = this.this_process.info
-      const keys = Object.keys(info)
-      const deletion = ["name", "inputs", "chem_for", "chem_to", "output"]
-      let details = {}
-      for (let k of keys) {
-        if (deletion.indexOf(k) === -1) {
-          details[k] = info[k]
+    inputsFromPrevs() {
+      const p_inputs = this.this_process.info.inputs
+      let assigned_inputs = []
+
+      for (const chem of this.prevChemicals) {
+        if (p_inputs.find(({ id }) => id === chem.id) != undefined) {
+          assigned_inputs.push({
+            id: chem.id,
+            amount: p_inputs.find(({ id }) => id === chem.id).amount,
+            nickname: chem.nickname,
+          })
+        } else {
+          assigned_inputs.push({
+            id: chem.id,
+            amount: 0,
+            nickname: chem.nickname,
+          })
         }
       }
-      return details
+      return assigned_inputs
     },
+    prevChemicals() {
+      const procId = this.this_process.id
+
+      let taskIds = []
+      for (const column of this.note.columns) {
+        for (const task of column.tasks) {
+          taskIds.push(task.id)
+        }
+      }
+
+      let chemicals = []
+      for (const column of this.note.columns) {
+        for (const task of column.tasks) {
+          if (taskIds.indexOf(procId) < taskIds.indexOf(task.id)) {
+            break
+          }
+          if (task.type === "chemical") {
+            chemicals.push(task)
+          }
+        }
+      }
+      return chemicals
+    },
+    // getDetails() {
+    //   // DEPRECATED FUNCTION
+    //   const info = this.this_process.info
+    //   const keys = Object.keys(info)
+    //   const deletion = ["name", "inputs", "chem_for", "chem_to", "output"]
+    //   let details = {}
+    //   for (let k of keys) {
+    //     if (deletion.indexOf(k) === -1) {
+    //       details[k] = info[k]
+    //     }
+    //   }
+    //   return details
+    // },
   },
   methods: {
     names(this_id) {
@@ -67,6 +143,20 @@ export default {
         names.push(ingr.name)
       }
       return names.join(" + ")
+    },
+    updateInputsAmount() {
+      let data = []
+      for (const ifp of this.inputsFromPrevs) {
+        const _a = Number(ifp.amount)
+        if (_a !== 0) {
+          data.push({ id: ifp.id, amount: _a })
+        }
+      }
+      this.$store.commit("UPDATE_PROCESS", {
+        process: this.this_process.info,
+        key: "inputs",
+        value: data,
+      })
     },
     makeOutput() {
       // console.log("Make Output button clicked!");

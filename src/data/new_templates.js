@@ -37,6 +37,7 @@ export default {
   new_process: {
     id: null,
     type: "process",
+    additional: "",
     info: {
       name: "",
     },

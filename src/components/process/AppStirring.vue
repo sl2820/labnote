@@ -7,14 +7,19 @@
         :key="$chemID + 'chem'"
       >
         <input
+          class="inline-block"
           type="radio"
           v-model="chosen"
           name="chosen"
           :value="chem.id"
-          :checked="radios(chosen)[chem.id]"
+          @change="updateProcessInfoChemfor($event, 'id')"
         />
-        {{ names(chem.id) }}
-        <!-- {{ radios(chosen)[chem.id] }} -->
+        <div class="inline-block ml-2">
+          {{ names(chem.id) }}
+        </div>
+        <div class="inline-block ml-2 italic text-gray-600">
+          {{ chem.nickname }}
+        </div>
       </li>
     </ul>
     <div>
@@ -22,14 +27,36 @@
       <input
         class="process-input-fields"
         v-model="this_process.info.chem_for.amount"
+        @change="updateProcessInfoChemfor($event, 'amount')"
       />
     </div>
-    <div v-for="(value, key, index) in getDetails" :key="index + 'det'">
-      <span class="mr-2">{{ key }}:</span>
+
+    <div>
+      <div class="inline-block mt-4">RPM:</div>
       <input
+        type="number"
         class="process-input-fields"
-        v-model="getDetails[key]"
-        @change="updateProcessInfo($event, key)"
+        v-model="this_process.info.rpm"
+        @change="updateProcessInfo($event, 'rpm')"
+      />
+    </div>
+    <div>
+      <div class="inline-block">Time:</div>
+      <input
+        type="number"
+        class="process-input-fields"
+        v-model="this_process.info.time"
+        @change="updateProcessInfo($event, 'time')"
+      />
+    </div>
+    <div>
+      <div class="inline-block">Heating:</div>
+      <input
+        type="checkbox"
+        id="gradually"
+        class="ml-2"
+        v-model="this_process.info.heating"
+        @change="updateProcessInfo($event, 'heating')"
       />
     </div>
 
@@ -47,7 +74,7 @@ export default {
   components: { AppButton },
   data() {
     return {
-      chosen: null,
+      chosen: this.this_process.info.chem_for.id,
     }
   },
   props: {
@@ -82,38 +109,8 @@ export default {
       }
       return chemicals
     },
-    getDetails() {
-      const info = this.this_process.info
-      const keys = Object.keys(info)
-      const deletion = ["name", "inputs", "chem_for", "chem_to", "output"]
-      let details = {}
-      for (let k of keys) {
-        if (deletion.indexOf(k) === -1) {
-          details[k] = info[k]
-        }
-      }
-      return details
-    },
   },
   methods: {
-    radios(this_id) {
-      let s = {}
-      for (const i of this.prevChemicals) {
-        s[i.id] = false
-      }
-
-      if (this.this_process.info.chem_for.id != "") {
-        s[this.this_process.info.chem_for.id] = true
-      }
-
-      if (this_id != null) {
-        for (const i in s) {
-          s[i] = false
-        }
-        s[this_id] = true
-      }
-      return s
-    },
     names(this_id) {
       let names = []
       const ingrs = this.getTask(this_id).ingredients
@@ -125,6 +122,13 @@ export default {
     updateProcessInfo(e, key) {
       this.$store.commit("UPDATE_PROCESS", {
         process: this.this_process.info,
+        key,
+        value: e.target.value,
+      })
+    },
+    updateProcessInfoChemfor(e, key) {
+      this.$store.commit("UPDATE_PROCESS", {
+        process: this.this_process.info.chem_for,
         key,
         value: e.target.value,
       })
