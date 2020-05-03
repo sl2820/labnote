@@ -39,7 +39,7 @@
         </div>
       </div>
 
-      <div class="italic text-gray-600">
+      <div v-show="process.info.name !== ''" class="italic text-gray-600">
         Write note:
         <textarea
           class="process-input-fields"
