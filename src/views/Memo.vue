@@ -3,6 +3,7 @@
     <div class="flex flex-col flex-grow items-start justify-between px-4">
       <div class="memo-input-fields text-2xl font-black">
         <input
+          placeholder="Enter Title"
           type="text"
           :value="memo.info.title"
           @change="updateMemoProperty($event, 'title')"
@@ -12,6 +13,7 @@
       <div>
         <textarea
           class="memo-input-fields mt-3 p-2 border italic"
+          placeholder = "Enter Notes"
           :value="memo.info.description"
           cols="50"
           rows="10"
