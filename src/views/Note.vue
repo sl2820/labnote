@@ -60,6 +60,7 @@ export default {
       let data = this.new_column
       data.id = uuid()
       data.name = this.newColumnName
+      data = JSON.stringify(data)
       this.$store.commit("CREATE_COLUMN", { data })
       this.newColumnName = ""
     },
