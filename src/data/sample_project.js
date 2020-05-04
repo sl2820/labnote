@@ -60,6 +60,7 @@ export default {
         {
           id: "s1_p1",
           type: "process",
+          additional: "aa",
           info: {
             name: "Mix",
             inputs: [
@@ -69,7 +70,7 @@ export default {
               },
               {
                 id: "s1_c2",
-                amount: 0,
+                amount: 10,
               },
             ],
             gradually: true,
@@ -149,6 +150,7 @@ export default {
         {
           id: "s2_p1",
           type: "process",
+          additional: "",
           info: {
             name: "Heat",
             chem_for: {
@@ -186,6 +188,7 @@ export default {
         {
           id: "s2_p2",
           type: "process",
+          additional: "asdfasfs",
           info: {
             name: "Water bath",
             chem_for: {
@@ -233,7 +236,42 @@ export default {
     {
       id: "s3",
       name: "final",
-      tasks: [],
+      tasks: [
+        {
+          id: "s3_p1",
+          type: "process",
+          additional: "",
+          info: {
+            name: "Heat",
+            chem_for: {
+              id: null,
+            },
+            temperature: 0,
+            time: 0,
+            stirring: false,
+          },
+        },
+        {
+          id: "s3_p2",
+          type: "process",
+          additional: "mix 2",
+          info: {
+            name: "Mix",
+            inputs: [
+              {
+                id: "s1_c3",
+                amount: 111,
+              },
+              {
+                id: "s2_c2",
+                amount: 22,
+              },
+            ],
+            gradually: true,
+            time: 1234,
+          },
+        },
+      ],
     },
   ],
 }
