@@ -41,11 +41,21 @@
           class="inline-block text-xs italic ml-2 text-gray-600"
           v-if="
             (chemical.ingredients[0].property != null) &
-              (chemical.ingredients[0].property.length >= 1)
+              (chemical.ingredients[0].property.length === 1)
           "
         >
-          {{ show_property(chemical.ingredients[0].property) }}
+          {{ chemical.ingredients[0].property[0] }}
         </div>
+        <div
+          class="inline-block text-xs italic ml-2 text-gray-600"
+          v-else-if="
+            (chemical.ingredients[0].property != null) &
+              (chemical.ingredients[0].property.length > 1)
+              "
+        >
+        {{ show_property(chemical.ingredients[0].property) }}
+        </div>
+
       </li>
       <li class="mr-2">
         <button
@@ -137,9 +147,9 @@ export default {
     },
     show_property(property) {
       var pt = ""
-      for (let i = 0; i < property.length; i++) {
-        pt = pt + property[i] + " "
-      }
+      // for (let i = 0; i < property.length; i++) {
+        pt = pt + property[0] + "..."
+      // }
       return pt
     },
   },

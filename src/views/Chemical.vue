@@ -325,8 +325,13 @@ export default {
       var list = ""
       let i = 0
       while (i < chem.property.length) {
-        list = list + " " + chem.property[i]
-        i++
+        if (i ==chem.property.length-1){
+          list = list + chem.property[i]
+          i++
+        }else{
+          list = list + chem.property[i]+ ", "
+          i++
+        }
       }
 
       return list

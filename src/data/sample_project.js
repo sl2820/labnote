@@ -216,7 +216,7 @@ export default {
               w_unit: "g",
               pressure: null,
               p_unit: "Pa",
-              property: ["after heating on an water bath"],
+              property: ["after heating", "on an water bath"],
             },
           ],
         },
