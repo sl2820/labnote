@@ -4,6 +4,7 @@
       <div class="input-fields text-2xl font-black">
         <input
           type="text"
+          placeholder = "Choose Process"
           class="process-input-fields"
           :value="process.info.name"
           list="method"
