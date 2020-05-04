@@ -21,6 +21,7 @@
         <div class="chemical-input-fields text-l">
           <input
             placeholder="Search name"
+            size="60"
             type="text"
             :value="chem.name"
             list="name"
@@ -35,6 +36,7 @@
           </datalist>
         </div>
         <!-- Below is State Listing -->
+        <div></div>
         <div class="inline-block font-black pr-2">State:</div>
         <div class="chemical-input-fields text-l mr-48">
           <input
