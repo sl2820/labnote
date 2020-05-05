@@ -65,7 +65,9 @@ import AppButton from "@/components/AppButton"
 export default {
   components: { AppButton },
   data() {
-    return { chosen: this.this_process.info.chem_for.id }
+    return {
+      chosen: this.this_process.info.chem_for.id,
+    }
   },
   props: {
     this_process: {
@@ -76,6 +78,9 @@ export default {
   computed: {
     ...mapGetters(["getTask", "getColumn"]),
     ...mapState(["note"]),
+    process() {
+      return this.getTask(this.$route.params.id)
+    },
     prevChemicals() {
       const procId = this.this_process.id
 

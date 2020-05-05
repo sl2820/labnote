@@ -4,6 +4,7 @@ export default {
     {
       name: "Mix",
       info: {
+        name: "Mix",
         inputs: [],
         gradually: false,
         time: 0,
@@ -12,6 +13,7 @@ export default {
     {
       name: "Stirring",
       info: {
+        name: "Stirring",
         chem_for: {
           id: "",
           amount: 0,
@@ -24,6 +26,7 @@ export default {
     {
       name: "Heat",
       info: {
+        name: "Heat",
         chem_for: {
           id: "",
         },
@@ -35,6 +38,7 @@ export default {
     {
       name: "Water bath",
       info: {
+        name: "Water bath",
         chem_for: {
           id: "",
         },
@@ -46,6 +50,7 @@ export default {
     {
       name: "Cooling",
       info: {
+        name: "Cooling",
         chem_for: {
           id: "",
         },
@@ -57,6 +62,7 @@ export default {
     {
       name: "Filtering",
       info: {
+        name: "Filtering",
         chem_for: {
           id: "",
         },
