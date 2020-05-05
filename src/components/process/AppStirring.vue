@@ -14,22 +14,12 @@
           :value="chem.id"
           @change="updateProcessInfoChemfor($event, 'id')"
         />
-        <div class="inline-block ml-2">
-          {{ names(chem.id) }}
-        </div>
-        <div class="inline-block ml-2 italic text-gray-600">
+        <div v-if="chem.nickname" class="inline-block ml-2">
           {{ chem.nickname }}
         </div>
+        <div v-else class="inline-block ml-2">{{ names(chem.id) }}</div>
       </li>
     </ul>
-    <div>
-      <span>amount:</span>
-      <input
-        class="process-input-fields"
-        v-model="this_process.info.chem_for.amount"
-        @change="updateProcessInfoChemfor($event, 'amount')"
-      />
-    </div>
 
     <div>
       <div class="inline-block mt-4">RPM:</div>

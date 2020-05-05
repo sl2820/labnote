@@ -117,8 +117,8 @@ export default {
       const procTemp = processTemplate.templates.find(
         ({ name }) => name === e.target.value
       )
-      let data = procTemp.info
-      data.name = e.target.value
+      const _procTemp = JSON.stringify(procTemp)
+      let data = JSON.parse(_procTemp).info
 
       if (e.target.value === "Mix") {
         let ins = []

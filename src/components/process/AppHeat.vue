@@ -14,17 +14,15 @@
           :value="chem.id"
           @change="updateProcessInfoChemfor($event, 'id')"
         />
-        <div class="inline-block ml-2">
-          {{ names(chem.id) }}
-        </div>
-        <div class="inline-block ml-2 italic text-gray-600">
+        <div v-if="chem.nickname" class="inline-block ml-2">
           {{ chem.nickname }}
         </div>
+        <div v-else class="inline-block ml-2">{{ names(chem.id) }}</div>
       </li>
     </ul>
 
     <div>
-      <div class="inline-block mt-4">Temperature:</div>
+      <div class="inline-block mt-4">Temperature (°C):</div>
       <input
         type="number"
         class="process-input-fields"
@@ -144,6 +142,7 @@ export default {
         index: new_index,
         ingr: ingredients,
       })
+      this.$router.push({ name: "note" })
     },
   },
 }

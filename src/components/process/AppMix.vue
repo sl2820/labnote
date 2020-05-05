@@ -6,10 +6,10 @@
         :key="$chemID + 'chem'"
       > -->
       <div v-for="(chem, $chemID) of inputsFromPrevs" :key="$chemID + 'chem'">
-        <div class="inline-block">{{ names(chem.id) }}</div>
-        <div class="inline-block ml-1 italic text-gray-600">
+        <div v-if="chem.nickname" class="inline-block">
           {{ chem.nickname }}
         </div>
+        <div v-else class="inline-block">{{ names(chem.id) }}</div>
         :
         <input
           class="process-input-fields"
@@ -169,6 +169,8 @@ export default {
           data.id = uuid()
           // data.volume = i.amount
           data.volume = null
+          data.weight = null
+          data.pressure = null
           if (i.amount > 0) {
             ingredients.push(data)
           }
