@@ -22,14 +22,6 @@
         </div>
       </li>
     </ul>
-    <div>
-      <span>amount:</span>
-      <input
-        class="process-input-fields"
-        v-model="this_process.info.chem_for.amount"
-        @change="updateProcessInfoChemfor($event, 'amount')"
-      />
-    </div>
 
     <div>
       <div class="inline-block mt-4">RPM:</div>

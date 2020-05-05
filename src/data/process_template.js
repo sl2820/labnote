@@ -16,7 +16,6 @@ export default {
         name: "Stirring",
         chem_for: {
           id: "",
-          amount: 0,
         },
         rpm: 0,
         time: 0,
