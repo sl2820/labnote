@@ -146,6 +146,7 @@ export default {
         index: new_index,
         ingr: ingredients,
       })
+      this.$router.push({ name: "note" })
     },
   },
 }
