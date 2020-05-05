@@ -23,7 +23,7 @@
 
     <div>
       <div class="inline-block">
-        Temperature:
+        Temperature (°C):
       </div>
       <input
         type="number"

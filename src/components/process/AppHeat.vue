@@ -22,7 +22,7 @@
     </ul>
 
     <div>
-      <div class="inline-block mt-4">Temperature:</div>
+      <div class="inline-block mt-4">Temperature (°C):</div>
       <input
         type="number"
         class="process-input-fields"
