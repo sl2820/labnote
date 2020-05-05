@@ -42,35 +42,10 @@
           </div>
         </div>
 
-        <div class="action-bar justify-end w-1/4 flex-grow-0">
+        <div class="justify-end w-1/4 flex-grow-0">
           <div v-show="process.info.name !== ''">
-            <div class="overflow-y-auto">
-              <div>ACTIONS</div>
-              <div>
-                <ActionButton
-                  ><b-icon class="mr-2" icon="files"></b-icon
-                  >Duplicate</ActionButton
-                >
-              </div>
-              <div>
-                <ActionButton
-                  ><b-icon class="mr-2" icon="star"></b-icon>Star</ActionButton
-                >
-              </div>
-              <div>
-                <ActionButton
-                  ><b-icon class="mr-2" icon="link"></b-icon>Share</ActionButton
-                >
-              </div>
-              <div>
-                <ActionButton
-                  ><b-icon class="mr-2" icon="trash"></b-icon
-                  >Remove</ActionButton
-                >
-              </div>
-            </div>
-
-            <div class="mt-4">
+            <AppActionbar />
+            <div class="italic text-gray-600 mt-4">
               Write note:
               <textarea
                 class="process-input-fields w-full"
@@ -91,10 +66,10 @@
 import { mapGetters, mapState } from "vuex"
 import processDB from "@/data/sample_process"
 import processTemplate from "@/data/process_template"
-import ActionButton from "@/components/ActionButton"
+import AppActionbar from "@/components/AppActionbar"
 
 export default {
-  components: { ActionButton },
+  components: { AppActionbar },
   data() {
     return {
       processFuncs: processDB.functions,
@@ -180,7 +155,5 @@ export default {
 }
 .process-input-fields {
   @apply bg-indigo-100 inline-block;
-}
-.action-bar {
 }
 </style>

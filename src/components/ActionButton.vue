@@ -31,4 +31,7 @@ export default {
 .action-button {
   @apply bg-gray-200 w-full inline-flex px-2 py-1 items-center rounded-lg mb-1;
 }
+.action-button:hover {
+  @apply bg-gray-300;
+}
 </style>
