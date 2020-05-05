@@ -1,8 +1,9 @@
 <template>
-  <div class="mb-4 bg-red-300">
+  <div class="mb-4">
+    <!-- NAME -->
     <div class="flex w-full">
-      <div class="justify-start flex-grow-0 text-xl font-black pr-2">
-        Name:
+      <div class="justify-start flex-grow-0 mr-2">
+        Name
       </div>
       <input
         placeholder="Search name"
@@ -21,16 +22,32 @@
       </datalist>
     </div>
 
-    <!-- Below is State Listing -->
-    <div class="inline-block font-black pr-2">State:</div>
-    <div class="chemical-input-fields text-l mr-48">
+    <!-- PRODUCT NUMBER -->
+    <div class="flex w-full">
+      <div class="justify-start flex-grow-0 mr-2">
+        Product
+      </div>
       <input
-        class="w-24 mr-2"
+        class="flex-grow w-full chemical-input-fields"
+        placeholder="Enter product #"
+        type="text"
+        :value="ingredient.product_number"
+        @change="
+          updateChemicalProperty($event, 'product_number', ingredient.id)
+        "
+      />
+    </div>
+
+    <!-- STATE -->
+    <div class="flex w-full">
+      <div class="justify-start flex-grow-0 mr-2">State</div>
+      <input
+        class="flex-grow w-full chemical-input-fields"
         placeholder="Choose type"
         type="text"
         :value="ingredient.state"
         list="state"
-        @change="updateChemicalProperty($event, 'state', cingredienthem.id)"
+        @change="updateChemicalProperty($event, 'state', ingredient.id)"
       />
       <datalist id="state">
         <option
@@ -41,161 +58,148 @@
       </datalist>
     </div>
 
+    <!-- HISTORY -->
     <div
+      class="flex w-full"
       v-if="(ingredient != null) & (ingredient.property.length >= 1)"
-      class="inline-block text-sm pr-2 font-bold italic"
     >
-      {{ list_property(ingredient) }}
+      <div class="justify-start flex-grow-0 mr-2">History</div>
+      <div class="flex-grow w-full">{{ list_property(ingredient) }}</div>
     </div>
-    <div></div>
-    <div class="inline-block font-black pr-2">Product #:</div>
-    <div class="chemical-input-fields text-l">
-      <input
-        class="w-32 min-w-0 text-sm"
-        placeholder="Enter product #"
-        type="text"
-        :value="ingredient.product_number"
-        @change="
-          updateChemicalProperty($event, 'product_number', ingredient.id)
-        "
-      />
-    </div>
-    <div></div>
-    <div v-if="ingredient.state == 'solid'" class="font-black">
-      Details:
-      <div class="font-medium pr-2">
-        - Weight:
-        <input
-          class="chemical-input-fields w-20 min-w-0 text-xs"
-          placeholder="Enter weight"
-          type="text"
-          :value="ingredient.weight"
-          @change="updateChemicalProperty($event, 'weight', ingredient.id)"
-        />
-        Unit:
-        <input
-          class="chemical-input-fields w-20 min-w-0 text-xs"
-          placeholder="Enter Unit"
-          type="text"
-          :value="ingredient.w_unit"
-          @change="updateChemicalProperty($event, 'w_unit', ingredient.id)"
-        />
+
+    <!-- DETAILS -->
+    <div class="mt-1">
+      <div v-if="ingredient.state == 'solid'">
+        <div>
+          Weight:
+          <input
+            class="chemical-input-fields w-20 min-w-0"
+            placeholder="Enter weight"
+            type="text"
+            :value="ingredient.weight"
+            @change="updateChemicalProperty($event, 'weight', ingredient.id)"
+          />
+          Unit:
+          <input
+            class="chemical-input-fields w-20 min-w-0"
+            placeholder="Enter Unit"
+            type="text"
+            :value="ingredient.w_unit"
+            @change="updateChemicalProperty($event, 'w_unit', ingredient.id)"
+          />
+        </div>
       </div>
-    </div>
-    <div v-else-if="ingredient.state == 'solution'" class="font-black">
-      Details:
-      <div class="font-medium pr-2">
-        - Solvent:
-        <input
-          class="chemical-input-fields w-20 min-w-0 text-xs"
-          placeholder="Enter solvent"
-          type="text"
-          :value="ingredient.solvent"
-          @change="updateChemicalProperty($event, 'solvent', ingredient.id)"
-        />
+      <div v-else-if="ingredient.state == 'solution'">
+        <div>
+          Solvent:
+          <input
+            class="chemical-input-fields w-20 min-w-0"
+            placeholder="Enter solvent"
+            type="text"
+            :value="ingredient.solvent"
+            @change="updateChemicalProperty($event, 'solvent', ingredient.id)"
+          />
+        </div>
+        <div>
+          Concentration:
+          <input
+            class="chemical-input-fields w-20 min-w-0"
+            placeholder="Enter concentration"
+            type="text"
+            :value="ingredient.concentration"
+            @change="
+              updateChemicalProperty($event, 'concentration', ingredient.id)
+            "
+          />
+          Unit:
+          <input
+            class="chemical-input-fields w-20 min-w-0"
+            placeholder="Enter Unit"
+            type="text"
+            :value="ingredient.c_unit"
+            @change="updateChemicalProperty($event, 'c_unit', ingredient.id)"
+          />
+        </div>
+        <div>
+          Volume:
+          <input
+            class="chemical-input-fields w-20 min-w-0"
+            placeholder="Enter volume"
+            type="text"
+            :value="ingredient.volume"
+            @change="updateChemicalProperty($event, 'volume', ingredient.id)"
+          />
+          Unit:
+          <input
+            class="chemical-input-fields w-20 min-w-0"
+            placeholder="Enter Unit"
+            type="text"
+            :value="ingredient.v_unit"
+            @change="updateChemicalProperty($event, 'v_unit', ingredient.id)"
+          />
+        </div>
       </div>
-      <div class="font-medium pr-2">
-        - Concentration:
-        <input
-          class="chemical-input-fields w-20 min-w-0 text-xs"
-          placeholder="Enter concentration"
-          type="text"
-          :value="ingredient.concentration"
-          @change="
-            updateChemicalProperty($event, 'concentration', ingredient.id)
-          "
-        />
-        Unit:
-        <input
-          class="chemical-input-fields w-20 min-w-0 text-xs"
-          placeholder="Enter Unit"
-          type="text"
-          :value="ingredient.c_unit"
-          @change="updateChemicalProperty($event, 'c_unit', ingredient.id)"
-        />
+      <div v-else-if="ingredient.state == 'liquid'">
+        <div>
+          volume:
+          <input
+            class="chemical-input-fields w-20 min-w-0"
+            placeholder="Enter volume"
+            type="text"
+            :value="ingredient.volume"
+            @change="updateChemicalProperty($event, 'volume', ingredient.id)"
+          />
+          Unit:
+          <input
+            class="chemical-input-fields w-20 min-w-0"
+            placeholder="Enter Unit"
+            type="text"
+            :value="ingredient.v_unit"
+            @change="updateChemicalProperty($event, 'v_unit', ingredient.id)"
+          />
+        </div>
       </div>
-      <div class="font-medium pr-2">
-        - Volume:
-        <input
-          class="chemical-input-fields w-20 min-w-0 text-xs"
-          placeholder="Enter volume"
-          type="text"
-          :value="ingredient.volume"
-          @change="updateChemicalProperty($event, 'volume', ingredient.id)"
-        />
-        Unit:
-        <input
-          class="chemical-input-fields w-20 min-w-0 text-xs"
-          placeholder="Enter Unit"
-          type="text"
-          :value="ingredient.v_unit"
-          @change="updateChemicalProperty($event, 'v_unit', ingredient.id)"
-        />
+      <div v-else-if="ingredient.state == 'gas'">
+        <div>
+          volume:
+          <input
+            class="chemical-input-fields w-20 min-w-0"
+            placeholder="Enter volume"
+            type="text"
+            :value="ingredient.volume"
+            @change="updateChemicalProperty($event, 'volume', ingredient.id)"
+          />
+          Unit:
+          <input
+            class="chemical-input-fields w-20 min-w-0"
+            placeholder="Enter Unit"
+            type="text"
+            :value="ingredient.v_unit"
+            @change="updateChemicalProperty($event, 'v_unit', ingredient.id)"
+          />
+        </div>
+        <div>
+          Pressure:
+          <input
+            class="chemical-input-fields w-20 min-w-0"
+            placeholder="Enter pressure"
+            type="text"
+            :value="ingredient.pressure"
+            @change="updateChemicalProperty($event, 'pressure', ingredient.id)"
+          />
+          Unit:
+          <input
+            class="chemical-input-fields w-20 min-w-0"
+            placeholder="Enter Unit"
+            type="text"
+            :value="ingredient.p_unit"
+            @change="updateChemicalProperty($event, 'p_unit', ingredient.id)"
+          />
+        </div>
       </div>
-    </div>
-    <div v-else-if="ingredient.state == 'liquid'" class="font-black">
-      Details:
-      <div class="font-medium pr-2">
-        - volume:
-        <input
-          class="chemical-input-fields w-20 min-w-0 text-xs"
-          placeholder="Enter volume"
-          type="text"
-          :value="ingredient.volume"
-          @change="updateChemicalProperty($event, 'volume', ingredient.id)"
-        />
-        Unit:
-        <input
-          class="chemical-input-fields w-20 min-w-0 text-xs"
-          placeholder="Enter Unit"
-          type="text"
-          :value="ingredient.v_unit"
-          @change="updateChemicalProperty($event, 'v_unit', ingredient.id)"
-        />
+      <div v-else>
+        <p>Unidentified states. Please check</p>
       </div>
-    </div>
-    <div v-else-if="chem.state == 'gas'" class="font-black">
-      Details:
-      <div class="font-medium pr-2">
-        - volume:
-        <input
-          class="chemical-input-fields w-20 min-w-0 text-xs"
-          placeholder="Enter volume"
-          type="text"
-          :value="ingredient.volume"
-          @change="updateChemicalProperty($event, 'volume', ingredient.id)"
-        />
-        Unit:
-        <input
-          class="chemical-input-fields w-20 min-w-0 text-xs"
-          placeholder="Enter Unit"
-          type="text"
-          :value="ingredient.v_unit"
-          @change="updateChemicalProperty($event, 'v_unit', ingredient.id)"
-        />
-      </div>
-      <div class="font-medium pr-2">
-        - Pressure:
-        <input
-          class="chemical-input-fields w-20 min-w-0 text-xs"
-          placeholder="Enter pressure"
-          type="text"
-          :value="ingredient.pressure"
-          @change="updateChemicalProperty($event, 'pressure', ingredient.id)"
-        />
-        Unit:
-        <input
-          class="chemical-input-fields w-20 min-w-0 text-xs"
-          placeholder="Enter Unit"
-          type="text"
-          :value="ingredient.p_unit"
-          @change="updateChemicalProperty($event, 'p_unit', ingredient.id)"
-        />
-      </div>
-    </div>
-    <div v-else class="font-black">
-      Details:
-      <p class="font-medium">Unidentified states. Plese check</p>
     </div>
   </div>
 </template>
