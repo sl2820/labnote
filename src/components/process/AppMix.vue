@@ -169,6 +169,8 @@ export default {
           data.id = uuid()
           // data.volume = i.amount
           data.volume = null
+          data.weight = null
+          data.pressure = null
           if (i.amount > 0) {
             ingredients.push(data)
           }
