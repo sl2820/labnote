@@ -39,8 +39,11 @@
 
 <script>
 import { mapGetters } from "vuex"
+import AppIngredient from "@/components/AppIngredient"
+import AppActionbar from "@/components/AppActionbar"
 
 export default {
+  components: { AppIngredient, AppActionbar },
   computed: {
     ...mapGetters(["getTask"]),
     chemical() {
