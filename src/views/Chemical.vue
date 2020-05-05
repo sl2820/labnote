@@ -13,7 +13,7 @@
       </div>
 
       <div class="flex w-full mt-3">
-        <div class="justify-start flex-grow">
+        <div class="justify-start flex-grow mr-10">
           <div v-for="(chem, $chemId) of chemical.ingredients" :key="$chemId">
             <AppIngredient :ingredient="chem" />
           </div>
