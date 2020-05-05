@@ -1,5 +1,5 @@
 <template>
-  <button type="button" class="button" :class="typeClasses">
+  <button type="button" class="action-button" :class="typeClasses">
     <slot />
   </button>
 </template>
@@ -28,7 +28,7 @@ export default {
 </script>
 
 <style lang="css" scoped>
-.button {
-  @apply inline-flex text-white px-4 py-2 font-bold items-center;
+.action-button {
+  @apply bg-gray-200 w-full inline-flex px-2 py-1 items-center rounded-lg mb-1;
 }
 </style>

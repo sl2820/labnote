@@ -1,10 +1,11 @@
 <template>
   <div class="process-view">
     <div class="flex flex-col flex-grow items-start justify-between px-4">
-      <div class="input-fields text-2xl font-black">
+      <div class="input-fields text-3xl font-black">
+        🔬
         <input
           type="text"
-          placeholder = "Choose Process"
+          placeholder="Choose Process"
           class="process-input-fields"
           :value="process.info.name"
           list="method"
@@ -19,36 +20,68 @@
         </datalist>
       </div>
 
-      <div>
-        <div v-if="process.info.name === 'Mix'">
-          <AppMix :this_process="process"></AppMix>
+      <div class="flex w-full mt-3">
+        <div class="justify-start flex-grow">
+          <div v-if="process.info.name === 'Mix'">
+            <AppMix :this_process="process"></AppMix>
+          </div>
+          <div v-else-if="process.info.name === 'Stirring'">
+            <AppStirring :this_process="process"></AppStirring>
+          </div>
+          <div v-else-if="process.info.name === 'Heat'">
+            <AppHeat :this_process="process"></AppHeat>
+          </div>
+          <div v-else-if="process.info.name === 'Water bath'">
+            <AppWaterbath :this_process="process"></AppWaterbath>
+          </div>
+          <div v-else-if="process.info.name === 'Cooling'">
+            <AppCooling :this_process="process"></AppCooling>
+          </div>
+          <div v-else-if="process.info.name === 'Filtering'">
+            <AppFiltering :this_process="process"></AppFiltering>
+          </div>
         </div>
-        <div v-else-if="process.info.name === 'Stirring'">
-          <AppStirring :this_process="process"></AppStirring>
-        </div>
-        <div v-else-if="process.info.name === 'Heat'">
-          <AppHeat :this_process="process"></AppHeat>
-        </div>
-        <div v-else-if="process.info.name === 'Water bath'">
-          <AppWaterbath :this_process="process"></AppWaterbath>
-        </div>
-        <div v-else-if="process.info.name === 'Cooling'">
-          <AppCooling :this_process="process"></AppCooling>
-        </div>
-        <div v-else-if="process.info.name === 'Filtering'">
-          <AppFiltering :this_process="process"></AppFiltering>
-        </div>
-      </div>
 
-      <div v-show="process.info.name !== ''" class="italic text-gray-600">
-        Write note:
-        <textarea
-          class="process-input-fields"
-          :value="process.additional"
-          placeholder="add notes"
-          cols="60"
-          @change="update_nickname_additional($event, 'additional')"
-        />
+        <div class="action-bar justify-end w-1/4 flex-grow-0">
+          <div v-show="process.info.name !== ''">
+            <div class="overflow-y-auto">
+              <div>ACTIONS</div>
+              <div>
+                <ActionButton
+                  ><b-icon class="mr-2" icon="files"></b-icon
+                  >Duplicate</ActionButton
+                >
+              </div>
+              <div>
+                <ActionButton
+                  ><b-icon class="mr-2" icon="star"></b-icon>Star</ActionButton
+                >
+              </div>
+              <div>
+                <ActionButton
+                  ><b-icon class="mr-2" icon="link"></b-icon>Share</ActionButton
+                >
+              </div>
+              <div>
+                <ActionButton
+                  ><b-icon class="mr-2" icon="trash"></b-icon
+                  >Remove</ActionButton
+                >
+              </div>
+            </div>
+
+            <div class="mt-4">
+              Write note:
+              <textarea
+                class="process-input-fields w-full"
+                :value="process.additional"
+                placeholder="add notes"
+                rows="3"
+                @change="update_nickname_additional($event, 'additional')"
+              />
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -58,8 +91,10 @@
 import { mapGetters, mapState } from "vuex"
 import processDB from "@/data/sample_process"
 import processTemplate from "@/data/process_template"
+import ActionButton from "@/components/ActionButton"
 
 export default {
+  components: { ActionButton },
   data() {
     return {
       processFuncs: processDB.functions,
@@ -139,11 +174,13 @@ export default {
 <style lang="css">
 .process-view {
   @apply relative flex flex-row mt-32 mx-auto bg-white p-4 inset-0 text-left rounded shadow overflow-y-auto;
-  max-width: 600px;
+  max-width: 700px;
   min-height: 0%;
   max-height: 80%;
 }
 .process-input-fields {
   @apply bg-indigo-100 inline-block;
+}
+.action-bar {
 }
 </style>
