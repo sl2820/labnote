@@ -146,8 +146,9 @@ export default {
     },
     show_property(property) {
       var pt = ""
+      var a = property.length-1
       // for (let i = 0; i < property.length; i++) {
-      pt = pt + property[0] + "..."
+      pt = pt + property[a] + "..."
       // }
       return pt
     },
