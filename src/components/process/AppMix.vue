@@ -6,10 +6,10 @@
         :key="$chemID + 'chem'"
       > -->
       <div v-for="(chem, $chemID) of inputsFromPrevs" :key="$chemID + 'chem'">
-        <div v-if="chem.nickname" class="inline-block">
+        <div v-if="chem.nickname" class="inline-block mb-1">
           {{ chem.nickname }}
         </div>
-        <div v-else class="inline-block">{{ names(chem.id) }}</div>
+        <div v-else class="inline-block mb-1">{{ names(chem.id) }}</div>
         :
         <input
           class="process-input-fields"
@@ -17,11 +17,12 @@
           v-model="chem.amount"
           @change="updateInputsAmount()"
         />
+        <div v-if = "print_history(chem.id)" class="text-secondary ml-2 mt-n2 mb-2 italic" > ({{print_history(chem.id)}})</div>
       </div>
     </div>
 
     <div>
-      <div class="inline-block mt-4">Gradually:</div>
+      <div class="inline-block mt-4 mb-1">Gradually:</div>
       <input
         type="checkbox"
         id="gradually"
@@ -121,6 +122,7 @@ export default {
       }
       return chemicals
     },
+
     // getDetails() {
     //   // DEPRECATED FUNCTION
     //   const info = this.this_process.info
@@ -188,6 +190,30 @@ export default {
       })
       this.$router.push({ name: "note" })
     },
+    print_history(this_id){
+      let properties = ""
+      const ingrs = this.getTask(this_id).ingredients
+      if (ingrs.length > 1){
+        properties = properties + "Compounds"
+      }else if(ingrs.length==1){
+        if(ingrs[0].property[ingrs[0].property.length-1]==null){
+          properties = properties +""
+        }else{
+          properties = properties + ingrs[0].property[ingrs[0].property.length-1]
+        }
+      }else{
+        properties = properties + "Something Wrong"
+      }
+
+      return properties
+    },
+    // latestChemicals(chemicals){
+    //   let new_chemicals = []
+    //나중에 필요할 수도
+    //
+    //
+    //   return new_chemicals
+    // },
   },
 }
 </script>

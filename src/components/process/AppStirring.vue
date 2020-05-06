@@ -18,11 +18,13 @@
           {{ chem.nickname }}
         </div>
         <div v-else class="inline-block ml-2">{{ names(chem.id) }}</div>
+        <div v-if = "print_history(chem.id)" class="text-secondary ml-3 mt-n2 mb-1 italic" > ({{print_history(chem.id)}})</div>
+
       </li>
     </ul>
 
     <div>
-      <div class="inline-block mt-4">RPM:</div>
+      <div class="inline-block mt-4 mb-1">RPM:</div>
       <input
         type="number"
         class="process-input-fields"
@@ -31,7 +33,7 @@
       />
     </div>
     <div>
-      <div class="inline-block">Time:</div>
+      <div class="inline-block mb-1">Time:</div>
       <input
         type="number"
         class="process-input-fields"
@@ -40,7 +42,7 @@
       />
     </div>
     <div>
-      <div class="inline-block">Heating:</div>
+      <div class="inline-block mb-1">Heating:</div>
       <input
         type="checkbox"
         id="gradually"
@@ -144,6 +146,23 @@ export default {
         ingr: ingredients,
       })
       this.$router.push({ name: "note" })
+    },
+    print_history(this_id){
+      let properties = ""
+      const ingrs = this.getTask(this_id).ingredients
+      if (ingrs.length > 1){
+        properties = properties + "Compounds"
+      }else if(ingrs.length==1){
+        if(ingrs[0].property[ingrs[0].property.length-1]==null){
+          properties = properties +""
+        }else{
+          properties = properties + ingrs[0].property[ingrs[0].property.length-1]
+        }
+      }else{
+        properties = properties + "Something Wrong"
+      }
+
+      return properties
     },
   },
 }
