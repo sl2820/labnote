@@ -26,7 +26,7 @@
     <!-- PRODUCT NUMBER -->
     <div class="flex w-full">
       <div class="justify-start flex-grow-0 mr-2">
-        Product
+        Product:
       </div>
       <input
         class="flex-grow w-full chemical-input-fields"
@@ -41,7 +41,7 @@
 
     <!-- STATE -->
     <div class="flex w-full">
-      <div class="justify-start flex-grow-0 mr-2">State</div>
+      <div class="justify-start flex-grow-0 mr-2">State:</div>
       <input
         class="flex-grow w-full chemical-input-fields"
         placeholder="Choose type"
@@ -64,8 +64,8 @@
       class="flex w-full"
       v-if="(ingredient != null) & (ingredient.property.length >= 1)"
     >
-      <div class="justify-start flex-grow-0 mr-2">History</div>
-      <div class="flex-grow w-full">{{ list_property(ingredient) }}</div>
+      <div class="justify-start flex-grow-0 mr-2">History:</div>
+      <div class="flex-grow w-full italic">{{ list_property(ingredient) }}</div>
     </div>
 
     <!-- DETAILS -->
@@ -74,12 +74,13 @@
         <div>
           Weight:
           <input
-            class="chemical-input-fields w-20 min-w-0"
+            class="chemical-input-fields w-30 min-w-0"
             placeholder="Enter weight"
             type="text"
             :value="ingredient.weight"
             @change="updateChemicalProperty($event, 'weight', ingredient.id)"
           />
+          <!--
           Unit:
           <input
             class="chemical-input-fields w-20 min-w-0"
@@ -87,14 +88,14 @@
             type="text"
             :value="ingredient.w_unit"
             @change="updateChemicalProperty($event, 'w_unit', ingredient.id)"
-          />
+          />-->
         </div>
       </div>
       <div v-else-if="ingredient.state == 'solution'">
         <div>
           Solvent:
           <input
-            class="chemical-input-fields w-20 min-w-0"
+            class="chemical-input-fields w-30 min-w-0"
             placeholder="Enter solvent"
             type="text"
             :value="ingredient.solvent"
@@ -104,7 +105,7 @@
         <div>
           Concentration:
           <input
-            class="chemical-input-fields w-20 min-w-0"
+            class="chemical-input-fields w-30 min-w-0"
             placeholder="Enter concentration"
             type="text"
             :value="ingredient.concentration"
@@ -112,6 +113,7 @@
               updateChemicalProperty($event, 'concentration', ingredient.id)
             "
           />
+          <!--
           Unit:
           <input
             class="chemical-input-fields w-20 min-w-0"
@@ -120,16 +122,18 @@
             :value="ingredient.c_unit"
             @change="updateChemicalProperty($event, 'c_unit', ingredient.id)"
           />
+          -->
         </div>
         <div>
           Volume:
           <input
-            class="chemical-input-fields w-20 min-w-0"
+            class="chemical-input-fields w-30 min-w-0"
             placeholder="Enter volume"
             type="text"
             :value="ingredient.volume"
             @change="updateChemicalProperty($event, 'volume', ingredient.id)"
           />
+          <!--
           Unit:
           <input
             class="chemical-input-fields w-20 min-w-0"
@@ -138,18 +142,20 @@
             :value="ingredient.v_unit"
             @change="updateChemicalProperty($event, 'v_unit', ingredient.id)"
           />
+          -->
         </div>
       </div>
       <div v-else-if="ingredient.state == 'liquid'">
         <div>
-          volume:
+          Volume:
           <input
-            class="chemical-input-fields w-20 min-w-0"
+            class="chemical-input-fields w-30 min-w-0"
             placeholder="Enter volume"
             type="text"
             :value="ingredient.volume"
             @change="updateChemicalProperty($event, 'volume', ingredient.id)"
           />
+          <!--
           Unit:
           <input
             class="chemical-input-fields w-20 min-w-0"
@@ -158,18 +164,20 @@
             :value="ingredient.v_unit"
             @change="updateChemicalProperty($event, 'v_unit', ingredient.id)"
           />
+        -->
         </div>
       </div>
       <div v-else-if="ingredient.state == 'gas'">
         <div>
-          volume:
+          Volume:
           <input
-            class="chemical-input-fields w-20 min-w-0"
+            class="chemical-input-fields w-30 min-w-0"
             placeholder="Enter volume"
             type="text"
             :value="ingredient.volume"
             @change="updateChemicalProperty($event, 'volume', ingredient.id)"
           />
+          <!--
           Unit:
           <input
             class="chemical-input-fields w-20 min-w-0"
@@ -178,16 +186,18 @@
             :value="ingredient.v_unit"
             @change="updateChemicalProperty($event, 'v_unit', ingredient.id)"
           />
+        -->
         </div>
         <div>
           Pressure:
           <input
-            class="chemical-input-fields w-20 min-w-0"
+            class="chemical-input-fields w-30 min-w-0"
             placeholder="Enter pressure"
             type="text"
             :value="ingredient.pressure"
             @change="updateChemicalProperty($event, 'pressure', ingredient.id)"
           />
+          <!--
           Unit:
           <input
             class="chemical-input-fields w-20 min-w-0"
@@ -196,6 +206,7 @@
             :value="ingredient.p_unit"
             @change="updateChemicalProperty($event, 'p_unit', ingredient.id)"
           />
+          -->
         </div>
       </div>
       <div v-else>
