@@ -90,104 +90,74 @@ export default new Vuex.Store({
       state.note = data
     },
     SAVE_PROJECT(state, { data }) {
-      data = note
+      data = JSON.parse(data)
 
       // load data
-      let user_id = data.user_id
-      let project_id = data.id
-      let tasks = data.tasks
+      let project_id = data.id;
+      let user_id = data.user_id;
+      let columns = data.columns; 
 
-      for (let i = 0, max = tasks.length; i < max; i++) {
-        let d = {
-          project: project_id,
-          order: i,
-          author: user_id,
-          type: (function() {
-            if (tasks[i].type == "chemical") {
-              return "chemical"
-            } else if (tasks[i].type == "process") {
-              return "process"
-            } else {
-              // console.log(">>>>>>>>>>>>>>" + tasks[i].type)
-              return "err"
-            }
-          })(),
-          con: (function() {
-            if (tasks[i].type == "chemical") {
-              return tasks[i].ingredients
-            } else if (tasks[i].type == "process") {
-              return tasks[i].info
-            } else {
-              console.log("err")
-            }
-          })(),
+      for (let i = 0, max = columns.length; i < max; i++) {
+        let column_id = columns[i].id;
+        let column_name = columns[i].name;
+        let tasks = columns[i].tasks;
+        for(let j = 0, maxj = tasks.length; j < maxj; j++) {
+          let d = {
+            project : project_id,
+            author : user_id,
+            col_idx : i,
+            col_id : column_id,
+            col_name : column_name,
+            order : j,
+            type: (() => {
+              switch(tasks[j].type) {
+                case ("chemical"):  return "chemical"
+                case ("process"):   return "process"
+                case ("memo"):      return "memo"
+                default:            return "err"}})(),
+            con:(()=> {
+              switch(tasks[j].type) {
+                case ("chemical"):  return tasks[j].ingredients;
+                default:            return tasks[j].info;
+              }})()};
+          
+          axios.post("http://49.50.167.33:3000/task/tasks", d)
+              .then(function() { console.log("saved successfully")})
+              .catch(function(error) { console.log(error) })
         }
-
-        console.log(d)
-
-        //<<<<<<< HEAD
-        //        axios
-        //          .post("http://49.50.167.33:3000/task/tasks", d)
-        //          .then(function() {
-        //            console.log("saved successfully")
-        //            alert("saved successfully")
-        //          })
-        //          .catch(function(error) {
-        //            // alert(error);
-        //            console.log("error---")
-        //            console.log(error)
-        //          })
-        //      }
-        //      // MOVE_TASK(state, { fromTaskIndex, toTaskIndex }) {
-        //      //   const taskList = state.note.tasks
-        //      //   const taskToMove = taskList.splice(fromTaskIndex, 1)[0]
-        //      //   taskList.splice(toTaskIndex, 0, taskToMove)
-        //      // }
-        //=======
-        axios
-          .post("http://49.50.167.33:3000/task/tasks", d)
-          .then(function() {
-            console.log("saved successfully")
-          })
-          .catch(function(error) {
-            // alert(error);
-            console.log("error---")
-            console.log(error)
-          })
       }
-      alert("saved successfully")
-      // MOVE_TASK(state, { fromTaskIndex, toTaskIndex }) {
-      //   const taskList = state.note.tasks
-      //   const taskToMove = taskList.splice(fromTaskIndex, 1)[0]
-      //   taskList.splice(toTaskIndex, 0, taskToMove)
-      // }
-      //>>>>>>> server
     },
     LOAD_PROJECT(projectID) {
+      console.log(data);
       axios
-        .get("http://49.50.167.33:3000/task/tasks/" + projectID, {})
+        .get("http://49.50.167.33:3000/task/tasks/" + data, {})
         .then(function(response) {
-          let data = response.data
+          let respData = response.data
           let output = {}
-          output.user_id = data[0].author
-          output.id = data[0].project
-          output.tasks = []
+          output.user_id = respData[0].author;
+          output.id = respData[0].project;
+          output.columns = [];
 
-          for (let i = 0, max = data.length; i < max; i++) {
-            let task = {}
-            task.type = data[i].type
-            task.order = data[i].order
-            if (task.type == "chemical") {
-              task.ingredients = data[i].con
-            } else if (task.type == "process") {
-              task.info = data[i].con
-            }
+          let col_num = 0;
+          let keepIncreasing = true;
+          while(keepIncreasing) {
+            let col_data = respData.filter(datum => datum.col_idx == col_num);
+            if (col_data.length == 0){
+              keepIncreasing = false;
+              break;
+            } 
 
-            output.tasks.push(task)
+
+            let col = {};
+            col.id = col_data[0].col_id;
+            col.name = col_data[0].col_name;
+            col.task = col_data.sort((a, b) => ( a.order - b.order));
+            output.columns.push(col);
+            col_num += 1;
           }
 
-          console.log(output)
-          return output
+          console.log(output);
+          
         })
         .catch(function(error) {
           console.log(error)
