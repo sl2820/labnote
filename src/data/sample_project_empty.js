@@ -7,5 +7,6 @@
 export default {
   id: "5",
   user_id: 20,
-  tasks: []
+  name: "",
+  columns: [],
 }

@@ -1,7 +1,8 @@
 import Vue from "vue"
 import Vuex from "vuex"
 import axios from "axios"
-import project from "@/data/sample_project"
+// import project from "@/data/sample_project"
+import project from "@/data/sample_project_empty"
 import { saveStatePlugin } from "../utils"
 
 Vue.use(Vuex)
@@ -84,6 +85,9 @@ export default new Vuex.Store({
     },
     REMOVE_TASK(state, { note, columnIndex, taskIndex }) {
       note.columns[columnIndex].tasks.splice(taskIndex, 1)
+    },
+    LOAD_TEMPLATE(state, { data }) {
+      state.note = data
     },
     SAVE_PROJECT(state, { data }) {
       data = note
