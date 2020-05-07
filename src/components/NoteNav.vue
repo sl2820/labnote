@@ -47,9 +47,15 @@
           </button> -->
           <button
             class="block lg:inline-block lg:mt-0 hover:text-white mx-4 hover:underline"
+            @click="loadTemplate()"
+          >
+            Load template
+          </button>
+          <button
+            class="block lg:inline-block lg:mt-0 hover:text-white mx-4 hover:underline"
             @click="refresh()"
           >
-            Refresh
+            Clear All
           </button>
         </div>
         <!-- <button
@@ -70,6 +76,8 @@
 </template>
 
 <script>
+import sample_template from "@/data/sample_project"
+
 export default {
   data() {
     return {
@@ -99,6 +107,10 @@ export default {
     refresh() {
       localStorage.clear()
       location.reload()
+    },
+    loadTemplate() {
+      let data = sample_template
+      this.$store.commit("LOAD_TEMPLATE", { data })
     },
     updateTestId(e) {
       this.$store.commit("UPDATE_TEST_ID", {

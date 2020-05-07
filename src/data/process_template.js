@@ -11,6 +11,42 @@ export default {
       },
     },
     {
+      name: "Add",
+      info: {
+        name: "Add",
+        chem_for: {
+          id: null,
+          amount: null,
+        },
+        chem_to: {
+          id: null,
+          amount: null,
+        },
+        stirring: false,
+        heating: false,
+        gradually: false,
+        time: 0,
+      },
+    },
+    {
+      name: "Inject",
+      info: {
+        name: "Inject",
+        chem_for: {
+          id: null,
+          amount: null,
+        },
+        chem_to: {
+          id: null,
+          amount: null,
+        },
+        stirring: false,
+        heating: false,
+        gradually: false,
+        time: 0,
+      },
+    },
+    {
       name: "Stirring",
       info: {
         name: "Stirring",

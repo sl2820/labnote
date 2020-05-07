@@ -40,6 +40,12 @@
           <div v-else-if="process.info.name === 'Filtering'">
             <AppFiltering :this_process="process"></AppFiltering>
           </div>
+          <div v-else-if="process.info.name === 'Add'">
+            <AppAdd :this_process="process"></AppAdd>
+          </div>
+          <div v-else-if="process.info.name === 'Inject'">
+            <AppInject :this_process="process"></AppInject>
+          </div>
         </div>
 
         <div class="justify-end w-1/4 flex-grow-0">
