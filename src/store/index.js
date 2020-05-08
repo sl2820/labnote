@@ -1,8 +1,7 @@
 import Vue from "vue"
 import Vuex from "vuex"
 import axios from "axios"
-// import project from "@/data/sample_project"
-import project from "@/data/sample_project_empty"
+import project from "@/data/template_empty"
 import { saveStatePlugin } from "../utils"
 
 Vue.use(Vuex)
@@ -42,9 +41,9 @@ export default new Vuex.Store({
     },
   },
   mutations: {
-    CREATE_COLUMN(state, { data }) {
-      const _data = JSON.parse(data)
-      note.columns.push(_data)
+    CREATE_COLUMN(state, { column }) {
+      const data = JSON.parse(column)
+      note.columns.push(data)
     },
     CREATE_TASK(state, { columnID, data }) {
       let targetColumn = note.columns.find(({ id }) => id === columnID)
