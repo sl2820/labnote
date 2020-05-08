@@ -196,7 +196,7 @@ export default new Vuex.Store({
             output.columns.push(col);
             col_num += 1;
           }
-
+          state.note = output; //update current note
           console.log(output);
           
         })
