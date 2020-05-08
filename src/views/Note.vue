@@ -19,6 +19,13 @@
             v-model="newColumnName"
             @keyup.enter="createColumn"
           />
+          <div>
+            <ul class="flex justify-between mt-2 mr-5 ml-5 text-2xl">
+              <li><button @click.stop="createChemical()">+🧪</button></li>
+              <li><button @click.stop="createProcess()">+🔬</button></li>
+              <li><button @click.stop="createMemo()">+📝</button></li>
+            </ul>
+          </div>
         </div>
 
         <div class="task-bg" v-if="isTaskOpen" @click.self="closeTask">
@@ -42,6 +49,9 @@ export default {
     return {
       newColumnName: "",
       new_column: templates.new_column,
+      new_chemical: templates.new_chemical,
+      new_process: templates.new_process,
+      new_memo: templates.new_memo,
     }
   },
   computed: {
@@ -60,12 +70,56 @@ export default {
       let data = this.new_column
       data.id = uuid()
       data.name = this.newColumnName
-      data = JSON.stringify(data)
-      this.$store.commit("CREATE_COLUMN", { data })
+      const column = JSON.stringify(data)
+      this.$store.commit("CREATE_COLUMN", { column })
       this.newColumnName = ""
     },
+    createChemical() {
+      let data = this.new_column
+      const columnID = uuid()
+      data.id = columnID
+      data.name = " "
+      const column = JSON.stringify(data)
+      this.$store.commit("CREATE_COLUMN", { column })
+
+      const id = uuid()
+      let task = this.new_chemical
+      task.id = id
+      data = JSON.stringify(task)
+      this.$store.commit("CREATE_TASK", { columnID, data })
+      this.$router.push({ name: "chemical", params: { id: id } })
+    },
+    createProcess() {
+      let data = this.new_column
+      const columnID = uuid()
+      data.id = columnID
+      data.name = " "
+      const column = JSON.stringify(data)
+      this.$store.commit("CREATE_COLUMN", { column })
+
+      const id = uuid()
+      let task = this.new_process
+      task.id = id
+      data = JSON.stringify(task)
+      this.$store.commit("CREATE_TASK", { columnID, data })
+      this.$router.push({ name: "process", params: { id: id } })
+    },
+    createMemo() {
+      let data = this.new_column
+      const columnID = uuid()
+      data.id = columnID
+      data.name = " "
+      const column = JSON.stringify(data)
+      this.$store.commit("CREATE_COLUMN", { column })
+
+      const id = uuid()
+      let task = this.new_memo
+      task.id = id
+      data = JSON.stringify(task)
+      this.$store.commit("CREATE_TASK", { columnID, data })
+      this.$router.push({ name: "memo", params: { id: id } })
+    },
     closeTask() {
-      // WILL BE REMOVED
       this.$router.push({ name: "note" })
     },
   },
