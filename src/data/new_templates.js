@@ -44,11 +44,15 @@ export default {
       product_number: null,
       amount: null, // 25uL or 40kg
       state: null, // solid, solution, liquid, gas, mixed(mixed, added, injected)
+      solvent: null, // solution
       volume: null, // solution & gas
       weight: null, // solid & liquid
-      solvent: null, // solution
       concentration: null, // solution
       pressure: null, // gas
+      v_unit: null,
+      w_unit: null,
+      c_unit: null,
+      p_unit: null,
       property: [],
       sources: [], // source chemicals from inputs of Mix, Add, and Inject
     },

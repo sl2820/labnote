@@ -55,7 +55,7 @@ export default {
   components: { ColumnTask },
   data() {
     return {
-      new_chemical: templates.new_chemical,
+      new_chemical: templates.new_chemical_edited,
       new_process: templates.new_process,
       new_memo: templates.new_memo,
     }

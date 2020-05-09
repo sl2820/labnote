@@ -76,7 +76,7 @@
 </template>
 
 <script>
-import sample_template from "@/data/sample_project"
+import sample_template from "@/data/sample_project2"
 
 export default {
   data() {
