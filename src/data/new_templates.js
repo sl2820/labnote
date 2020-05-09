@@ -34,6 +34,30 @@ export default {
     ],
   },
 
+  new_chemical_edited: {
+    id: null,
+    type: "chemical",
+    additional: "",
+    info: {
+      display: "", // whatever a user inputs (name or formula)
+      nickname: null,
+      product_number: null,
+      state: null, // solid, solution, liquid, gas, compound(mixed, added, injected)
+      solvent: null, // solution
+      volume: null, // solution & gas & liquid
+      weight: null, // solid
+      concentration: null, // solution
+      pressure: null, // gas
+      amount: null, // compound (25uL or 40kg)
+      v_unit: null,
+      w_unit: null,
+      c_unit: null,
+      p_unit: null,
+      property: [],
+      sources: [], // source chemicals from inputs of Mix, Add, and Inject
+    },
+  },
+
   new_process: {
     id: null,
     type: "process",
