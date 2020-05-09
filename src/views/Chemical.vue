@@ -42,7 +42,10 @@
           </div>
 
           <!-- PRODUCT NUMBER -->
-          <div class="mt-2 w-full flex">
+          <div
+            v-if="chemical.info.state != 'compound'"
+            class="mt-2 w-full flex"
+          >
             <div class="mr-2 inline-block flex-none">
               Product number:
             </div>

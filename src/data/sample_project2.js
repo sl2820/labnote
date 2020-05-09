@@ -81,8 +81,8 @@ export default {
           additional: "the output of process mix",
           info: {
             display: "AgNO3 + hello",
-            nickname: "",
-            product_number: "834ru8hf",
+            nickname: null,
+            product_number: null,
             amount: "",
             state: "compound",
             volume: null,
