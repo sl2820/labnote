@@ -112,7 +112,76 @@ export default {
     {
       id: "s2",
       name: "example 2",
-      tasks: [],
+      tasks: [
+        {
+          id: "s3_p1",
+          type: "process",
+          additional: "",
+          info: {
+            name: "Heat",
+            chem_for: {
+              id: null,
+            },
+            temperature: 0,
+            time: 0,
+            stirring: false,
+          },
+        },
+        {
+          id: "s3_p2",
+          type: "process",
+          additional: "process add",
+          info: {
+            name: "Add",
+            chem_for: {
+              id: "s1_c1",
+              amount: "123g",
+            },
+            chem_to: {
+              id: "s1_c2",
+              amount: "1L",
+            },
+            stirring: false,
+            heating: true,
+            gradually: true,
+            time: 1234,
+          },
+        },
+        {
+          id: "s3_p3",
+          type: "process",
+          additional: "process inject~",
+          info: {
+            name: "Inject",
+            chem_for: {
+              id: "s1_c1",
+              amount: "100",
+            },
+            chem_to: {
+              id: "s2_c1",
+              amount: "200",
+            },
+            stirring: true,
+            heating: false,
+            gradually: true,
+            time: 987,
+          },
+        },
+        {
+          id: "s3_p4",
+          type: "process",
+          additional: "",
+          info: {
+            name: "Cooling",
+            chem_for: {
+              id: "s1_c3",
+            },
+            temperature: 0,
+            time: 0,
+            stirring: false,
+          },
+        },
+      ],
     },
   ],
 }

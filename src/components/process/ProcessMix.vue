@@ -1,6 +1,5 @@
 <template>
   <div>
-    <!-- {{ inputsFromPrevs }} -->
     <div>
       <div v-for="(chem, $chemID) of inputsFromPrevs" :key="$chemID + 'chem'">
         <div class="flex w-full">
@@ -40,7 +39,7 @@
         Time:
       </div>
       <input
-        type="number"
+        type="text"
         class="flex-grow w-full process-input-fields"
         v-model="this_process.info.time"
         @change="updateProcessInfo($event, 'time')"
@@ -56,7 +55,6 @@
 <script>
 import { mapGetters, mapState } from "vuex"
 import { uuid } from "@/utils"
-import processDB from "@/data/sample_process"
 import AppButton from "@/components/AppButton"
 import templates from "@/data/new_templates"
 
@@ -72,7 +70,6 @@ export default {
 
   data() {
     return {
-      processFuncs: processDB.functions,
       new_chemical: templates.new_chemical_edited,
     }
   },
