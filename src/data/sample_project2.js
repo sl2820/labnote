@@ -94,7 +94,7 @@ export default {
             w_unit: null,
             c_unit: null,
             p_unit: null,
-            property: ["mixed chemical"],
+            property: ["mixed"],
             sources: [
               {
                 id: "s1_c1",

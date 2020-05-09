@@ -22,7 +22,8 @@ const requireComponent = require.context(
   // Whether or not to look in subfolders
   true,
   // The regular expression used to match base component filenames
-  /App[A-Z]\w+\.(vue|js)$/
+  // /App[A-Z]\w+\.(vue|js)$/
+  /(App|Chemical|Process)[A-Z]\w+\.(vue|js)$/
 )
 
 requireComponent.keys().forEach((fileName) => {

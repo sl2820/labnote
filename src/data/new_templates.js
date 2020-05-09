@@ -43,7 +43,7 @@ export default {
       nickname: null,
       product_number: null,
       amount: null, // 25uL or 40kg
-      state: null, // solid, solution, liquid, gas, mixed(mixed, added, injected)
+      state: null, // solid, solution, liquid, gas, compound(mixed, added, injected)
       solvent: null, // solution
       volume: null, // solution & gas & liquid
       weight: null, // solid
