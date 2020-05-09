@@ -170,7 +170,7 @@ export default {
       return formatted.sort()
     },
     get_state_list() {
-      var formatted = ["solid", "solution"]
+      var formatted = ["solid", "solution", "liquid", "gas"]
       return formatted
     },
     get_product_number_list() {

@@ -1,19 +1,17 @@
 <template>
   <div>
-    <div class="">
-      <div>
-        <div class="mt-2 flex w-full">
-          <div class="mr-2 inline-block flex-none">
-            Amount:
-          </div>
-          <input
-            class="flex-grow w-full chemical-input-fields"
-            placeholder="Enter amount"
-            type="text"
-            :value="this_chemical.info.amount"
-            @change="updateChemicalInfo($event, 'amount')"
-          />
+    <div>
+      <div class="mt-2 flex w-full">
+        <div class="mr-2 inline-block flex-none">
+          Amount:
         </div>
+        <input
+          class="flex-grow w-full chemical-input-fields"
+          placeholder="Enter amount"
+          type="text"
+          :value="this_chemical.info.amount"
+          @change="updateChemicalInfo($event, 'amount')"
+        />
       </div>
     </div>
   </div>

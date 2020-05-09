@@ -23,28 +23,28 @@
       <div class="flex w-full mt-3">
         <div class="justify-start flex-grow mr-10">
           <div v-if="process.info.name === 'Mix'">
-            <AppMix :this_process="process"></AppMix>
+            <ProcessMix :this_process="process" />
           </div>
           <div v-else-if="process.info.name === 'Stirring'">
-            <AppStirring :this_process="process"></AppStirring>
+            <ProcessStirring :this_process="process" />
           </div>
           <div v-else-if="process.info.name === 'Heat'">
-            <AppHeat :this_process="process"></AppHeat>
+            <ProcessHeat :this_process="process" />
           </div>
           <div v-else-if="process.info.name === 'Water bath'">
-            <AppWaterbath :this_process="process"></AppWaterbath>
+            <ProcessWaterbath :this_process="process" />
           </div>
           <div v-else-if="process.info.name === 'Cooling'">
-            <AppCooling :this_process="process"></AppCooling>
+            <ProcessCooling :this_process="process" />
           </div>
           <div v-else-if="process.info.name === 'Filtering'">
-            <AppFiltering :this_process="process"></AppFiltering>
+            <ProcessFiltering :this_process="process" />
           </div>
           <div v-else-if="process.info.name === 'Add'">
-            <AppAdd :this_process="process"></AppAdd>
+            <ProcessAdd :this_process="process" />
           </div>
           <div v-else-if="process.info.name === 'Inject'">
-            <AppInject :this_process="process"></AppInject>
+            <ProcessInject :this_process="process" />
           </div>
         </div>
 
@@ -160,6 +160,6 @@ export default {
   max-height: 80%;
 }
 .process-input-fields {
-  @apply bg-indigo-100 inline-block;
+  @apply bg-indigo-100;
 }
 </style>
