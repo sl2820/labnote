@@ -45,8 +45,8 @@ export default {
       amount: null, // 25uL or 40kg
       state: null, // solid, solution, liquid, gas, mixed(mixed, added, injected)
       solvent: null, // solution
-      volume: null, // solution & gas
-      weight: null, // solid & liquid
+      volume: null, // solution & gas & liquid
+      weight: null, // solid
       concentration: null, // solution
       pressure: null, // gas
       v_unit: null,
