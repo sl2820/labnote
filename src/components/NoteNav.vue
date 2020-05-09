@@ -33,12 +33,13 @@
           <b-modal id="save-modal" title="Saved Successfully" ok-only
             ><p>Your project was successfully saved!</p></b-modal
           >
-          <!-- <button
+          <button
             class="block lg:inline-block lg:mt-0 hover:text-white mr-4 hover:underline"
             @click="load()"
           >
             Load
           </button>
+          <!--
           <button
             class="block lg:inline-block lg:mt-0 hover:text-white mr-4 hover:underline"
             @click="openAnalysis()"
@@ -93,12 +94,13 @@ export default {
   methods: {
     save() {
       this.$store.commit("SAVE_PROJECT", {
-        note_data: localStorage.getItem("note"),
+        data: localStorage.getItem("note"),
+
       })
     },
     load() {
       this.$store.commit("LOAD_PROJECT", {
-        projectID: 2,
+        data: this.user_id,
       })
     },
     openAnalysis() {

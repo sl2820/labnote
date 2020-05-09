@@ -10,9 +10,10 @@
         placeholder="Search name"
         class="flex-grow w-full chemical-input-fields"
         type="text"
-        :value="ingredient.name"
+        v-model="ingredient.name"
         list="name"
         @change="updateChemicalProperty($event, 'name', ingredient.id)"
+        @input="updateAutoCompleteCandidates($event, 'name')"
       />
       <datalist id="name">
         <option
@@ -32,11 +33,18 @@
         class="flex-grow w-full chemical-input-fields"
         placeholder="Enter product #"
         type="text"
-        :value="ingredient.product_number"
-        @change="
-          updateChemicalProperty($event, 'product_number', ingredient.id)
-        "
+        list="product_number"
+        v-model="ingredient.product_number"
+        @change="updateChemicalProperty($event, 'product_number', ingredient.id)"
+        @input="updateAutoCompleteCandidates($event, 'product_number')"
       />
+      <datalist id="product_number">
+        <option
+          v-for="(product_number, $product_numberID) of get_product_number_list"
+          :key="$product_numberID"
+          :value="product_number"
+        ></option>
+      </datalist>
     </div>
 
     <!-- STATE -->
@@ -220,6 +228,7 @@
 import { mapGetters } from "vuex"
 import sigma from "@/data/sample_sigmaaldrich"
 import data_autocomplete from "@/data/data_autocomplete"
+import axios from "axios"
 
 export default {
   props: {
@@ -236,6 +245,8 @@ export default {
       temp_name: null,
       temp_state: null,
       sigma_obj: sigma.sigmaaldrich,
+      chem_list: [],
+      product_number_list : [],
     }
   },
   computed: {
@@ -244,34 +255,16 @@ export default {
       return this.getTask(this.$route.params.id)
     },
     get_chem_list() {
-      var formatted = []
-      for (let i = 0; i < this.sigma_obj.length; i++) {
-        for (let j = 0; j < this.sigma_obj[i].names.length; j++) {
-          var value =
-            this.sigma_obj[i].formula + "-" + this.sigma_obj[i].names[j]
-          formatted.push(value)
-        }
-      }
-      // var random = ["a", "b"];
-      return formatted.sort()
+      var formatted = this.chem_list;
+      return formatted.sort();
     },
     get_state_list() {
-      var clean
-      if (this.temp_name != null) {
-        clean = this.temp_name.split("-")[0]
-      } else {
-        clean = ""
-      }
-      var formatted = []
-      for (let i = 0; i < this.sigma_obj.length; i++) {
-        if (clean.localeCompare(this.sigma_obj[i].formula) == 0) {
-          for (let j = 0; j < this.sigma_obj[i].states.length; j++) {
-            var value = this.sigma_obj[i].states[j]
-            formatted.push(value)
-          }
-        }
-      }
+      var formatted = ["solid", "solution"]
       return formatted
+    },
+    get_product_number_list() {
+      var formatted = this.product_number_list;
+      return formatted.sort();
     },
   },
   methods: {
@@ -314,6 +307,88 @@ export default {
 
       return list
     },
+    updateAutoCompleteCandidates(e, key) {
+      console.log("updateAutoCompleteCandidates.")
+      console.log(e);
+      let address = null;
+      let chemical = this;  
+      let flag = false;
+      let result = [];
+      switch(key) {
+        case 'name':
+          address = "http://49.50.167.33:3000/product/"
+                        + key + "/"
+                        + e.target.value;
+          axios
+            .get(address, {})
+            .then(function(response) {
+              let data = response.data;
+              console.log(data.length);
+              if(data.length != 0) {
+                result = result.concat(data).sort((a, b) => {
+                    return a.indexOf(e.target.value) - b.indexOf(e.target.value);
+                });
+                if(flag) {
+                  chemical.chem_list = result;
+                }
+                flag = true;
+              }
+            })
+            .catch(function(error) {
+              console.log(error)
+            })
+            .finally(function() {})
+          
+          address = "http://49.50.167.33:3000/product/"
+              + 'formula' + "/"
+              + e.target.value;
+          axios
+            .get(address, {})
+            .then(function(response) {
+              let data = response.data;
+              if(data.length != 0) {
+                result = result.concat(data).sort((a, b) => {
+                    return a.indexOf(e.target.value) - b.indexOf(e.target.value);
+                });
+                if(flag) {
+                  chemical.chem_list = result;
+                }
+                flag = true;
+              }
+              
+            })
+            .catch(function(error) {
+              console.log(error)
+            })
+            .finally(function() {})
+            
+           
+        break;
+        case 'product_number':
+          address = "http://49.50.167.33:3000/product/"
+                        + key + "/"
+                        + e.target.value;
+          axios
+            .get(address, {})
+            .then(function(response) {
+              let data = response.data;
+              console.log(data.length);
+              if(data.length != 0) {
+                result = result.concat(data).sort((a, b) => {
+                  return a.indexOf(e.target.value) - b.indexOf(e.target.value);
+                });
+                chemical.product_number_list = result;
+              }
+            })
+            .catch(function(error) {
+              console.log(error)
+            })
+            .finally(function() {})
+            
+        break;
+        default:
+      }
+    }
   },
 }
 </script>
