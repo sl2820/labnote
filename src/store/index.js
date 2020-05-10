@@ -92,7 +92,6 @@ export default new Vuex.Store({
     SAVE_PROJECT(state, { data }) {
       data = JSON.parse(data)
       console.log(data)
-      console.log(" - - - - - ")
       // load data
       let project_id = data.id
       let user_id = data.user_id
@@ -112,50 +111,8 @@ export default new Vuex.Store({
             col_id: column_id,
             col_name: column_name,
             order: j,
-            type: (() => {
-              switch (tasks[j].type) {
-                case "chemical":
-                  return "chemical"
-                case "process":
-                  return "process"
-                case "memo":
-                  return "memo"
-                default:
-                  return "err"
-              }
-            })(),
-            nickname: (() => {
-              switch (tasks[j].type) {
-                case "chemical":
-                  return tasks[j].nickname || ""
-                case "process":
-                  return tasks[j].nickname || ""
-                case "memo":
-                  return ""
-                default:
-                  return "err"
-              }
-            })(),
-            additional: (() => {
-              switch (tasks[j].type) {
-                case "chemical":
-                  return tasks[j].additional || ""
-                case "process":
-                  return tasks[j].additional || ""
-                case "memo":
-                  return ""
-                default:
-                  return "err"
-              }
-            })(),
-            content: (() => {
-              switch (tasks[j].type) {
-                case "chemical":
-                  return tasks[j].ingredients
-                default:
-                  return tasks[j].info
-              }
-            })(),
+            type: tasks[j].type,
+            info: tasks[j].info,
           }
 
           data_to_save.push(d)
@@ -196,6 +153,7 @@ export default new Vuex.Store({
             col.tasks = col_data.sort((a, b) => a.order - b.order)
 
             for (let i = 0, max = col.tasks.length; i < max; i++) {
+              
               delete col.tasks[i].createdAt
               delete col.tasks[i].updatedAt
               delete col.tasks[i].project_id
@@ -203,19 +161,11 @@ export default new Vuex.Store({
               delete col.tasks[i].col_id
               delete col.tasks[i].col_idx
               delete col.tasks[i].col_name
-
-              col.tasks[i].id = col.tasks[i].task_id
               delete col.tasks[i].task_id
               delete col.tasks[i].order
-
-              switch (col.tasks[i].type) {
-                case "chemical":
-                  col.tasks[i].ingredients = col.tasks[i].content
-                  break
-                default:
-                  col.tasks[i].info = col.tasks[i].content
-              }
               delete col.tasks[i].content
+
+              col.tasks[i].id = col.tasks[i].task_id
             }
 
             output.columns.push(col)
