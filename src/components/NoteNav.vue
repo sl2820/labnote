@@ -34,36 +34,37 @@
             ><p>Your project was successfully saved!</p></b-modal
           >
           <button
-            class="block lg:inline-block lg:mt-0 hover:text-white mr-4 hover:underline"
+            class="block lg:inline-block lg:mt-0 hover:text-white ml-4 hover:underline"
             @click="load()"
           >
             Load
           </button>
-          <!--
           <button
-            class="block lg:inline-block lg:mt-0 hover:text-white mr-4 hover:underline"
+            class="block lg:inline-block lg:mt-0 hover:text-white ml-4 hover:underline"
             @click="openAnalysis()"
           >
             Analysis
-          </button> -->
+          </button>
           <button
-            class="block lg:inline-block lg:mt-0 hover:text-white mx-4 hover:underline"
+            class="block lg:inline-block lg:mt-0 hover:text-white ml-4 hover:underline"
+            @click="openSummary()"
+          >
+            Summary
+          </button>
+          <button
+            class="block lg:inline-block lg:mt-0 hover:text-white ml-4 hover:underline"
             @click="loadTemplate()"
           >
             Load template
           </button>
           <button
-            class="block lg:inline-block lg:mt-0 hover:text-white mx-4 hover:underline"
+            class="block lg:inline-block lg:mt-0 hover:text-white ml-4 hover:underline"
             @click="refresh()"
           >
             Clear All
           </button>
         </div>
-        <!-- <button
-          class="block font-medium lg:inline-block lg:mt-0 hover:text-white mr-2 hover:underline"
-        >
-          🧑🏻‍🔬Sukjoo Hong
-        </button> -->
+
         <input
           class="user_id"
           type="text"
@@ -95,7 +96,6 @@ export default {
     save() {
       this.$store.commit("SAVE_PROJECT", {
         data: localStorage.getItem("note"),
-
       })
     },
     load() {
@@ -104,7 +104,10 @@ export default {
       })
     },
     openAnalysis() {
-      this.$router.push({ name: "analysis", params: { id: this.note.id } })
+      // this.$router.push({ name: "analysis", params: { id: this.note.id } })
+    },
+    openSummary() {
+      // this.$router.push({ name: "summary", params: { id: this.note.id } })
     },
     refresh() {
       localStorage.clear()
