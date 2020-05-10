@@ -13,11 +13,16 @@
         :
         <input
           class="process-input-fields"
-          type="number"
+          type="text"
           v-model="chem.amount"
           @change="updateInputsAmount()"
         />
-        <div v-if = "print_history(chem.id)" class="text-secondary ml-2 mt-n2 mb-2 italic" > ({{print_history(chem.id)}})</div>
+        <div
+          v-if="print_history(chem.id)"
+          class="text-secondary ml-2 mt-n2 mb-2 italic"
+        >
+          ({{ print_history(chem.id) }})
+        </div>
       </div>
     </div>
 
@@ -190,18 +195,19 @@ export default {
       })
       this.$router.push({ name: "note" })
     },
-    print_history(this_id){
+    print_history(this_id) {
       let properties = ""
       const ingrs = this.getTask(this_id).ingredients
-      if (ingrs.length > 1){
+      if (ingrs.length > 1) {
         properties = properties + "Compounds"
-      }else if(ingrs.length==1){
-        if(ingrs[0].property[ingrs[0].property.length-1]==null){
-          properties = properties +""
-        }else{
-          properties = properties + ingrs[0].property[ingrs[0].property.length-1]
+      } else if (ingrs.length == 1) {
+        if (ingrs[0].property[ingrs[0].property.length - 1] == null) {
+          properties = properties + ""
+        } else {
+          properties =
+            properties + ingrs[0].property[ingrs[0].property.length - 1]
         }
-      }else{
+      } else {
         properties = properties + "Something Wrong"
       }
 
