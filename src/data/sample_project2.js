@@ -12,7 +12,6 @@ export default {
         {
           id: "s1_c1",
           type: "chemical",
-          additional: "This is my memo.",
           info: {
             display: "AgNO3",
             nickname: null,
@@ -30,12 +29,12 @@ export default {
             p_unit: null,
             property: [],
             sources: [],
+            additional: "This is my memo.",
           },
         },
         {
           id: "s1_c2",
           type: "chemical",
-          additional: "This is my memo22222222.",
           info: {
             display: "NaBH4",
             nickname: "hello",
@@ -53,12 +52,12 @@ export default {
             p_unit: null,
             property: ["after heating", "on an water bath"],
             sources: [],
+            additional: "This is my memo22222222.",
           },
         },
         {
           id: "s1_p1",
           type: "process",
-          additional: "processsssss mix 1!",
           info: {
             name: "Mix",
             inputs: [
@@ -73,12 +72,12 @@ export default {
             ],
             gradually: true,
             time: 10,
+            additional: "processsssss mix 1!",
           },
         },
         {
           id: "s1_c3",
           type: "chemical",
-          additional: "the output of process mix",
           info: {
             display: "AgNO3 + hello",
             nickname: null,
@@ -105,6 +104,7 @@ export default {
                 amount: "all",
               },
             ],
+            additional: "the output of process mix",
           },
         },
       ],
@@ -116,7 +116,6 @@ export default {
         {
           id: "s3_p1",
           type: "process",
-          additional: "",
           info: {
             name: "Heat",
             chem_for: {
@@ -125,12 +124,12 @@ export default {
             temperature: 0,
             time: 0,
             stirring: false,
+            additional: "",
           },
         },
         {
           id: "s3_p2",
           type: "process",
-          additional: "process add",
           info: {
             name: "Add",
             chem_for: {
@@ -145,12 +144,12 @@ export default {
             heating: true,
             gradually: true,
             time: 1234,
+            additional: "process add",
           },
         },
         {
           id: "s3_p3",
           type: "process",
-          additional: "process inject~",
           info: {
             name: "Inject",
             chem_for: {
@@ -165,12 +164,12 @@ export default {
             heating: false,
             gradually: true,
             time: 987,
+            additional: "process inject~",
           },
         },
         {
           id: "s3_p4",
           type: "process",
-          additional: "",
           info: {
             name: "Cooling",
             chem_for: {
@@ -179,6 +178,7 @@ export default {
             temperature: 0,
             time: 0,
             stirring: false,
+            additional: "",
           },
         },
       ],

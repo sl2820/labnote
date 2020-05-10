@@ -49,7 +49,7 @@ export default {
     return {
       newColumnName: "",
       new_column: templates.new_column,
-      new_chemical: templates.new_chemical_edited,
+      new_chemical: templates.new_chemical,
       new_process: templates.new_process,
       new_memo: templates.new_memo,
     }

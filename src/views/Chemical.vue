@@ -128,10 +128,10 @@
             Write note:
             <textarea
               class="chemical-input-fields w-full"
-              :value="chemical.additional"
+              :value="chemical.info.additional"
               placeholder="add notes"
               rows="3"
-              @change="update_additional($event, 'additional')"
+              @change="updateChemicalInfo($event, 'additional')"
             />
           </div>
         </div>
@@ -196,13 +196,6 @@ export default {
         chemical: this.chemical.info,
         key,
         value: value_,
-      })
-    },
-    update_additional(e, k) {
-      this.$store.commit("UPDATE_CHEMICAL", {
-        chemical: this.chemical,
-        key: k,
-        value: e.target.value,
       })
     },
     list_property(chem) {

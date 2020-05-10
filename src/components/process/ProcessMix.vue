@@ -70,7 +70,7 @@ export default {
 
   data() {
     return {
-      new_chemical: templates.new_chemical_edited,
+      new_chemical: templates.new_chemical,
     }
   },
 
