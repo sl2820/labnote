@@ -160,10 +160,12 @@ export default {
       let _display = []
       for (const item of this.inputsFromPrevs) {
         data.sources.push({ id: item.id, amount: item.amount })
-        if (item.nickname != null) {
-          _display.push(item.nickname)
-        } else {
-          _display.push(item.display)
+        if (item.amount != 0) {
+          if (item.nickname != null) {
+            _display.push(item.nickname)
+          } else {
+            _display.push(item.display)
+          }
         }
       }
       data.display = _display.join(" + ")
