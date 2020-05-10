@@ -58,7 +58,7 @@
                 :value="process.additional"
                 placeholder="add notes"
                 rows="3"
-                @change="update_nickname_additional($event, 'additional')"
+                @change="updateProcessInfo($event, 'additional')"
               />
             </div>
           </div>
@@ -141,10 +141,10 @@ export default {
         value: data,
       })
     },
-    update_nickname_additional(e, k) {
+    updateProcessInfo(e, key) {
       this.$store.commit("UPDATE_PROCESS", {
         process: this.process,
-        key: k,
+        key,
         value: e.target.value,
       })
     },

@@ -56,7 +56,6 @@ export default new Vuex.Store({
       targetColumn.tasks.splice(index, 0, {
         id: id,
         type: "chemical",
-        additional: "",
         info,
       })
     },

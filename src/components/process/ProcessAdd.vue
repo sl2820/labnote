@@ -157,7 +157,7 @@ export default {
       chosen_for: this.this_process.info.chem_for.id,
       chosen_to: this.this_process.info.chem_to.id,
       processFuncs: processDB.functions,
-      new_chemical: templates.new_chemical_edited,
+      new_chemical: templates.new_chemical,
     }
   },
 

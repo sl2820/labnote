@@ -78,7 +78,7 @@ export default {
   data() {
     return {
       chosen: this.this_process.info.chem_for.id,
-      new_chemical: templates.new_chemical_edited,
+      new_chemical: templates.new_chemical,
     }
   },
 
