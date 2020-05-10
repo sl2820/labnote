@@ -3,48 +3,45 @@
     <ul class="flex justify-between">
       <li class="mr-2">
         <span>🧪</span>
+        <!-- THE NAME OF CHEMICAL (DISPLAY OR NICKNAME) -->
         <span>
-          <span v-if="!chemical.nickname">
+          <span v-if="!chemical.info.nickname">
             <div
-              class="inline-block mb-0"
-              v-for="(ingredient, $ingredientIndex) in chemical.ingredients"
-              :key="$ingredientIndex"
-            >
-              <div
-                class="inline-block font-extrabold"
-                v-html="toFormula(ingredient.name)"
-              ></div>
-              <div
-                v-if="$ingredientIndex + 1 < ingredientLength"
-                class="inline-block font-extrabold"
-              >
-                +
-              </div>
-            </div>
+              class="inline-block mb-0 font-extrabold"
+              v-html="toFormula(chemical.info.display)"
+            ></div>
           </span>
-          <span class="font-bold" v-else>{{ chemical.nickname }}</span>
+          <span class="font-bold" v-else>{{ chemical.info.nickname }}</span>
         </span>
 
-        <div
-          class="inline-block ml-2 text-sm text-gray-700"
-          v-if="chemical.ingredients.length === 1"
-        >
+        <!-- VOLUME, WEIGHT, CONCENTRATION, PRESSURE -->
+        <div class="inline-block ml-2 text-sm text-gray-700">
           <div class="inline-block ml-2 italic">
-            {{ per_state_elements(chemical.ingredients[0])[0] }}
+            {{ per_state_elements(chemical.info)[0] }}
           </div>
           <div class="inline-block ml-2 underline">
-            {{ per_state_elements(chemical.ingredients[0])[1] }}
+            {{ per_state_elements(chemical.info)[1] }}
           </div>
         </div>
 
+        <!-- PROPERTY (PROCESS HISTORY) -->
         <div
           class="inline-block text-xs italic ml-2 text-gray-600"
           v-if="
-            (chemical.ingredients[0].property != null) &
-              (chemical.ingredients[0].property.length >= 1)
+            (chemical.info.property != null) &
+              (chemical.info.property.length === 1)
           "
         >
-          {{ show_property(chemical.ingredients[0].property) }}
+          {{ chemical.info.property[0] }}
+        </div>
+        <div
+          class="inline-block text-xs italic ml-2 text-gray-600"
+          v-else-if="
+            (chemical.info.property != null) &
+              (chemical.info.property.length > 1)
+          "
+        >
+          {{ show_property(chemical.info.property) }}
         </div>
       </li>
       <li class="mr-2">
@@ -61,6 +58,7 @@
 
 <script>
 import { mapState } from "vuex"
+
 export default {
   props: {
     chemical: {
@@ -78,20 +76,6 @@ export default {
   },
   computed: {
     ...mapState(["note"]),
-    summedvolume() {
-      let sv = 0
-      for (const chem of this.chemical.ingredients) {
-        if (chem.v_unit === "uL") {
-          sv += chem.volume * 0.001
-        } else if (chem.v_unit === "mL") {
-          sv += chem.volume
-        }
-      }
-      return sv
-    },
-    ingredientLength() {
-      return this.chemical.ingredients.length
-    },
   },
   methods: {
     removeChemical(note, columnIndex, taskIndex) {
@@ -108,7 +92,6 @@ export default {
             sub.push(n)
           }
         }
-        // console.log(sub)
         return sub.join("")
       } else {
         return name
@@ -119,15 +102,15 @@ export default {
       var italic = ""
       var underline = ""
       if (state == "solid") {
-        underline = underline + chemical_.weight + chemical_.w_unit
+        underline = underline + chemical_.weight
       } else if (state == "solution") {
-        italic = italic + chemical_.concentration + chemical_.c_unit
-        underline = underline + chemical_.volume + chemical_.v_unit
+        italic = italic + chemical_.concentration
+        underline = underline + chemical_.volume
       } else if (state == "gas") {
-        italic = italic + chemical_.pressure + chemical_.p_unit
-        underline = underline + chemical_.volume + chemical_.v_unit
+        italic = italic + chemical_.pressure
+        underline = underline + chemical_.volume
       } else if (state == "liquid") {
-        underline = underline + chemical_.volume + chemical_.v_unit
+        underline = underline + chemical_.volume
       } else {
         properties = "wrong"
       }
@@ -137,9 +120,10 @@ export default {
     },
     show_property(property) {
       var pt = ""
-      for (let i = 0; i < property.length; i++) {
-        pt = pt + property[i] + " "
-      }
+      var a = property.length - 1
+      // for (let i = 0; i < property.length; i++) {
+      pt = pt + property[a] + "..."
+      // }
       return pt
     },
   },

@@ -1,5 +1,3 @@
-import { uuid } from "@/utils"
-
 export default {
   name: "new_templates",
 
@@ -12,34 +10,33 @@ export default {
   new_chemical: {
     id: null,
     type: "chemical",
-    nickname: null,
-    additional: "",
-    ingredients: [
-      {
-        id: uuid(),
-        name: "",
-        product_number: "",
-        state: "",
-        solvent: "",
-        volume: null,
-        v_unit: "",
-        concentration: null,
-        c_unit: "",
-        weight: null,
-        w_unit: "g",
-        pressure: null,
-        p_unit: "Pa",
-        property: [],
-      },
-    ],
+    info: {
+      display: "", // whatever a user inputs (name or formula)
+      nickname: null,
+      product_number: null,
+      state: null, // solid, solution, liquid, gas, compound(mixed, added, injected)
+      solvent: null, // solution
+      volume: null, // solution & gas & liquid
+      weight: null, // solid
+      concentration: null, // solution
+      pressure: null, // gas
+      amount: null, // compound (25uL or 40kg)
+      v_unit: null,
+      w_unit: null,
+      c_unit: null,
+      p_unit: null,
+      property: [],
+      sources: [], // source chemicals from inputs of Mix, Add, and Inject
+      additional: "",
+    },
   },
 
   new_process: {
     id: null,
     type: "process",
-    additional: "",
     info: {
       name: "",
+      additional: "",
     },
   },
 

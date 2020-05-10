@@ -18,14 +18,15 @@ import camelCase from "lodash/camelCase"
 
 const requireComponent = require.context(
   // The relative path of the components folder
-  "./components/process",
+  "./components",
   // Whether or not to look in subfolders
-  false,
+  true,
   // The regular expression used to match base component filenames
-  /App[A-Z]\w+\.(vue|js)$/
+  // /App[A-Z]\w+\.(vue|js)$/
+  /(App|Chemical|Process)[A-Z]\w+\.(vue|js)$/
 )
 
-requireComponent.keys().forEach(fileName => {
+requireComponent.keys().forEach((fileName) => {
   // Get component config
   const componentConfig = requireComponent(fileName)
 
@@ -52,5 +53,5 @@ new Vue({
   router,
   store,
   vuetify,
-  render: h => h(App)
+  render: (h) => h(App),
 }).$mount("#app")

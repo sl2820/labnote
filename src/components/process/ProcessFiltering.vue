@@ -1,54 +1,36 @@
 <template>
   <div>
-    <ul>
-      <li
-        class="pr-4"
-        v-for="(chem, $chemID) of prevChemicals"
-        :key="$chemID + 'chem'"
-      >
-        <input
-          class="inline-block"
-          type="radio"
-          v-model="chosen"
-          name="chosen"
-          :value="chem.id"
-          @change="updateProcessInfoChemfor($event, 'id')"
-        />
-        <div class="inline-block ml-2">
-          {{ names(chem.id) }}
+    <div>
+      <div v-for="(chem, $chemID) of prevChemicals" :key="$chemID + 'chem'">
+        <div class="flex w-full">
+          <input
+            class="inline-block mr-2"
+            type="radio"
+            v-model="chosen"
+            name="chosen"
+            :value="chem.id"
+            @change="updateProcessInfoChemfor($event, 'id')"
+          />
+          <div>
+            <div v-if="chem.info.nickname">{{ chem.info.nickname }}</div>
+            <div v-else>{{ chem.info.display }}</div>
+          </div>
+          <div class="text-secondary italic ml-2">
+            {{ chem.info.property.join(", ") }}
+          </div>
         </div>
-        <div class="inline-block ml-2 italic text-gray-600">
-          {{ chem.nickname }}
-        </div>
-      </li>
-    </ul>
+      </div>
+    </div>
 
-    <div>
-      <div class="inline-block mt-4">Temperature:</div>
+    <div class="mt-2 flex w-full">
+      <div class="mr-2 inline-block flex-none">
+        Feeding:
+      </div>
       <input
-        type="number"
-        class="process-input-fields"
-        v-model="this_process.info.temperature"
-        @change="updateProcessInfo($event, 'temperature')"
-      />
-    </div>
-    <div>
-      <div class="inline-block">Time:</div>
-      <input
-        type="number"
-        class="process-input-fields"
-        v-model="this_process.info.time"
-        @change="updateProcessInfo($event, 'time')"
-      />
-    </div>
-    <div>
-      <div class="inline-block">Stirring:</div>
-      <input
-        type="checkbox"
-        id="stirring"
-        class="ml-2"
-        v-model="this_process.info.stirring"
-        @change="updateProcessInfo($event, 'stirring')"
+        type="text"
+        class="flex-grow w-full process-input-fields"
+        v-model="this_process.info.feeding"
+        @change="updateProcessInfo($event, 'feeding')"
       />
     </div>
 
@@ -63,17 +45,25 @@
 import { mapGetters, mapState } from "vuex"
 import { uuid } from "@/utils"
 import AppButton from "@/components/AppButton"
+import templates from "@/data/new_templates"
+
 export default {
   components: { AppButton },
+
   data() {
-    return { chosen: this.this_process.info.chem_for.id }
+    return {
+      chosen: this.this_process.info.chem_for.id,
+      new_chemical: templates.new_chemical,
+    }
   },
+
   props: {
     this_process: {
       type: Object,
       required: true,
     },
   },
+
   computed: {
     ...mapGetters(["getTask", "getColumn"]),
     ...mapState(["note"]),
@@ -101,15 +91,8 @@ export default {
       return chemicals
     },
   },
+
   methods: {
-    names(this_id) {
-      let names = []
-      const ingrs = this.getTask(this_id).ingredients
-      for (const ingr of ingrs) {
-        names.push(ingr.name)
-      }
-      return names.join(" + ")
-    },
     updateProcessInfo(e, key) {
       this.$store.commit("UPDATE_PROCESS", {
         process: this.this_process.info,
@@ -125,15 +108,14 @@ export default {
       })
     },
     makeOutput() {
-      let ingredients = []
-      const ingrs = this.getTask(this.chosen).ingredients
-      for (let ingr of ingrs) {
-        let _s = JSON.stringify(ingr)
-        let data = JSON.parse(_s)
-        data.id = uuid()
-        data.property.push("after heating")
-        ingredients.push(data)
+      const _data = JSON.stringify(this.getTask(this.chosen).info)
+      let data = JSON.parse(_data)
+      if (data.nickname != null) {
+        data.display = data.nickname
       }
+      data.nickname = null
+      data.property.push("filtered")
+      data = JSON.stringify(data)
 
       const this_column = this.getColumn(this.$route.params.id)
       const new_index = this_column.tasks.indexOf(this.this_process) + 1
@@ -142,8 +124,9 @@ export default {
         id: id,
         columnID: this_column.id,
         index: new_index,
-        ingr: ingredients,
+        data,
       })
+      this.$router.push({ name: "note" })
     },
   },
 }

@@ -33,30 +33,38 @@
           <b-modal id="save-modal" title="Saved Successfully" ok-only
             ><p>Your project was successfully saved!</p></b-modal
           >
-          <!-- <button
-            class="block lg:inline-block lg:mt-0 hover:text-white mr-4 hover:underline"
+          <button
+            class="block lg:inline-block lg:mt-0 hover:text-white ml-4 hover:underline"
             @click="load()"
           >
             Load
           </button>
           <button
-            class="block lg:inline-block lg:mt-0 hover:text-white mr-4 hover:underline"
+            class="block lg:inline-block lg:mt-0 hover:text-white ml-4 hover:underline"
             @click="openAnalysis()"
           >
             Analysis
-          </button> -->
+          </button>
           <button
-            class="block lg:inline-block lg:mt-0 hover:text-white mx-4 hover:underline"
+            class="block lg:inline-block lg:mt-0 hover:text-white ml-4 hover:underline"
+            @click="openSummary()"
+          >
+            Summary
+          </button>
+          <button
+            class="block lg:inline-block lg:mt-0 hover:text-white ml-4 hover:underline"
+            @click="loadTemplate()"
+          >
+            Load template
+          </button>
+          <button
+            class="block lg:inline-block lg:mt-0 hover:text-white ml-4 hover:underline"
             @click="refresh()"
           >
-            Refresh
+            Clear All
           </button>
         </div>
-        <!-- <button
-          class="block font-medium lg:inline-block lg:mt-0 hover:text-white mr-2 hover:underline"
-        >
-          🧑🏻‍🔬Sukjoo Hong
-        </button> -->
+
         <input
           class="user_id"
           type="text"
@@ -70,6 +78,8 @@
 </template>
 
 <script>
+import sample_template from "@/data/sample_project2"
+
 export default {
   data() {
     return {
@@ -85,20 +95,27 @@ export default {
   methods: {
     save() {
       this.$store.commit("SAVE_PROJECT", {
-        note_data: localStorage.getItem("note"),
+        data: localStorage.getItem("note"),
       })
     },
     load() {
       this.$store.commit("LOAD_PROJECT", {
-        projectID: 2,
+        data: this.user_id,
       })
     },
     openAnalysis() {
-      this.$router.push({ name: "analysis", params: { id: this.note.id } })
+      // this.$router.push({ name: "analysis", params: { id: this.note.id } })
+    },
+    openSummary() {
+      // this.$router.push({ name: "summary", params: { id: this.note.id } })
     },
     refresh() {
       localStorage.clear()
       location.reload()
+    },
+    loadTemplate() {
+      let data = sample_template
+      this.$store.commit("LOAD_TEMPLATE", { data })
     },
     updateTestId(e) {
       this.$store.commit("UPDATE_TEST_ID", {

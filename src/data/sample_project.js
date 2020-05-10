@@ -219,7 +219,7 @@ export default {
               w_unit: "g",
               pressure: null,
               p_unit: "Pa",
-              property: ["after heating on an water bath"],
+              property: ["after heating", "on an water bath"],
             },
           ],
         },
@@ -254,21 +254,41 @@ export default {
         {
           id: "s3_p2",
           type: "process",
-          additional: "mix 2",
+          additional: "process add",
           info: {
-            name: "Mix",
-            inputs: [
-              {
-                id: "s1_c3",
-                amount: 111,
-              },
-              {
-                id: "s2_c2",
-                amount: 22,
-              },
-            ],
+            name: "Add",
+            chem_for: {
+              id: "s1_c3",
+              amount: 111,
+            },
+            chem_to: {
+              id: "s2_c2",
+              amount: 22,
+            },
+            stirring: false,
+            heating: true,
             gradually: true,
             time: 1234,
+          },
+        },
+        {
+          id: "s3_p3",
+          type: "process",
+          additional: "process inject~",
+          info: {
+            name: "Inject",
+            chem_for: {
+              id: "s1_c1",
+              amount: 100,
+            },
+            chem_to: {
+              id: "s2_c1",
+              amount: 200,
+            },
+            stirring: true,
+            heating: false,
+            gradually: true,
+            time: 987,
           },
         },
       ],

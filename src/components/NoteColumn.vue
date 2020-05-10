@@ -1,25 +1,19 @@
 <template>
   <div class="column">
-    <div class="flex items-center mb-2">
-      <ul class="flex justify-between">
-        <li>
-          <input
-            type="text"
-            placeholder="Column name"
-            :value="column.name"
-            @change="update_column_name($event, 'name')"
-          />
-        </li>
-
-        <li class="mr-2">
-          <button
-            class="inline-block text-sm"
-            @click.stop="removeColumn(note, columnIndex)"
-          >
-            ✖️
-          </button>
-        </li>
-      </ul>
+    <div class="flex w-full mb-2">
+      <input
+        class="w-full flex-grow"
+        type="text"
+        placeholder="Column name"
+        :value="column.name"
+        @change="update_column_name($event, 'name')"
+      />
+      <button
+        class="inline-block text-sm"
+        @click.stop="removeColumn(note, columnIndex)"
+      >
+        ✖️
+      </button>
     </div>
 
     <div>
