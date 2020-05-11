@@ -119,7 +119,7 @@ export default new Vuex.Store({
         }
       }
       axios
-        .post("http://49.50.167.33:3000/task/tasks", data_to_save)
+        .post("https://49.50.167.33:3000/task/tasks", data_to_save)
         .then(function() {
           console.log("saved successfully")
         })
@@ -130,7 +130,7 @@ export default new Vuex.Store({
     LOAD_PROJECT(state, { data }) {
       console.log(data)
       axios
-        .get("http://49.50.167.33:3000/task/tasks/" + data, {})
+        .get("https://49.50.167.33:3000/task/tasks/" + data, {})
         .then(function(response) {
           let respData = response.data
           let output = {}
