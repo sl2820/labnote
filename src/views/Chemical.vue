@@ -141,15 +141,25 @@
 </template>
 
 <script>
+import axios from "axios"
 import { mapGetters } from "vuex"
-import AppActionbar from "@/components/AppActionbar"
 import sigma from "@/data/sample_sigmaaldrich"
 import data_autocomplete from "@/data/data_autocomplete"
-import axios from "axios"
+import AppActionbar from "@/components/AppActionbar"
+import ChemicalSolid from "@/components/chemical/ChemicalSolid"
+import ChemicalSolution from "@/components/chemical/ChemicalSolution"
+import ChemicalLiquid from "@/components/chemical/ChemicalLiquid"
+import ChemicalGas from "@/components/chemical/ChemicalGas"
+import ChemicalCompound from "@/components/chemical/ChemicalCompound"
 
 export default {
   components: {
     AppActionbar,
+    ChemicalSolid,
+    ChemicalSolution,
+    ChemicalLiquid,
+    ChemicalGas,
+    ChemicalCompound,
   },
   data() {
     return {
