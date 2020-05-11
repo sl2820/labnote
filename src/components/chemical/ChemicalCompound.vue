@@ -13,6 +13,24 @@
           @change="updateChemicalInfo($event, 'amount')"
         />
       </div>
+
+      <div class="mt-2 text-sm">
+        <div>
+          Source info
+        </div>
+        <div
+          v-for="(source, $sourceIndex) of this_chemical.info.sources"
+          :key="$sourceIndex"
+        >
+          <div class="inline-block" v-if="getTask(source.id).info.nickname">
+            {{ getTask(source.id).info.nickname }}
+          </div>
+          <div class="inline-block" v-else>
+            {{ getTask(source.id).info.display }}
+          </div>
+          : {{ source.amount }}
+        </div>
+      </div>
     </div>
   </div>
 </template>
